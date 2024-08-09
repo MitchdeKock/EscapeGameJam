@@ -8,34 +8,49 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashCooldown = 1;
     [SerializeField] private float dashDuration = 0.3f;
     [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Projectile rangedProjectile;
 
     private Vector2 moveInput;
     private float activeMoveSpeed;
     private float dashCooldownCounter;
     private float dashCounter;
 
-    private float attackCooldown;
+    private float mainAttackCooldown;
+    private float secondaryAttackCooldown;
     private IAttack mainAttack;
+    private IAttack secondaryAttack;
 
     private void Start()
     {
         activeMoveSpeed = moveSpeed;
         mainAttack = new AttackMeleeStaff(1, 5, 3, 70); // ToDo Add weapon in meaningful way
+        secondaryAttack = new AttackRangedStaff(1, 3, 8, rangedProjectile); // ToDo Add weapon in meaningful way
     }
 
     void Update()
     {
         RotateToMouse();
 
-        if (Input.GetButton("Fire1") && attackCooldown <= 0)
+        if (Input.GetButton("Fire1") && mainAttackCooldown <= 0)
         {
             mainAttack.Attack(this.gameObject);
-            attackCooldown = mainAttack.Cooldown;
+            mainAttackCooldown = mainAttack.Cooldown;
         }
 
-        if (attackCooldown > 0)
+        if (mainAttackCooldown > 0)
         {
-            attackCooldown -= Time.deltaTime;
+            mainAttackCooldown -= Time.deltaTime;
+        }
+
+        if (Input.GetButton("Fire2") && secondaryAttackCooldown <= 0)
+        {
+            secondaryAttack.Attack(this.gameObject);
+            secondaryAttackCooldown = mainAttack.Cooldown;
+        }
+
+        if (secondaryAttackCooldown > 0)
+        {
+            secondaryAttackCooldown -= Time.deltaTime;
         }
 
         if (dashCounter > 0)
