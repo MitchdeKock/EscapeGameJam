@@ -7,6 +7,10 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class AttackRangedStaff : IAttack
 {
     public float Cooldown => cooldown;
+    public float Range => range;
+    public float Damage => damage;
+
+
     [SerializeField] private readonly float cooldown;
     [SerializeField] private readonly float damage;
     [SerializeField] private readonly float range;

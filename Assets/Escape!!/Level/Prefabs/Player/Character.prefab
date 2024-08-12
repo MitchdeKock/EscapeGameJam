@@ -124,6 +124,7 @@ MonoBehaviour:
   dashCooldown: 1
   dashDuration: 0.3
   rb: {fileID: 898552653625388245}
+  rangedProjectile: {fileID: 5806350095286291592, guid: b796e976fb87db64aa47ba75f6cf4522, type: 3}
 --- !u!1 &9072998120992771657
 GameObject:
   m_ObjectHideFlags: 0

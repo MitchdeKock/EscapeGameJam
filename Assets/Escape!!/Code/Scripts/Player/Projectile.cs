@@ -22,7 +22,8 @@ public class Projectile : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-    }
+    } 
+
 
     public void InitializeProjectile(float damage, float range, float speed)
     {
@@ -33,8 +34,7 @@ public class Projectile : MonoBehaviour
         startPosition = transform.position;
         isActive = true;
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth))
         {
@@ -42,4 +42,13 @@ public class Projectile : MonoBehaviour
         }
         Destroy(gameObject);
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.transform.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth))
+    //    {
+    //        enemyHealth.RemoveHealth(damage);
+    //    }
+    //    Destroy(gameObject);
+    //}
 }

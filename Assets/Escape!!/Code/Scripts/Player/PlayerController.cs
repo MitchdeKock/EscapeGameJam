@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     private float activeMoveSpeed;
     private float dashCooldownCounter;
-    private float dashCounter;
+    private float dashDurationCounter;
 
     private float mainAttackCooldown;
     private float secondaryAttackCooldown;
@@ -24,36 +24,25 @@ public class PlayerController : MonoBehaviour
     {
         activeMoveSpeed = moveSpeed;
         mainAttack = new AttackMeleeStaff(1, 5, 3, 70); // ToDo Add weapon in meaningful way
-        secondaryAttack = new AttackRangedStaff(1, 3, 8, rangedProjectile); // ToDo Add weapon in meaningful way
+        secondaryAttack = new AttackRangedStaff(0.3f, 3, 8, rangedProjectile); // ToDo Add weapon in meaningful way
     }
 
     void Update()
     {
-        RotateToMouse();
-
+        // Input
         if (Input.GetButton("Fire1") && mainAttackCooldown <= 0)
         {
             mainAttack.Attack(this.gameObject);
             mainAttackCooldown = mainAttack.Cooldown;
         }
 
-        if (mainAttackCooldown > 0)
-        {
-            mainAttackCooldown -= Time.deltaTime;
-        }
-
         if (Input.GetButton("Fire2") && secondaryAttackCooldown <= 0)
         {
             secondaryAttack.Attack(this.gameObject);
-            secondaryAttackCooldown = mainAttack.Cooldown;
+            secondaryAttackCooldown = secondaryAttack.Cooldown;
         }
 
-        if (secondaryAttackCooldown > 0)
-        {
-            secondaryAttackCooldown -= Time.deltaTime;
-        }
-
-        if (dashCounter > 0)
+        if (dashDurationCounter > 0)
         {
             // ToDo Uncomment for dash to mouse
             //Vector2 mousePos = Input.mousePosition;
@@ -63,44 +52,65 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            GetInput();
+            GetMoveInput();
         }
-
-        rb.velocity = moveInput * activeMoveSpeed;
 
         if (Input.GetButtonDown("Dash"))
         {
-            if (dashCooldownCounter <= 0 && dashCounter <= 0)
+            if (dashCooldownCounter <= 0 && dashDurationCounter <= 0)
             {
                 activeMoveSpeed = dashSpeed;
-                dashCounter = dashDuration;
+                dashDurationCounter = dashDuration;
             }
         }
 
-        if (dashCounter > 0)
+        // Cooldowns
+        if (mainAttackCooldown > 0)
         {
-            dashCounter -= Time.deltaTime;
+            mainAttackCooldown -= Time.deltaTime;
+        }
 
-            if (dashCounter <= 0)
-            {
-                activeMoveSpeed = moveSpeed;
-                dashCooldownCounter = dashCooldown;
-            }
+        if (secondaryAttackCooldown > 0)
+        {
+            secondaryAttackCooldown -= Time.deltaTime;
         }
 
         if (dashCooldownCounter > 0)
         {
             dashCooldownCounter -= Time.deltaTime;
         }
+
+        FaceMousePosition();
+        Move();
+        Dash();
     }
 
-    private void GetInput()
+    private void Move()
+    {
+        rb.velocity = moveInput * activeMoveSpeed;
+    }
+
+    private void Dash()
+    {
+        if (dashDurationCounter > 0)
+        {
+            dashDurationCounter -= Time.deltaTime;
+
+            if (dashDurationCounter <= 0)
+            {
+                activeMoveSpeed = moveSpeed;
+                dashCooldownCounter = dashCooldown;
+            }
+        }
+    }
+
+    private void GetMoveInput()
     {
         moveInput.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveInput.Normalize();
     }
 
-    private void RotateToMouse()
+    private void FaceMousePosition()
     {
         Vector2 mousePos = Input.mousePosition;
         Vector2 relativeMouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane)) - transform.position;

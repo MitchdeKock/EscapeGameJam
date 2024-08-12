@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] private float health;
-    [SerializeField] private float maxHealth;
+    private HealthBar healthBar;
 
     private void Start()
     {
-        health = maxHealth;
+        healthBar = GetComponent<HealthBar>();
+        healthBar.OnDeath += OnDeath;
     }
 
     public void AddHealth(float amount)
     {
-        health += amount;
+        healthBar.ChangeHealth(amount);
     }
 
     public void RemoveHealth(float amount)
     {
-        Debug.Log($"{gameObject.name} was hit and now has {health}/{maxHealth} hp.");
-        health -= amount;
+        Debug.Log($"{gameObject.name} was hit for {amount}.");
+
+        healthBar.ChangeHealth(-amount);
+    }
+
+    private void OnDeath()
+    {
+        Destroy(gameObject);
     }
 }

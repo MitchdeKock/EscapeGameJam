@@ -4,6 +4,8 @@ using UnityEngine;
 public class AttackMeleeStaff : IAttack
 {
     public float Cooldown => cooldown;
+    public float Range => range;
+    public float Damage => damage;
 
     [SerializeField] private readonly float cooldown;
     [SerializeField] private readonly float damage;
