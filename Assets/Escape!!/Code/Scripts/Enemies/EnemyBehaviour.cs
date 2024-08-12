@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyBehaviour : MonoBehaviour
 {
     private StateMachine _stateMachine;
-    [SerializeField] private Health target;
+    [SerializeField] private CoreHealthHandler target;
     [SerializeField] private IAttack attack;
 
     private void Awake()

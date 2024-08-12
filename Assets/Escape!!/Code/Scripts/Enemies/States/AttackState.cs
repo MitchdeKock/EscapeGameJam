@@ -6,11 +6,11 @@ using UnityEngine;
 public class AttackState : IState
 {
     private EnemyBehaviour enemyBehaviour;
-    private Health target;
+    private CoreHealthHandler target;
     private IAttack attack;
     private float attackCooldown;
 
-    public AttackState(EnemyBehaviour enemyBehaviour, Health target, IAttack attack)
+    public AttackState(EnemyBehaviour enemyBehaviour, CoreHealthHandler target, IAttack attack)
     {
         this.enemyBehaviour = enemyBehaviour;
         this.target = target;
@@ -31,7 +31,7 @@ public class AttackState : IState
         }
         else if (TargetInRange())
         {
-            target.RemoveHealth(attack.Damage);
+            target.RemoveHealth((int)attack.Damage);
             attackCooldown = attack.Cooldown;
         }
     }
