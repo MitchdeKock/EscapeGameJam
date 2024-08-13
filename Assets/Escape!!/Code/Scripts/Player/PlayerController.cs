@@ -1,8 +1,8 @@
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     [SerializeField] private float moveSpeed = 5;
     [SerializeField] private float dashSpeed = 10;
     [SerializeField] private float dashCooldown = 1;
@@ -23,45 +23,41 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         activeMoveSpeed = moveSpeed;
-        mainAttack = new AttackMeleeStaff(1, 5, 3, 70); // ToDo Add weapon in meaningful way
-        secondaryAttack = new AttackRangedStaff(0.3f, 3, 8, rangedProjectile); // ToDo Add weapon in meaningful way
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PauseManager.TogglePause();
+        }
+
         // Input
-        if (Input.GetButton("Fire1") && mainAttackCooldown <= 0)
+        if (!PauseManager.IsPaused)
         {
-            mainAttack.Attack(this.gameObject);
-            mainAttackCooldown = mainAttack.Cooldown;
-        }
-
-        if (Input.GetButton("Fire2") && secondaryAttackCooldown <= 0)
-        {
-            secondaryAttack.Attack(this.gameObject);
-            secondaryAttackCooldown = secondaryAttack.Cooldown;
-        }
-
-        if (dashDurationCounter > 0)
-        {
-            // ToDo Uncomment for dash to mouse
-            //Vector2 mousePos = Input.mousePosition;
-            //moveInput = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane)) - transform.position;
-
-            //moveInput.Normalize();
-        }
-        else
-        {
-            GetMoveInput();
-        }
-
-        if (Input.GetButtonDown("Dash"))
-        {
-            if (dashCooldownCounter <= 0 && dashDurationCounter <= 0)
+            if (Input.GetButton("Fire1") && mainAttackCooldown <= 0)
             {
-                activeMoveSpeed = dashSpeed;
-                dashDurationCounter = dashDuration;
+                mainAttack.Attack(this.gameObject);
+                mainAttackCooldown = mainAttack.Cooldown;
             }
+            if (Input.GetButton("Fire2") && secondaryAttackCooldown <= 0)
+            {
+                secondaryAttack.Attack(this.gameObject);
+                secondaryAttackCooldown = secondaryAttack.Cooldown;
+            }
+            if (Input.GetButtonDown("Dash"))
+            {
+                if (dashCooldownCounter <= 0 && dashDurationCounter <= 0)
+                {
+                    activeMoveSpeed = dashSpeed;
+                    dashDurationCounter = dashDuration;
+                }
+            }
+            GetMoveInput();
+            FaceMousePosition();
+
+            Move();
+            Dash();
         }
 
         // Cooldowns
@@ -79,10 +75,6 @@ public class PlayerController : MonoBehaviour
         {
             dashCooldownCounter -= Time.deltaTime;
         }
-
-        FaceMousePosition();
-        Move();
-        Dash();
     }
 
     private void Move()
@@ -117,25 +109,4 @@ public class PlayerController : MonoBehaviour
 
         transform.rotation = Quaternion.LookRotation(Vector3.forward, relativeMouseWorldPosition);
     }
-
-    // Temp For Visualizing Attack
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Vector2 centerPosition = transform.position;
-        Vector2 direction = (Vector2)transform.up;
-
-        float arcRadius = 3f;
-        float arcAngle = 70f;
-        int segments = 7;
-        float angleStep = arcAngle / segments;
-
-        for (float angle = -arcAngle / 2f; angle <= arcAngle / 2f; angle += angleStep)
-        {
-            Vector2 arcDirection = Quaternion.Euler(0, 0, angle) * direction;
-            Vector2 arcPoint = centerPosition + arcDirection * arcRadius;
-            Gizmos.DrawLine(centerPosition, arcPoint);
-        }
-    }
-
 }
