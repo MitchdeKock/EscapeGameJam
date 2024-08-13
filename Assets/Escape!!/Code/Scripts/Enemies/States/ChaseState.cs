@@ -10,6 +10,7 @@ public class ChaseState : IState
 
     public ChaseState(EnemyBehaviour enemyBehaviour, Transform target)
     {
+        Debug.Log("CHASING");
         this.enemyBehaviour = enemyBehaviour;
         this.target = target;
     }

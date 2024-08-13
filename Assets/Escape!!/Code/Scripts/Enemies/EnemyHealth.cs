@@ -26,6 +26,8 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnDeath()
     {
+        var coreHealth = GameObject.Find("Core").GetComponent<CoreHealthHandler>();
+        coreHealth.ChangeSouls();
         Destroy(gameObject);
     }
 }
