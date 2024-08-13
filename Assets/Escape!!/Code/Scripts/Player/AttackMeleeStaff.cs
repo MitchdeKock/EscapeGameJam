@@ -1,31 +1,42 @@
+using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using UnityEngine;
 
-public class AttackMeleeStaff : IAttack
+[CreateAssetMenu(fileName = "New MeleeStaff", menuName = "Weapons/MeleeStaff")]
+public class AttackMeleeStaff : BaseWeapon
 {
-    public float Cooldown => cooldown;
-    public float Range => range;
-    public float Damage => damage;
+    public override bool canAttack => attackCooldownCounter == 0;
 
-    [SerializeField] private readonly float cooldown;
-    [SerializeField] private readonly float damage;
-    [SerializeField] private readonly float range;
-    [SerializeField] private readonly float swingSize;
+    [Header("Stats")]
+    [SerializeField] private float cooldown;
+    [SerializeField] private float range;
+    [SerializeField] private float attackArcAngle;
+    [SerializeField] private float damage;
 
-    public AttackMeleeStaff(float cooldown, float damage, float range, float swingSize)
-    {
-        this.cooldown = cooldown;
-        this.damage = damage;
-        this.range = range;
-        this.swingSize = swingSize;
-    }
+    private float attackCooldownCounter = 0;
 
-    public void Attack(GameObject attacker)
+    public override void Attack(GameObject attacker)
     {
         foreach (EnemyHealth enemy in TargetsInRange(attacker))
         {
             enemy.RemoveHealth(damage);
         }
+
+        attackCooldownCounter = cooldown;
+    }
+    public override void Tick()
+    {
+        if (attackCooldownCounter != 0)
+        {
+            attackCooldownCounter -= Time.deltaTime;
+            attackCooldownCounter = Mathf.Clamp(attackCooldownCounter, 0, cooldown);
+        }
+    }
+
+    public override void Refresh()
+    {
+        attackCooldownCounter = 0;
     }
 
     private List<EnemyHealth> TargetsInRange(GameObject attacker)
@@ -44,7 +55,7 @@ public class AttackMeleeStaff : IAttack
                 Vector2 toObject = (Vector2)collider.transform.position - centerPosition;
                 float angleToObject = Vector2.Angle(direction, toObject);
 
-                if (angleToObject <= swingSize / 2f)
+                if (angleToObject <= attackArcAngle / 2f)
                 {
                     objectsInArc.Add(enemyHealth);
                 }

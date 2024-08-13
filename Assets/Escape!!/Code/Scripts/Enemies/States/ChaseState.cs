@@ -6,17 +6,18 @@ public class ChaseState : IState
     private Rigidbody2D rigidbody;
     private Transform target;
 
-    private const float moveSpeed = 1f;
+    private const float moveSpeed = 5f;
 
     public ChaseState(EnemyBehaviour enemyBehaviour, Transform target)
     {
-        Debug.Log("CHASING");
+        
         this.enemyBehaviour = enemyBehaviour;
         this.target = target;
     }
 
     public void OnEnter()
     {
+        Debug.Log($"{enemyBehaviour.name} has entered {this.GetType().Name}");
         rigidbody = enemyBehaviour.GetComponent<Rigidbody2D>();
     }
 
