@@ -27,6 +27,11 @@ public class PlayerController : MonoBehaviour
         secondaryAttack = new AttackRangedStaff(0.3f, 3, 8, rangedProjectile); // ToDo Add weapon in meaningful way
     }
 
+    public void updateMoveSpeed()
+    {
+        activeMoveSpeed=10;
+    }
+
     void Update()
     {
         // Input
