@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     public void upgradeMovementSpeed()
     {
-        moveSpeed= moveSpeed+ 40;
+       // moveSpeed= moveSpeed+ 40;
         Debug.Log(moveSpeed.ToString());
     }
 
