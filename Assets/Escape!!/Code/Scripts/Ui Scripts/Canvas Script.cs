@@ -37,34 +37,77 @@ public class CanvasScript : MonoBehaviour
 
         playerScript=Player.GetComponent<PlayerController>();
 
+        if(Player == null)
+        {
+            Debug.Log("NULL");
+        }
+        else
+        {
+            Debug.Log("NOT NULL");
+        }
+
         damageButton.onClick.AddListener(onDamageButtonClicked);
+        maxFlowButton.onClick.AddListener(onMaxFlowClicked);
+        attackRateButton.onClick.AddListener(onAttackClicked);
+        movementSpeedButton.onClick.AddListener(onMovementClicked);
+
+
+        damagePrice = 10;
+        attackRatePrice = 10;
+        movementSpeedPrice = 10;
+        maxFlowPrice = 10;
     }
 
     void onDamageButtonClicked()
     {
-        playerScript.updateMoveSpeed();
+        if (coreScriptComponent.currentFlow > damagePrice)
+        {
+            coreScriptComponent.removeFlow(damagePrice);
+            damagePrice += 5;
+
+        }
     }
 
     void onMaxFlowClicked()
     {
-        playerScript.updateMoveSpeed();
+        //   if (coreScriptComponent.currentFlow > maxFlowPrice)
+        //   {
+        coreScriptComponent.removeFlow(movementSpeedPrice);
+        maxFlowPrice += 5;
+        coreScriptComponent.upgradeMaxFlow();
+
+        //  }
+        //  else
+        //  {
+        //do something to show they cant buy the upgrade
+        // }
     }
     void onAttackClicked()
     {
-        playerScript.updateMoveSpeed();
+        playerScript.upgradeMovementSpeed();
     }
     void onMovementClicked()
     {
-        playerScript.updateMoveSpeed();
+     playerScript.upgradeMovementSpeed();
     }
+
     // Update is called once per frame
     void Update()
     {
         flowCountText.text = "Flow: " + coreScriptComponent.currentFlow.ToString();
         maxFlowText.text="Max Flow: "+ coreScriptComponent.maxFlow.ToString();
+        DamagePriceText.text = damagePrice.ToString() + "F";
+        AttackRatePriceText.text = attackRatePrice.ToString()+ "F";
+        MovementSpeedPriceText.text = movementSpeedPrice.ToString()+ "F";
+        MaxFlowPriceText.text=maxFlowPrice.ToString()+ "F";
+
+
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             canvas.enabled = !canvas.enabled;
         }
+
+
     }
 }
