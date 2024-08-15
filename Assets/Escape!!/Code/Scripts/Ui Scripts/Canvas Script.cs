@@ -17,6 +17,10 @@ public class CanvasScript : MonoBehaviour
     public int movementSpeedPrice;
 
     public Button damageButton;
+    public Button maxFlowButton;
+    public Button attackRateButton;
+    public Button movementSpeedButton;
+
     public Canvas canvas;
 
     public GameObject Core;
@@ -41,6 +45,18 @@ public class CanvasScript : MonoBehaviour
         playerScript.updateMoveSpeed();
     }
 
+    void onMaxFlowClicked()
+    {
+        playerScript.updateMoveSpeed();
+    }
+    void onAttackClicked()
+    {
+        playerScript.updateMoveSpeed();
+    }
+    void onMovementClicked()
+    {
+        playerScript.updateMoveSpeed();
+    }
     // Update is called once per frame
     void Update()
     {
