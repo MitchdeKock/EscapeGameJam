@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Menu : MonoBehaviour
+public class GameMenuManager : MonoBehaviour
 {
-    [SerializeField] private Scene gameScene;
     [SerializeField] private GameObject mainPanel;
-    [SerializeField] private GameObject audioPanel;
+    [SerializeField] private GameObject optionsPanel;
     [SerializeField] private Slider audioSlider;
     [SerializeField] private TMP_Text audioText;
+
     void Start()
     {
         audioSlider.onValueChanged.AddListener(delegate { SliderValueChanged(); });
@@ -23,19 +21,20 @@ public class Menu : MonoBehaviour
         SetAudio();
     }
 
-    public void StartGame()
+    public void ReturnToMenu()
     {
-        SceneManager.LoadScene("Game");
+        SceneManager.LoadScene("MainMenu");
     }
-    public void AudioToggle()
+
+    public void OptionsToggle()
     {
-        if (!audioPanel.activeSelf)
+        if (!optionsPanel.activeSelf)
         {
             audioText.text = (Mathf.CeilToInt(PlayerPrefs.GetFloat("volume", 1) * 100)).ToString();
             audioSlider.value = PlayerPrefs.GetFloat("volume", 1);
         }
-        mainPanel.SetActive(audioPanel.activeSelf);
-        audioPanel.SetActive(!audioPanel.activeSelf);
+        mainPanel.SetActive(optionsPanel.activeSelf);
+        optionsPanel.SetActive(!optionsPanel.activeSelf);
     }
 
     public void SetAudio()
@@ -46,9 +45,5 @@ public class Menu : MonoBehaviour
     public void Mute()
     {
 
-    }
-    public void Exit()
-    {
-        Application.Quit();
     }
 }
