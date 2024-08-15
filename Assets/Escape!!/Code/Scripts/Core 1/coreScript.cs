@@ -19,37 +19,15 @@ public class coreScript : MonoBehaviour
         
     }
 
-    public void addFlow()
+    public void addFlow() //changed to change healrth
     {
-        if (currentFlow < maxFlow)
-        {
-            currentFlow++;
-        }
+        //changed to change healrth
     }
 
     public void removeFlow(int amount) 
-    { 
-        currentFlow-=amount;
-
-        if (currentFlow < 0)
-        {
-            Debug.Log("you died"); //replace with actual death
-
-        }
-    }
-
-    public void upgradeMaxFlow()
     {
-        maxFlow += 5;
+        //changed to change healrth
     }
 
-    public void addFlow(int amount)
-    {
-        if(currentFlow+amount > maxFlow)
-        {
-            currentFlow = maxFlow;
-        }else if(currentFlow+amount < maxFlow || currentFlow+amount==maxFlow) {
-            currentFlow += amount;
-        }
-    }
+
 }

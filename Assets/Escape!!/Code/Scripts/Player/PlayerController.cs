@@ -15,8 +15,6 @@ public class PlayerController : MonoBehaviour
     private float dashCooldownCounter;
     private float dashDurationCounter;
 
-    private float mainAttackCooldown;
-    private float secondaryAttackCooldown;
     [Header("Attacks")]
     [SerializeField] private BaseWeapon mainAttack;
     [SerializeField] private BaseWeapon secondaryAttack;
@@ -28,8 +26,8 @@ public class PlayerController : MonoBehaviour
 
     public void upgradeMovementSpeed()
     {
-       // moveSpeed= moveSpeed+ 40;
-        Debug.Log(moveSpeed.ToString());
+        moveSpeed += 5;
+        dashSpeed += 1;
     }
 
     void Update()
@@ -99,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
     private void GetMoveInput()
     {
+        activeMoveSpeed = moveSpeed;
         moveInput.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveInput.Normalize();
     }

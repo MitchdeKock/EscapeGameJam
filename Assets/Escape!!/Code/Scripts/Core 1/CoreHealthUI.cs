@@ -10,7 +10,7 @@ public class CoreHealthUI : MonoBehaviour
     public CoreHealthHandler _coreHealth;
     void Start()
     {
-        text.text = $"Energy: {_coreHealth.getSouls()}";
+        text.text = $"Energy: {_coreHealth.getHealth()}";
         _coreHealth.OnValueChanged += UpdateScore;
     }
 

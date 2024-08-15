@@ -5,28 +5,45 @@ using UnityEngine;
 
 public class CoreHealthHandler : MonoBehaviour
 {
-    [SerializeField] private int _souls;
-    [SerializeField] private int _maxSouls;
+    [SerializeField] private int health;
+    [SerializeField] private int maxHealth;
 
     public event Action<int> OnValueChanged;
-    public void SetSouls(int souls)
+
+
+    void Start()
     {
-        _souls = Math.Min(souls, _maxSouls);
-        OnValueChanged?.Invoke(_souls);
-    }
-    public int getSouls()
-    {
-        return _souls;
+        health = 1;
+        maxHealth = 20;
     }
 
-    public void ChangeSouls(int amountToAdd = 1)
+    public void SetSouls(int souls)
     {
-        SetSouls(_souls + amountToAdd);
+        health = Math.Min(souls, maxHealth);
+        OnValueChanged?.Invoke(health);
+    }
+
+    public int getHealth()
+    {
+        return health;
+    }
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public void ChangeHealth(int amountToAdd = 1)
+    {
+        SetSouls(health + amountToAdd);
     }
 
     public void RemoveHealth(int amountToRemove = 1)
     {
         Debug.Log($"{name} hit for {amountToRemove} damage");
-        SetSouls(_souls - amountToRemove); ;
+        SetSouls(health - amountToRemove); ;
+    }
+    public void UpgradeMaxHealth(int amountToAdd = 5)
+    {
+        maxHealth += amountToAdd;
     }
 }

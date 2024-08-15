@@ -24,16 +24,19 @@ public class CanvasScript : MonoBehaviour
     public Canvas canvas;
 
     public GameObject Core;
-    private coreScript coreScriptComponent;
+    private CoreHealthHandler coreScriptComponent;
 
     public GameObject Player;
     private PlayerController playerScript;
+
+    [SerializeField] private BaseWeapon mainAttack;
+    [SerializeField] private BaseWeapon secondaryAttack;
     // Start is called before the first frame update
     void Start()
     {
         canvas.enabled = false;
 
-        coreScriptComponent = Core.GetComponent<coreScript>();
+        coreScriptComponent = Core.GetComponent<CoreHealthHandler>();
 
         playerScript=Player.GetComponent<PlayerController>();
 
@@ -60,42 +63,54 @@ public class CanvasScript : MonoBehaviour
 
     void onDamageButtonClicked()
     {
-        if (coreScriptComponent.currentFlow > damagePrice)
+        if (coreScriptComponent.getHealth() > damagePrice)
         {
-            coreScriptComponent.removeFlow(damagePrice);
+            coreScriptComponent.RemoveHealth(damagePrice);
             damagePrice += 5;
-
+            mainAttack.Damage += 1;
+            secondaryAttack.Damage += 1;
         }
     }
 
     void onMaxFlowClicked()
     {
-        //   if (coreScriptComponent.currentFlow > maxFlowPrice)
-        //   {
-        coreScriptComponent.removeFlow(movementSpeedPrice);
-        maxFlowPrice += 5;
-        coreScriptComponent.upgradeMaxFlow();
+           if (coreScriptComponent.getHealth() > maxFlowPrice)
+           {
+                coreScriptComponent.RemoveHealth(movementSpeedPrice);
+                maxFlowPrice += 5;
+                coreScriptComponent.UpgradeMaxHealth();
 
-        //  }
-        //  else
-        //  {
-        //do something to show they cant buy the upgrade
-        // }
+          }
+          else
+         {
+            //TODO something to show they cant buy the upgrade
+         }
     }
     void onAttackClicked()
     {
-        playerScript.upgradeMovementSpeed();
+        if(coreScriptComponent.getHealth()> attackRatePrice)
+        {
+            coreScriptComponent.RemoveHealth(attackRatePrice);
+            mainAttack.Cooldown -= 0.01f;
+            secondaryAttack.Cooldown -= 0.01f;
+            attackRatePrice += 5;
+        }
     }
     void onMovementClicked()
     {
-     playerScript.upgradeMovementSpeed();
+        if (coreScriptComponent.getHealth()> movementSpeedPrice)
+        {
+            playerScript.upgradeMovementSpeed();
+            coreScriptComponent.RemoveHealth(movementSpeedPrice);
+            movementSpeedPrice += 5;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        flowCountText.text = "Flow: " + coreScriptComponent.currentFlow.ToString();
-        maxFlowText.text="Max Flow: "+ coreScriptComponent.maxFlow.ToString();
+        flowCountText.text = "Flow: " + coreScriptComponent.getHealth().ToString();
+        maxFlowText.text="Max Flow: "+ coreScriptComponent.getMaxHealth().ToString();
         DamagePriceText.text = damagePrice.ToString() + "F";
         AttackRatePriceText.text = attackRatePrice.ToString()+ "F";
         MovementSpeedPriceText.text = movementSpeedPrice.ToString()+ "F";
