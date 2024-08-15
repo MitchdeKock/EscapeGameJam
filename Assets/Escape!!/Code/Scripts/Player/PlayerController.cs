@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -23,8 +24,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         activeMoveSpeed = moveSpeed;
-        //mainAttack = new AttackMeleeStaff(1, 5, 3, 70); // ToDo Add weapon in meaningful way
-        //secondaryAttack = new AttackRangedStaff(0.3f, 3, 8, rangedProjectile); // ToDo Add weapon in meaningful way
     }
 
     public void upgradeMovementSpeed()
@@ -35,61 +34,48 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        mainAttack.Tick();
-        secondaryAttack.Tick();
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PauseManager.TogglePause();
+        }
 
         // Input
-        if (Input.GetButton("Fire1") && mainAttack.canAttack)
+        if (!PauseManager.IsPaused)
         {
-            mainAttack.Attack(this.gameObject);
-        }
-
-        if (Input.GetButton("Fire2") && secondaryAttack.canAttack)
-        {
-            secondaryAttack.Attack(this.gameObject);
-        }
-
-        if (dashDurationCounter > 0)
-        {
-            // ToDo Uncomment for dash to mouse
-            //Vector2 mousePos = Input.mousePosition;
-            //moveInput = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane)) - transform.position;
-
-            //moveInput.Normalize();
-        }
-        else
-        {
-            GetMoveInput();
-        }
-
-        if (Input.GetButtonDown("Dash"))
-        {
-            if (dashCooldownCounter <= 0 && dashDurationCounter <= 0)
+            mainAttack.Tick();
+            secondaryAttack.Tick();
+            if (Input.GetButton("Fire1") && mainAttack.canAttack)
             {
-                activeMoveSpeed = dashSpeed;
-                dashDurationCounter = dashDuration;
+                mainAttack.Attack(this.gameObject);
             }
+
+            if (Input.GetButton("Fire2") && secondaryAttack.canAttack)
+            {
+                secondaryAttack.Attack(this.gameObject);
+            }
+
+            GetMoveInput();
+
+            if (Input.GetButtonDown("Dash"))
+            {
+                if (dashCooldownCounter <= 0 && dashDurationCounter <= 0)
+                {
+                    activeMoveSpeed = dashSpeed;
+                    dashDurationCounter = dashDuration;
+                }
+            }
+            GetMoveInput();
+            FaceMousePosition();
         }
+
+        Dash();
+        Move();
 
         // Cooldowns
-        if (mainAttackCooldown > 0)
-        {
-            mainAttackCooldown -= Time.deltaTime;
-        }
-
-        if (secondaryAttackCooldown > 0)
-        {
-            secondaryAttackCooldown -= Time.deltaTime;
-        }
-
         if (dashCooldownCounter > 0)
         {
             dashCooldownCounter -= Time.deltaTime;
         }
-
-        FaceMousePosition();
-        Move();
-        Dash();
     }
 
     private void Move()
