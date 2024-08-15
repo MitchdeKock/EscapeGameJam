@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7725632843072120191}
   - component: {fileID: 3644179687878295428}
+  - component: {fileID: 7208736616779647562}
   m_Layer: 0
   m_Name: Core
   m_TagString: Core
@@ -129,5 +130,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11bca2c8d09fa3542bfb9b8d8fc48c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _souls: 3
-  _maxSouls: 5
+  health: 0
+  maxHealth: 0
+--- !u!114 &7208736616779647562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4783275006180370391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eebe30f2d2ed73b42a6fdf96101e1063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxEnemies: 0
+  enemyPrefab: {fileID: 1984117510869575802, guid: acc03c9c3f349e94f9e4ab51bcbdec5f, type: 3}
+  spawnArea: {fileID: 0}

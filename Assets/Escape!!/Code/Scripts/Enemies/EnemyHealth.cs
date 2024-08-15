@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     private HealthBar healthBar;
+    public event Action OnEnemyDied;
 
     private void Start()
     {
@@ -28,6 +30,7 @@ public class EnemyHealth : MonoBehaviour
     {
         var coreHealth = GameObject.Find("Core").GetComponent<CoreHealthHandler>();
         coreHealth.ChangeHealth();
+        OnEnemyDied.Invoke();
         Destroy(gameObject);
     }
 }

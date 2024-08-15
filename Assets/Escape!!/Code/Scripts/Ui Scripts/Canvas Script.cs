@@ -34,7 +34,6 @@ public class CanvasScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         UpgradeScreen.SetActive(false);
 
         coreScriptComponent = Core.GetComponent<CoreHealthHandler>();
@@ -50,10 +49,10 @@ public class CanvasScript : MonoBehaviour
             Debug.Log("NOT NULL");
         }
 
-        damageButton.onClick.AddListener(onDamageButtonClicked);
-        maxFlowButton.onClick.AddListener(onMaxFlowClicked);
-        attackRateButton.onClick.AddListener(onAttackClicked);
-        movementSpeedButton.onClick.AddListener(onMovementClicked);
+        //damageButton.onClick.AddListener(onDamageButtonClicked);
+        //maxFlowButton.onClick.AddListener(onMaxFlowClicked);
+        //attackRateButton.onClick.AddListener(onAttackClicked);
+        //movementSpeedButton.onClick.AddListener(onMovementClicked);
 
 
         damagePrice = 10;
@@ -62,7 +61,7 @@ public class CanvasScript : MonoBehaviour
         maxFlowPrice = 10;
     }
 
-    void onDamageButtonClicked()
+    public void onDamageButtonClicked()
     {
         if (coreScriptComponent.getHealth() > damagePrice)
         {
@@ -73,7 +72,7 @@ public class CanvasScript : MonoBehaviour
         }
     }
 
-    void onMaxFlowClicked()
+    public void onMaxFlowClicked()
     {
            if (coreScriptComponent.getHealth() > maxFlowPrice)
            {
@@ -87,7 +86,7 @@ public class CanvasScript : MonoBehaviour
             //TODO something to show they cant buy the upgrade
          }
     }
-    void onAttackClicked()
+    public void onAttackClicked()
     {
         if(coreScriptComponent.getHealth()> attackRatePrice)
         {
@@ -97,7 +96,7 @@ public class CanvasScript : MonoBehaviour
             attackRatePrice += 5;
         }
     }
-    void onMovementClicked()
+    public void onMovementClicked()
     {
         if (coreScriptComponent.getHealth()> movementSpeedPrice)
         {
@@ -120,6 +119,7 @@ public class CanvasScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            PauseManager.TogglePause();
             UpgradeScreen.SetActive(!UpgradeScreen.activeSelf);
         }
 
