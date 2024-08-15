@@ -21,7 +21,7 @@ public class CanvasScript : MonoBehaviour
     public Button attackRateButton;
     public Button movementSpeedButton;
 
-    public Canvas canvas;
+    public GameObject UpgradeScreen;
 
     public GameObject Core;
     private CoreHealthHandler coreScriptComponent;
@@ -34,7 +34,8 @@ public class CanvasScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canvas.enabled = false;
+
+        UpgradeScreen.SetActive(false);
 
         coreScriptComponent = Core.GetComponent<CoreHealthHandler>();
 
@@ -117,10 +118,9 @@ public class CanvasScript : MonoBehaviour
         MaxFlowPriceText.text=maxFlowPrice.ToString()+ "F";
 
 
-
         if (Input.GetKeyDown(KeyCode.E))
         {
-            canvas.enabled = !canvas.enabled;
+            UpgradeScreen.SetActive(!UpgradeScreen.activeSelf);
         }
 
 
