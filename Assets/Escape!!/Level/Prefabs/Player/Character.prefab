@@ -125,6 +125,8 @@ MonoBehaviour:
   dashDuration: 0.3
   rb: {fileID: 898552653625388245}
   rangedProjectile: {fileID: 5806350095286291592, guid: b796e976fb87db64aa47ba75f6cf4522, type: 3}
+  mainAttack: {fileID: 11400000, guid: c3cc4a062139b3b49a279f04148df58d, type: 2}
+  secondaryAttack: {fileID: 11400000, guid: c98f1a6940b4e22499a0bf9d3030592a, type: 2}
 --- !u!1 &9072998120992771657
 GameObject:
   m_ObjectHideFlags: 0

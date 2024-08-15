@@ -17,8 +17,9 @@ public class PlayerController : MonoBehaviour
 
     private float mainAttackCooldown;
     private float secondaryAttackCooldown;
-    private IAttack mainAttack;
-    private IAttack secondaryAttack;
+    [Header("Attacks")]
+    [SerializeField] private BaseWeapon mainAttack;
+    [SerializeField] private BaseWeapon secondaryAttack;
 
     private void Start()
     {
@@ -36,6 +37,36 @@ public class PlayerController : MonoBehaviour
         if (!PauseManager.IsPaused)
         {
             if (Input.GetButton("Fire1") && mainAttackCooldown <= 0)
+        mainAttack.Tick();
+        secondaryAttack.Tick();
+
+        // Input
+        if (Input.GetButton("Fire1") && mainAttack.canAttack)
+        {
+            mainAttack.Attack(this.gameObject);
+        }
+
+        if (Input.GetButton("Fire2") && secondaryAttack.canAttack)
+        {
+            secondaryAttack.Attack(this.gameObject);
+        }
+
+        if (dashDurationCounter > 0)
+        {
+            // ToDo Uncomment for dash to mouse
+            //Vector2 mousePos = Input.mousePosition;
+            //moveInput = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane)) - transform.position;
+
+            //moveInput.Normalize();
+        }
+        else
+        {
+            GetMoveInput();
+        }
+
+        if (Input.GetButtonDown("Dash"))
+        {
+            if (dashCooldownCounter <= 0 && dashDurationCounter <= 0)
             {
                 mainAttack.Attack(this.gameObject);
                 mainAttackCooldown = mainAttack.Cooldown;
