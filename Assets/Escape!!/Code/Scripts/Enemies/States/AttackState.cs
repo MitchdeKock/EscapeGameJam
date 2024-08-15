@@ -1,16 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AttackState : IState
 {
     private EnemyBehaviour enemyBehaviour;
     private CoreHealthHandler target;
-    private IAttack attack;
-    private float attackCooldown;
+    private BaseEnemyAttack attack;
 
-    public AttackState(EnemyBehaviour enemyBehaviour, CoreHealthHandler target, IAttack attack)
+    public AttackState(EnemyBehaviour enemyBehaviour, CoreHealthHandler target, BaseEnemyAttack attack)
     {
         this.enemyBehaviour = enemyBehaviour;
         this.target = target;
@@ -19,21 +15,17 @@ public class AttackState : IState
 
     public void OnEnter()
     {
-        attackCooldown = 0;
+        Debug.Log($"{enemyBehaviour.name} has entered {this.GetType().Name}");
+        attack.Refresh();
     }
 
     public void Tick()
     {
-        if (attackCooldown != 0)
+        if (TargetInRange() && attack.canAttack)
         {
-            attackCooldown -= Time.deltaTime;
-            attackCooldown = Mathf.Clamp(attackCooldown, 0, Mathf.Infinity);
+            attack.Attack(enemyBehaviour.gameObject, target);
         }
-        else if (TargetInRange())
-        {
-            target.RemoveHealth((int)attack.Damage);
-            attackCooldown = attack.Cooldown;
-        }
+        attack.Tick();
     }
 
     public void OnExit()
