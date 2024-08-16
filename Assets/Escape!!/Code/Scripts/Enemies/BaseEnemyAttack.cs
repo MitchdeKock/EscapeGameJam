@@ -7,14 +7,11 @@ using UnityEngine;
 public class BaseEnemyAttack : BaseWeapon
 {
     public override bool canAttack => attackCooldownCounter == 0;
-    public override float Damage { get { return damage; } set { damage = value; } }
-    public override float Cooldown { get { return cooldown; } set { cooldown = value; } }
     public float Range => range;
-
+    
     [Header("Stats")]
     [SerializeField] protected float cooldown;
     [SerializeField] protected float range;
-    [SerializeField] private float damage; //TODO This should not be here
     private float attackCooldownCounter = 0;
 
     public virtual void Attack(GameObject attacker, CoreHealthHandler target) // ToDo THIS IS UGLY FIX

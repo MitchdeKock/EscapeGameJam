@@ -816,19 +816,17 @@ MonoBehaviour:
   MaxFlowPriceText: {fileID: 7951263947615684139}
   AttackRatePriceText: {fileID: 4396047692033533694}
   MovementSpeedPriceText: {fileID: 1563371284866773758}
-  damagePrice: 0
-  maxFlowPrice: 0
-  attackRatePrice: 0
-  movementSpeedPrice: 0
   damageButton: {fileID: 9014553823138566749}
   maxFlowButton: {fileID: 7678250926310047094}
   attackRateButton: {fileID: 579394411408561388}
   movementSpeedButton: {fileID: 3095010220011583051}
-  UpgradeScreen: {fileID: 1889334712998215291}
-  Core: {fileID: 0}
-  Player: {fileID: 0}
+  damagePrice: 10
+  maxFlowPrice: 10
+  attackRatePrice: 10
+  movementSpeedPrice: 10
   mainAttack: {fileID: 11400000, guid: c3cc4a062139b3b49a279f04148df58d, type: 2}
   secondaryAttack: {fileID: 11400000, guid: c98f1a6940b4e22499a0bf9d3030592a, type: 2}
+  UpgradeScreen: {fileID: 1889334712998215291}
 --- !u!1 &5263138038096118579
 GameObject:
   m_ObjectHideFlags: 0

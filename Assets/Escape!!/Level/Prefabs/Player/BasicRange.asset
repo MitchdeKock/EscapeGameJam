@@ -15,4 +15,4 @@ MonoBehaviour:
   Projectile: {fileID: 5806350095286291592, guid: b796e976fb87db64aa47ba75f6cf4522, type: 3}
   cooldown: 0.3
   range: 5
-  damage: 1
+  damage: 2

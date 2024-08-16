@@ -8,7 +8,7 @@ public class EnemyBasicMelee : BaseEnemyAttack
 
     public override void Attack(GameObject attacker, CoreHealthHandler target)
     {
-        target.RemoveHealth((int)damage);
+        target.Health -= (int)damage;
         base.Attack(attacker, target);
     }
 

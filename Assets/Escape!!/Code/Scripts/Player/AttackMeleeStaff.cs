@@ -7,8 +7,9 @@ using UnityEngine;
 public class AttackMeleeStaff : BaseWeapon
 {
     public override bool canAttack => attackCooldownCounter == 0;
-    public override float Damage { get { return damage; } set { damage = value; } }
-    public override float Cooldown { get { return cooldown; } set { cooldown = value; } }
+    public float Damage { get { return damage; } set { damage = value; } }
+    public float Cooldown { get { return cooldown; } set { cooldown = value; } }
+
     [Header("Stats")]
     [SerializeField] private float cooldown;
     [SerializeField] private float range;

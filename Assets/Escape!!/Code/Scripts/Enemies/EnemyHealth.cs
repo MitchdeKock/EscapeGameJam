@@ -21,15 +21,14 @@ public class EnemyHealth : MonoBehaviour
 
     public void RemoveHealth(float amount)
     {
-        Debug.Log($"{gameObject.name} was hit for {amount}.");
-
+        Debug.Log($"{gameObject.name} was hit for {amount}."); // TODO remove debug
         healthBar.ChangeHealth(-amount);
     }
 
     private void OnDeath()
     {
         var coreHealth = GameObject.Find("Core").GetComponent<CoreHealthHandler>();
-        coreHealth.ChangeHealth();
+        coreHealth.Health += 1;
         OnEnemyDied.Invoke();
         Destroy(gameObject);
     }

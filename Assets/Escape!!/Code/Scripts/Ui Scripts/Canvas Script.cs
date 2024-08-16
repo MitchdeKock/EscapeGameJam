@@ -4,68 +4,51 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CanvasScript : MonoBehaviour
 {
-    public TMPro.TextMeshProUGUI flowCountText;
-    public TMPro.TextMeshProUGUI maxFlowText;
-    public TMPro.TextMeshProUGUI DamagePriceText;
-    public TMPro.TextMeshProUGUI MaxFlowPriceText;
-    public TMPro.TextMeshProUGUI AttackRatePriceText;
-    public TMPro.TextMeshProUGUI MovementSpeedPriceText;
+    [Header("Text references")]
+    [SerializeField] private TMPro.TextMeshProUGUI flowCountText;
+    [SerializeField] private TMPro.TextMeshProUGUI maxFlowText;
+    [SerializeField] private TMPro.TextMeshProUGUI DamagePriceText;
+    [SerializeField] private TMPro.TextMeshProUGUI MaxFlowPriceText;
+    [SerializeField] private TMPro.TextMeshProUGUI AttackRatePriceText;
+    [SerializeField] private TMPro.TextMeshProUGUI MovementSpeedPriceText;
 
-    public int damagePrice;
-    public int maxFlowPrice;
-    public int attackRatePrice;
-    public int movementSpeedPrice;
+    [Header("Button references")]
+    [SerializeField] private Button damageButton;
+    [SerializeField] private Button maxFlowButton;
+    [SerializeField] private Button attackRateButton;
+    [SerializeField] private Button movementSpeedButton;
 
-    public Button damageButton;
-    public Button maxFlowButton;
-    public Button attackRateButton;
-    public Button movementSpeedButton;
+    [Header("Prices")]
+    [SerializeField] private int damagePrice = 10;
+    [SerializeField] private int maxFlowPrice = 10;
+    [SerializeField] private int attackRatePrice = 10;
+    [SerializeField] private int movementSpeedPrice = 10;
 
-    public GameObject UpgradeScreen;
+    [Header("Player attacks")]
+    [SerializeField] private AttackMeleeStaff mainAttack;
+    [SerializeField] private AttackRangedStaff secondaryAttack;
 
-    public GameObject Core;
+    [SerializeField] private GameObject UpgradeScreen;
+    
     private CoreHealthHandler coreScriptComponent;
-
-    public GameObject Player;
     private PlayerController playerScript;
 
-    [SerializeField] private BaseWeapon mainAttack;
-    [SerializeField] private BaseWeapon secondaryAttack;
-    // Start is called before the first frame update
     void Start()
     {
-        UpgradeScreen.SetActive(false);
-
-        coreScriptComponent = Core.GetComponent<CoreHealthHandler>();
-
-        playerScript=Player.GetComponent<PlayerController>();
-
-        if(Player == null)
-        {
-            Debug.Log("NULL");
-        }
-        else
-        {
-            Debug.Log("NOT NULL");
-        }
+        coreScriptComponent = GameObject.FindGameObjectWithTag("Core").GetComponent<CoreHealthHandler>();
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         //damageButton.onClick.AddListener(onDamageButtonClicked);
         //maxFlowButton.onClick.AddListener(onMaxFlowClicked);
         //attackRateButton.onClick.AddListener(onAttackClicked);
         //movementSpeedButton.onClick.AddListener(onMovementClicked);
-
-
-        damagePrice = 10;
-        attackRatePrice = 10;
-        movementSpeedPrice = 10;
-        maxFlowPrice = 10;
     }
 
     public void onDamageButtonClicked()
     {
-        if (coreScriptComponent.getHealth() > damagePrice)
+        if (coreScriptComponent.Health > damagePrice)
         {
-            coreScriptComponent.RemoveHealth(damagePrice);
+            coreScriptComponent.Health -= damagePrice;
             damagePrice += 5;
             mainAttack.Damage += 1;
             secondaryAttack.Damage += 1;
@@ -74,23 +57,22 @@ public class CanvasScript : MonoBehaviour
 
     public void onMaxFlowClicked()
     {
-           if (coreScriptComponent.getHealth() > maxFlowPrice)
-           {
-                coreScriptComponent.RemoveHealth(movementSpeedPrice);
-                maxFlowPrice += 5;
-                coreScriptComponent.UpgradeMaxHealth();
-
-          }
-          else
-         {
+        if (coreScriptComponent.Health > maxFlowPrice)
+        {
+            coreScriptComponent.Health -= maxFlowPrice;
+            maxFlowPrice += 5;
+            coreScriptComponent.MaxHealth += 5;
+        }
+        else
+        {
             //TODO something to show they cant buy the upgrade
-         }
+        }
     }
     public void onAttackClicked()
     {
-        if(coreScriptComponent.getHealth()> attackRatePrice)
+        if (coreScriptComponent.Health > attackRatePrice)
         {
-            coreScriptComponent.RemoveHealth(attackRatePrice);
+            coreScriptComponent.Health -= attackRatePrice;
             mainAttack.Cooldown -= 0.01f;
             secondaryAttack.Cooldown -= 0.01f;
             attackRatePrice += 5;
@@ -98,10 +80,11 @@ public class CanvasScript : MonoBehaviour
     }
     public void onMovementClicked()
     {
-        if (coreScriptComponent.getHealth()> movementSpeedPrice)
+        if (coreScriptComponent.Health > movementSpeedPrice)
         {
-            playerScript.upgradeMovementSpeed();
-            coreScriptComponent.RemoveHealth(movementSpeedPrice);
+            playerScript.MoveSpeed += 2;
+            playerScript.DashSpeed += 2;
+            coreScriptComponent.Health -= movementSpeedPrice;
             movementSpeedPrice += 5;
         }
     }
@@ -109,12 +92,12 @@ public class CanvasScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        flowCountText.text = "Flow: " + coreScriptComponent.getHealth().ToString();
-        maxFlowText.text="Max Flow: "+ coreScriptComponent.getMaxHealth().ToString();
+        flowCountText.text = "Flow: " + coreScriptComponent.Health.ToString();
+        maxFlowText.text = "Max Flow: " + coreScriptComponent.MaxHealth.ToString();
         DamagePriceText.text = damagePrice.ToString() + "F";
-        AttackRatePriceText.text = attackRatePrice.ToString()+ "F";
-        MovementSpeedPriceText.text = movementSpeedPrice.ToString()+ "F";
-        MaxFlowPriceText.text=maxFlowPrice.ToString()+ "F";
+        AttackRatePriceText.text = attackRatePrice.ToString() + "F";
+        MovementSpeedPriceText.text = movementSpeedPrice.ToString() + "F";
+        MaxFlowPriceText.text = maxFlowPrice.ToString() + "F";
 
 
         if (Input.GetKeyDown(KeyCode.E))

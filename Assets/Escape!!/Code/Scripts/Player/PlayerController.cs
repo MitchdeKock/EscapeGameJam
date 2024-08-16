@@ -19,15 +19,19 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private BaseWeapon mainAttack;
     [SerializeField] private BaseWeapon secondaryAttack;
 
+    public float MoveSpeed
+    {
+        get => moveSpeed;
+        set 
+        { 
+            moveSpeed = activeMoveSpeed = value;
+        }
+    }
+    public float DashSpeed { get => dashSpeed;  set => dashSpeed = value; }
+
     private void Start()
     {
         activeMoveSpeed = moveSpeed;
-    }
-
-    public void upgradeMovementSpeed()
-    {
-        moveSpeed += 5;
-        dashSpeed += 1;
     }
 
     void Update()
@@ -97,7 +101,6 @@ public class PlayerController : MonoBehaviour
 
     private void GetMoveInput()
     {
-        activeMoveSpeed = moveSpeed;
         moveInput.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveInput.Normalize();
     }
