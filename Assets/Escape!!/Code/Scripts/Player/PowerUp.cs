@@ -10,6 +10,7 @@ public class PowerUp : MonoBehaviour
     public PlayerController playerScript;
     public event Action<bool> OnToggle;
     public bool isActive = false;
+    public int Cost;
     private float timer = 0f;
     private PowerUpModel _powerUpModel;
 
@@ -17,6 +18,7 @@ public class PowerUp : MonoBehaviour
     public AttackRangedStaff rangedStaff;
     void Start()
     {
+        Cost = 5;
         _powerUpModel = new PowerUpModel()
         {
             DashSpeedUpgrade = 5,
@@ -32,9 +34,9 @@ public class PowerUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isActive && Input.GetKeyDown(KeyCode.LeftShift) && coreScriptComponent.Health > 5)
+        if (!isActive && Input.GetKeyDown(KeyCode.LeftShift) && coreScriptComponent.Health > Cost)
         {
-            coreScriptComponent.Health -= 5;
+            coreScriptComponent.Health -= Cost;
             TogglePowerUp(true);
         }
         else if (isActive)
