@@ -12,12 +12,19 @@ public class PowerUp : MonoBehaviour
     public bool isActive = false;
     public int Cost;
     private float timer = 0f;
+    private float initialTimeBetweenCost = 1f;
+    private float timeBetweenCost = 0f;
+    private float rampUpFactor = 0.1f; // Adjust this value to control the ramp-up speed
+
     private PowerUpModel _powerUpModel;
+    
 
     public AttackMeleeStaff attackMeleeStaff;
     public AttackRangedStaff rangedStaff;
     void Start()
     {
+        timer = initialTimeBetweenCost;
+        timeBetweenCost = 1f;
         Cost = 5;
         _powerUpModel = new PowerUpModel()
         {
@@ -43,19 +50,27 @@ public class PowerUp : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                timer = 0f; // Reset timer when not active
                 TogglePowerUp(false);
+                ResetTimer();
             }
-            timer += Time.deltaTime;
-            if (timer >= 1f) //Number of seconds we want the cost to be
+            timer -= Time.deltaTime;
+            if (timer <= 0f) //Number of seconds we want the cost to be
             {
                 if (coreScriptComponent.Health < 3) TogglePowerUp(false);
                 else
                 coreScriptComponent.Health -= 1;
-                timer = 0f;
+                ResetTimer();
             }
         }
 
+    }
+    private void ResetTimer()
+    {
+        if(isActive)
+            timeBetweenCost = initialTimeBetweenCost * Mathf.Exp(rampUpFactor * (initialTimeBetweenCost - timeBetweenCost));
+        else
+            timeBetweenCost = initialTimeBetweenCost;
+        timer = timeBetweenCost;
     }
 
     private void TogglePowerUp(bool isOn)
