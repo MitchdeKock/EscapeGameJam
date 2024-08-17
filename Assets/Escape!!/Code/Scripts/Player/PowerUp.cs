@@ -6,22 +6,27 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour
 {
-    private CoreHealthHandler coreScriptComponent;
-    private PlayerController playerScript;
+    public CoreHealthHandler coreScriptComponent;
+    public PlayerController playerScript;
     public event Action<bool> OnToggle;
     public bool isActive = false;
     private float timer = 0f;
     private PowerUpModel _powerUpModel;
+
+    public AttackMeleeStaff attackMeleeStaff;
+    public AttackRangedStaff rangedStaff;
     void Start()
     {
-        coreScriptComponent = GameObject.FindGameObjectWithTag("Core").GetComponent<CoreHealthHandler>();
-        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         _powerUpModel = new PowerUpModel()
         {
-            DashSpeedUpgrade = 2,
-            MoveSpeedUpgrade = 2,
+            DashSpeedUpgrade = 5,
+            MoveSpeedUpgrade = 5,
+            DashCoolDownUpgrade = -1,
+            DashDurationUpgrade = 1,
+            RangeAttackDamageUpgrade = 1,
+            RangeAttackDistanceUpgrade = 10,
+            MeleeAttackDamageUpgrade = 5
         };
-
     }
 
     // Update is called once per frame
@@ -30,18 +35,20 @@ public class PowerUp : MonoBehaviour
         if (!isActive && Input.GetKeyDown(KeyCode.LeftShift) && coreScriptComponent.Health > 5)
         {
             coreScriptComponent.Health -= 5;
-            StartPowerUp();
+            TogglePowerUp(true);
         }
         else if (isActive)
         {
-            if (Input.GetKeyDown(KeyCode.LeftShift) || coreScriptComponent.Health < 3)
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 timer = 0f; // Reset timer when not active
-                StopPowerUp();
+                TogglePowerUp(false);
             }
             timer += Time.deltaTime;
             if (timer >= 1f) //Number of seconds we want the cost to be
             {
+                if (coreScriptComponent.Health < 3) TogglePowerUp(false);
+                else
                 coreScriptComponent.Health -= 1;
                 timer = 0f;
             }
@@ -49,19 +56,17 @@ public class PowerUp : MonoBehaviour
 
     }
 
-    private void StartPowerUp()
+    private void TogglePowerUp(bool isOn)
     {
-        playerScript.MoveSpeed += _powerUpModel.MoveSpeedUpgrade;
-        playerScript.DashSpeed += _powerUpModel.DashSpeedUpgrade;
-        isActive = true;
-        OnToggle?.Invoke(true);
-    }
-    private void StopPowerUp()
-    {
-        isActive = false;
-        playerScript.MoveSpeed -= _powerUpModel.MoveSpeedUpgrade;
-        playerScript.DashSpeed -= _powerUpModel.DashSpeedUpgrade;
-        OnToggle?.Invoke(false);
+        int powerUp = (isOn ? 1 : -1);
+        playerScript.MoveSpeed +=powerUp * _powerUpModel.MoveSpeedUpgrade;
+        playerScript.DashSpeed += powerUp * _powerUpModel.DashSpeedUpgrade;
+        rangedStaff.Range += powerUp * _powerUpModel.RangeAttackDistanceUpgrade;
+        rangedStaff.Damage += powerUp * _powerUpModel.RangeAttackDamageUpgrade;
+        attackMeleeStaff.Damage += powerUp * _powerUpModel.MeleeAttackDamageUpgrade;
+
+        isActive = isOn;
+        OnToggle?.Invoke(isOn);
     }
 
 }
