@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -79,6 +80,7 @@ public class HealthBar : MonoBehaviour
 
             if (canDie)
             { // Call on death events
+                Destroy(healthBarInstance);
                 OnDeath?.Invoke();
             }
         }
