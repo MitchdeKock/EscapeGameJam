@@ -6,16 +6,34 @@ using UnityEngine.UI;
 
 public class CoreHealthUI : MonoBehaviour
 {
-    public Text text;
+    public TextMeshProUGUI text;
     public CoreHealthHandler _coreHealth;
+
+    private int _health;
+    private int _healthMax;
     void Start()
     {
-        text.text = $"Energy: {_coreHealth.Health}";
-        _coreHealth.OnValueChanged += UpdateScore;
+        _health = _coreHealth.Health;
+        _healthMax = _coreHealth.MaxHealth;
+        updateHealthUi();
+        _coreHealth.OnHealthValueChanged += UpdateHealth;
+        _coreHealth.OnMaxHealthValueChanged += UpdateMaxHealth;
     }
 
-    void UpdateScore(int souls)
+    void UpdateHealth(int health)
     {
-        text.text = $"Energy: {souls}";
+        _health = health;
+        updateHealthUi();
+    }
+
+    void UpdateMaxHealth(int healthMax)
+    {
+        _healthMax = healthMax;
+        updateHealthUi();
+    }
+
+    private void updateHealthUi()
+    {
+        text.text = $"Health: {_health}/{_healthMax}";
     }
 }

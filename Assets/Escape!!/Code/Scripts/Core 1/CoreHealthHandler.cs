@@ -15,7 +15,7 @@ public class CoreHealthHandler : MonoBehaviour
         set
         {
             health = Math.Min(value, maxHealth);
-            OnValueChanged?.Invoke(health);
+            OnHealthValueChanged?.Invoke(health);
         }
     }
 
@@ -25,8 +25,11 @@ public class CoreHealthHandler : MonoBehaviour
         set
         {
             maxHealth = value;
+            OnMaxHealthValueChanged?.Invoke(maxHealth);
         }
     }
 
-    public event Action<int> OnValueChanged;
+    public event Action<int> OnHealthValueChanged;
+    public event Action<int> OnMaxHealthValueChanged;
+
 }

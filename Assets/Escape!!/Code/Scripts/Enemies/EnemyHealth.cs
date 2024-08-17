@@ -27,7 +27,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnDeath()
     {
-        var coreHealth = GameObject.Find("Core").GetComponent<CoreHealthHandler>();
+        var coreHealth = GameObject.FindGameObjectWithTag("Core").GetComponent<CoreHealthHandler>();
         coreHealth.Health += 1;
         OnEnemyDied.Invoke();
         Destroy(gameObject);
