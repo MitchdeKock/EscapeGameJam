@@ -23,7 +23,6 @@ public class Spawning : MonoBehaviour
 
     private void TrySpawnEnemy()
     {
-        Debug.Log(enemyPrefab);
         EnemyHealth enemy = Instantiate(enemyPrefab, GetRandomPointOffScreen(), Quaternion.identity);
         enemy.OnEnemyDied += TrySpawnEnemy;
     }

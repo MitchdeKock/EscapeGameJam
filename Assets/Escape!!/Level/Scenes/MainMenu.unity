@@ -687,12 +687,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2e602c23d412bc43a48874fcd12cc2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameScene:
-    m_Handle: 0
-  mainPanel: {fileID: 136555969}
-  optionsPanel: {fileID: 1072512334}
-  audioSlider: {fileID: 858035045}
-  audioText: {fileID: 304325868}
 --- !u!1 &684006590
 GameObject:
   m_ObjectHideFlags: 0

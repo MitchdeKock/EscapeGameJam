@@ -14,7 +14,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void Awake()
     {
         _stateMachine = new StateMachine();
-        target = GameObject.FindGameObjectWithTag("Core").GetComponent<CoreHealthHandler>();
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 
         // Setup states
         var attackS = new AttackState(this, target, attack);

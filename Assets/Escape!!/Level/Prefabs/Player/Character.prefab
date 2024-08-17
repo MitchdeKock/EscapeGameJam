@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 49624534952606065}
   - component: {fileID: 898552653625388245}
   - component: {fileID: 69665373208313483}
+  - component: {fileID: 2484271036114668294}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -127,6 +128,20 @@ MonoBehaviour:
   rangedProjectile: {fileID: 5806350095286291592, guid: b796e976fb87db64aa47ba75f6cf4522, type: 3}
   mainAttack: {fileID: 11400000, guid: c3cc4a062139b3b49a279f04148df58d, type: 2}
   secondaryAttack: {fileID: 11400000, guid: c98f1a6940b4e22499a0bf9d3030592a, type: 2}
+--- !u!114 &2484271036114668294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4037792098512708516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11bca2c8d09fa3542bfb9b8d8fc48c6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 20
 --- !u!1 &9072998120992771657
 GameObject:
   m_ObjectHideFlags: 0
