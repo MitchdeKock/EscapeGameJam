@@ -41,6 +41,7 @@ public class PowerUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(PauseManager.IsPaused) return;
         if (!isActive && Input.GetKeyDown(KeyCode.LeftShift) && coreScriptComponent.Health > Cost)
         {
             coreScriptComponent.Health -= Cost;
