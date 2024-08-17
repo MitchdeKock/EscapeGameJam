@@ -35,7 +35,7 @@ public class CanvasScript : MonoBehaviour
 
     void Start()
     {
-        coreScriptComponent = GameObject.FindGameObjectWithTag("Core").GetComponent<CoreHealthHandler>();
+        coreScriptComponent = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
         //damageButton.onClick.AddListener(onDamageButtonClicked);
