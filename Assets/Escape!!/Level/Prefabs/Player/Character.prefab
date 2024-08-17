@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 898552653625388245}
   - component: {fileID: 69665373208313483}
   - component: {fileID: 2484271036114668294}
+  - component: {fileID: 6337630541603228214}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -140,8 +141,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11bca2c8d09fa3542bfb9b8d8fc48c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 10
   maxHealth: 20
+--- !u!114 &6337630541603228214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4037792098512708516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09f5f32202385a14c95628b2cc585989, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coreScriptComponent: {fileID: 2484271036114668294}
+  playerScript: {fileID: 69665373208313483}
+  isActive: 0
+  attackMeleeStaff: {fileID: 11400000, guid: c3cc4a062139b3b49a279f04148df58d, type: 2}
+  rangedStaff: {fileID: 11400000, guid: c98f1a6940b4e22499a0bf9d3030592a, type: 2}
 --- !u!1 &9072998120992771657
 GameObject:
   m_ObjectHideFlags: 0
