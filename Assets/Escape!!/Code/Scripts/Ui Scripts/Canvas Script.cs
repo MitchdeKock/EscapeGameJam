@@ -7,16 +7,15 @@ public class CanvasScript : MonoBehaviour
     [Header("Text references")]
     [SerializeField] private TMPro.TextMeshProUGUI flowCountText;
     [SerializeField] private TMPro.TextMeshProUGUI maxFlowText;
-    [SerializeField] private TMPro.TextMeshProUGUI DamagePriceText;
-    [SerializeField] private TMPro.TextMeshProUGUI MaxFlowPriceText;
-    [SerializeField] private TMPro.TextMeshProUGUI AttackRatePriceText;
-    [SerializeField] private TMPro.TextMeshProUGUI MovementSpeedPriceText;
+    // [SerializeField] private TMPro.TextMeshProUGUI DamagePriceText;
+    // [SerializeField] private TMPro.TextMeshProUGUI MaxFlowPriceText;
+    // [SerializeField] private TMPro.TextMeshProUGUI AttackRatePriceText;
+    // [SerializeField] private TMPro.TextMeshProUGUI MovementSpeedPriceText;
 
     [Header("Button references")]
-    [SerializeField] private Button damageButton;
-    [SerializeField] private Button maxFlowButton;
-    [SerializeField] private Button attackRateButton;
-    [SerializeField] private Button movementSpeedButton;
+    [SerializeField] private Button upgrade_button_1;
+    [SerializeField] private Button upgrade_button_2;
+    [SerializeField] private Button upgrade_button_3;
 
     [Header("Prices")]
     [SerializeField] private int damagePrice = 10;
@@ -33,16 +32,22 @@ public class CanvasScript : MonoBehaviour
     private CoreHealthHandler coreScriptComponent;
     private PlayerController playerScript;
 
+
     void Start()
     {
         coreScriptComponent = GameObject.FindGameObjectWithTag("Core").GetComponent<CoreHealthHandler>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-        //damageButton.onClick.AddListener(onDamageButtonClicked);
-        //maxFlowButton.onClick.AddListener(onMaxFlowClicked);
-        //attackRateButton.onClick.AddListener(onAttackClicked);
-        //movementSpeedButton.onClick.AddListener(onMovementClicked);
+        upgrade_button_1.onClick.AddListener(BuyUpgrade);
+        upgrade_button_2.onClick.AddListener(BuyUpgrade);
+        upgrade_button_3.onClick.AddListener(BuyUpgrade);
     }
+
+    private void BuyUpgrade(int buttonNumber)
+    {
+        Debug.Log("cheese");
+    }
+
 
     public void onDamageButtonClicked()
     {
@@ -94,10 +99,10 @@ public class CanvasScript : MonoBehaviour
     {
         flowCountText.text = "Flow: " + coreScriptComponent.Health.ToString();
         maxFlowText.text = "Max Flow: " + coreScriptComponent.MaxHealth.ToString();
-        DamagePriceText.text = damagePrice.ToString() + "F";
-        AttackRatePriceText.text = attackRatePrice.ToString() + "F";
-        MovementSpeedPriceText.text = movementSpeedPrice.ToString() + "F";
-        MaxFlowPriceText.text = maxFlowPrice.ToString() + "F";
+       // DamagePriceText.text = damagePrice.ToString() + "F";
+       // AttackRatePriceText.text = attackRatePrice.ToString() + "F";
+       // MovementSpeedPriceText.text = movementSpeedPrice.ToString() + "F";
+      //  MaxFlowPriceText.text = maxFlowPrice.ToString() + "F";
 
 
         if (Input.GetKeyDown(KeyCode.E))
