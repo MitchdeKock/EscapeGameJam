@@ -4,11 +4,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoreHealthUI : MonoBehaviour
+public class PlayerHeathBarHandler : MonoBehaviour
 {
-    public TextMeshProUGUI text;
+    public Slider slider;
+    public TextMeshProUGUI currHealthtext;
+    public TextMeshProUGUI maxHealthtext;
     public CoreHealthHandler _coreHealth;
     public PowerUp _powerUp;
+   // public Gradient _gradient;
+    public Image fill;
 
     private int _health;
     private int _healthMax;
@@ -21,6 +25,14 @@ public class CoreHealthUI : MonoBehaviour
         _coreHealth.OnHealthValueChanged += UpdateHealth;
         _coreHealth.OnMaxHealthValueChanged += UpdateMaxHealth;
         _powerUp.OnToggle += TogglePowerUp;
+    }
+    public void SetMaxHealth(int maxHealth)
+    {
+        slider.maxValue = maxHealth;
+    }
+    public void SetHealth(int health)
+    {
+        slider.value = health;
     }
 
     void UpdateHealth(int health)
@@ -37,9 +49,22 @@ public class CoreHealthUI : MonoBehaviour
 
     private void UpdateHealthUi()
     {
-        var currText = $"Health: {_health}/{_healthMax}";
-        if (_isPowerUpActive) currText += "***";
-        text.text = currText;
+        SetMaxHealth(_healthMax);
+        SetHealth(_health);
+
+        if (_isPowerUpActive)
+        {
+            currHealthtext.color = Color.red;
+            fill.color = Color.red;
+        }
+        else
+        { 
+            fill.color = Color.yellow; 
+            currHealthtext.color = Color.black;
+        }
+
+        currHealthtext.text = $"{_health}";
+        maxHealthtext.text = $"{_healthMax}";
     }
     void TogglePowerUp(bool toggle)
     {
