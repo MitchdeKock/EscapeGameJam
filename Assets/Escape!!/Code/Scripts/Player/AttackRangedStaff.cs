@@ -7,6 +7,7 @@ public class AttackRangedStaff : BaseWeapon
     public override bool canAttack => attackCooldownCounter == 0;
     public float Damage { get { return damage; } set { damage = value; } }
     public float Cooldown { get { return cooldown; } set { cooldown = value; } }
+    public float Range { get { return range; } set { range = value; } }
 
     [Header("Stats")]
     [SerializeField] private Projectile Projectile;

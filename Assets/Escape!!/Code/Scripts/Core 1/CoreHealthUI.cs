@@ -8,32 +8,42 @@ public class CoreHealthUI : MonoBehaviour
 {
     public TextMeshProUGUI text;
     public CoreHealthHandler _coreHealth;
+    public PowerUp _powerUp;
 
     private int _health;
     private int _healthMax;
+    private bool _isPowerUpActive;
     void Start()
     {
         _health = _coreHealth.Health;
         _healthMax = _coreHealth.MaxHealth;
-        updateHealthUi();
+        UpdateHealthUi();
         _coreHealth.OnHealthValueChanged += UpdateHealth;
         _coreHealth.OnMaxHealthValueChanged += UpdateMaxHealth;
+        _powerUp.OnToggle += TogglePowerUp;
     }
 
     void UpdateHealth(int health)
     {
         _health = health;
-        updateHealthUi();
+        UpdateHealthUi();
     }
 
     void UpdateMaxHealth(int healthMax)
     {
         _healthMax = healthMax;
-        updateHealthUi();
+        UpdateHealthUi();
     }
 
-    private void updateHealthUi()
+    private void UpdateHealthUi()
     {
-        text.text = $"Health: {_health}/{_healthMax}";
+        var currText = $"Health: {_health}/{_healthMax}";
+        if (_isPowerUpActive) currText += "***";
+        text.text = currText;
+    }
+    void TogglePowerUp(bool toggle)
+    {
+        _isPowerUpActive = toggle;
+        UpdateHealthUi();
     }
 }
