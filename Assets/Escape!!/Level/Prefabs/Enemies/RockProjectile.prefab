@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a6691a2ff95cb244af4543c57efe6ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeToImpact: 3
+  rockSpeed: 5
   AoERadius: 3
   movementCurve:
     serializedVersion: 2

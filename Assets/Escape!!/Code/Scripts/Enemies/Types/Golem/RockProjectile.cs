@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class RockProjectile : MonoBehaviour
 {
-    [SerializeField] private float timeToImpact = 2.0f;
+    [SerializeField] private float rockSpeed;
     [SerializeField] private float AoERadius;
     [SerializeField] private AnimationCurve movementCurve;
     [SerializeField] private AnimationCurve scaleCurve;
@@ -14,6 +14,7 @@ public class RockProjectile : MonoBehaviour
     private Vector3 startPoint;
     private Vector3 endPoint;
     private float damage;
+    private float timeToImpact;
 
     private float elapsedTime = 0.0f;
 
@@ -26,6 +27,7 @@ public class RockProjectile : MonoBehaviour
     private void Start()
     {
         startPoint = transform.position;
+        timeToImpact = Vector2.Distance(startPoint, endPoint) / rockSpeed;
     }
 
     void Update()

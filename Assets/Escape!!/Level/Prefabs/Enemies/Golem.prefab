@@ -58,7 +58,7 @@ MonoBehaviour:
   throwRange: 15
   throwCooldown: 5
   rockProjectile: {fileID: 3047362298072662250, guid: 9a951a8e2a76d5041b5fdfaaecaad2d5, type: 3}
-  moveSpeed: 5
+  moveSpeed: 2
   isBusy: 0
 --- !u!50 &5313953614652789577
 Rigidbody2D:
