@@ -128,11 +128,13 @@ public class VineAmbushState : IState
     private void HideVine()
     {
         vine.transform.GetChild(0).gameObject.SetActive(false);
+        vine.GetComponent<HealthBar>().HideHealthBar(); // ToDo cache refrrence
     }
 
     private void ShowVine()
     {
         vine.transform.GetChild(0).gameObject.SetActive(true);
+        vine.GetComponent<HealthBar>().UnHideHealthBar(); // ToDo cache refrrence
     }
 
     private List<CoreHealthHandler> TargetsInRange()

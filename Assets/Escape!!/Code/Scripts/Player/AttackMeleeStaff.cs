@@ -18,6 +18,15 @@ public class AttackMeleeStaff : BaseWeapon
 
     private float attackCooldownCounter = 0;
 
+    private void OnEnable()
+    {
+        cooldown = 0.7f;
+        range = 4;
+        damage = 1;
+        attackArcAngle = 70;
+        attackCooldownCounter = 0;
+    }
+
     public override void Attack(GameObject attacker)
     {
         foreach (EnemyHealth enemy in TargetsInRange(attacker))
@@ -46,7 +55,7 @@ public class AttackMeleeStaff : BaseWeapon
         List<EnemyHealth> objectsInArc = new List<EnemyHealth>();
 
         Vector2 centerPosition = attacker.transform.position;
-        Vector2 direction = attacker.transform.up;
+        Vector2 direction = attacker.transform.GetChild(0).up;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(centerPosition, range/*, detectionLayer*/); // ToDo Assign enemies to a layer
 

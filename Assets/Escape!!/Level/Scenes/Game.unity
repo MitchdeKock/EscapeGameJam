@@ -216,9 +216,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebe30f2d2ed73b42a6fdf96101e1063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemies: 0
-  enemyPrefab: {fileID: 1984117510869575802, guid: acc03c9c3f349e94f9e4ab51bcbdec5f, type: 3}
-  spawnArea: {fileID: 0}
+  maxEnemies: 10
+  enemyPrefabs:
+  - {fileID: 1984117510869575802, guid: acc03c9c3f349e94f9e4ab51bcbdec5f, type: 3}
+  - {fileID: 6397024237508368197, guid: bada37af933ed6c4da5ba52837e6dee3, type: 3}
+  - {fileID: 182143565603860664, guid: 7a2d7eb56524ba14db4974848f554180, type: 3}
+  totalKills:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: bef937c2f572aec4f8fa3bd9dca88eb3, type: 2}
 --- !u!224 &600646959 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2619312955600995351, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
@@ -403,7 +409,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -99
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 2, y: 2, z: 0}
   m_MaxChunkCount: 16
@@ -809,7 +815,7 @@ Transform:
   m_GameObject: {fileID: 871692756}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00008379654, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.353261, y: -0.002505931, z: -20}
+  m_LocalPosition: {x: -11.3, y: -0.0025138964, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

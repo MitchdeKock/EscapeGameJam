@@ -6,14 +6,15 @@ using UnityEngine;
 public class Spawning : MonoBehaviour
 {
     [SerializeField] private int maxEnemies;
-    [SerializeField] private EnemyHealth enemyPrefab;
-    [SerializeField] private Collider2D spawnArea;
+    [SerializeField] private EnemyHealth[] enemyPrefabs;
 
     private int currentNumberOfEnemies;
+    [SerializeField] private FloatReference totalKills;
 
     private void Start()
     {
         TrySpawnEnemy();
+        totalKills.Value = 0;
     }
 
     private float counter;
@@ -26,18 +27,29 @@ public class Spawning : MonoBehaviour
         else
         {
             TrySpawnEnemy();
-            counter = 1;
+            counter = 4;
         }
     }
 
     private void TrySpawnEnemy()
     {
-        EnemyHealth enemy = Instantiate(enemyPrefab, GetRandomWorldPointOffScreen(2), Quaternion.identity);
-        enemy.OnEnemyDied += TrySpawnEnemy;
+        if (currentNumberOfEnemies < maxEnemies)
+        {
+            EnemyHealth enemy = Instantiate(enemyPrefabs[UnityEngine.Random.Range((int)0, (int)enemyPrefabs.Length)], GetRandomWorldPointOffScreen(2), Quaternion.identity);
+            enemy.OnEnemyDied += EnemyDied;
+            currentNumberOfEnemies++;
+        }
+    }
+
+    private void EnemyDied()
+    {
+        currentNumberOfEnemies--;
+        totalKills.Value++;
     }
 
     public Vector3 GetRandomWorldPointOffScreen(float distanceOffScreen) // ChatGPT code
     {
+        // ToDo fix spawning out of bounds
         Camera camera = Camera.main;
 
         // Get the camera's viewport boundaries
@@ -75,7 +87,7 @@ public class Spawning : MonoBehaviour
                 randomPoint = new Vector3(UnityEngine.Random.Range(min.x, max.x), max.y + distanceOffScreen, UnityEngine.Random.Range(min.z, max.z));
                 break;
         }
-
+        randomPoint.z = 0;
         return randomPoint;
     }
 }

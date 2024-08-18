@@ -101,6 +101,16 @@ public class HealthBar : MonoBehaviour
         ghostDelay = ghostDelayConstant;
     }
 
+    public void HideHealthBar()
+    {
+        healthBarInstance.SetActive(false);
+    }
+
+    public void UnHideHealthBar()
+    {
+        healthBarInstance.SetActive(true);
+    }
+
     public void TestHealth()
     {
         ChangeHealth(changeAmount);
