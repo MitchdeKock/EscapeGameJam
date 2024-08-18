@@ -210,6 +210,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1839903448344618614, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: _powerUp
+      value: 
+      objectReference: {fileID: 682678740}
+    - target: {fileID: 1839903448344618614, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: _coreHealth
+      value: 
+      objectReference: {fileID: 682678736}
     - target: {fileID: 4509586799185858201, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
       propertyPath: _powerUp
       value: 
@@ -221,6 +229,14 @@ PrefabInstance:
     - target: {fileID: 6562543236838229207, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
       propertyPath: m_Name
       value: Ui
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876749886059169361, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8876749886059169361, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
