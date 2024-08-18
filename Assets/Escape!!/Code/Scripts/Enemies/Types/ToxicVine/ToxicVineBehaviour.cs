@@ -35,8 +35,6 @@ public class ToxicVineBehaviour : MonoBehaviour
         // Start state
         _stateMachine.SetState(idleState);
 
-        void At(IState from, IState to, Func<bool> condition) => _stateMachine.AddTransition(from, to, condition);
-
         Func<bool> TargetInAttackRange() => () => Vector3.Distance(transform.position, target.transform.position) <= attackRange && !isBusy;
         Func<bool> TargetOutOfRange() => () => Vector3.Distance(transform.position, target.transform.position) > ambushRange && !isBusy;
         Func<bool> TargetOutOfAttackRangeInAmbushRange() => () => Vector2.Distance(transform.position, target.transform.position) > attackRange && Vector2.Distance(transform.position, target.transform.position) <= ambushRange && !isBusy;
