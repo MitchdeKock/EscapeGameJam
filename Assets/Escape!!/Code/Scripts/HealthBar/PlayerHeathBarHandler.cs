@@ -9,8 +9,8 @@ public class PlayerHeathBarHandler : MonoBehaviour
     public Slider slider;
     public TextMeshProUGUI currHealthtext;
     public TextMeshProUGUI maxHealthtext;
-    public CoreHealthHandler _coreHealth;
-    public PowerUp _powerUp;
+    private CoreHealthHandler _coreHealth;
+    private PowerUp _powerUp;
    // public Gradient _gradient;
     public Image fill;
 
@@ -19,6 +19,8 @@ public class PlayerHeathBarHandler : MonoBehaviour
     private bool _isPowerUpActive;
     void Start()
     {
+        _coreHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
+        _powerUp = GameObject.FindGameObjectWithTag("Player").GetComponent<PowerUp>();
         _health = _coreHealth.Health;
         _healthMax = _coreHealth.MaxHealth;
         UpdateHealthUi();
