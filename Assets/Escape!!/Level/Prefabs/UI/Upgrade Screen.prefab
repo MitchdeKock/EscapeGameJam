@@ -661,8 +661,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -273.9, y: -55.877373}
-  m_SizeDelta: {x: 191.5648, y: 337.5547}
+  m_AnchoredPosition: {x: -255, y: -40.692}
+  m_SizeDelta: {x: 195.2097, y: 307.1812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9017376658341488422
 CanvasRenderer:
@@ -1192,8 +1192,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210.61, y: -55.877373}
-  m_SizeDelta: {x: 191.5648, y: 337.5547}
+  m_AnchoredPosition: {x: 164, y: -40.694}
+  m_SizeDelta: {x: 191.5648, y: 307.1812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7764056178200681185
 CanvasRenderer:
@@ -1328,14 +1328,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flowCountText: {fileID: 9108424196639374980}
   maxFlowText: {fileID: 5817194740765902726}
-  DamagePriceText: {fileID: 0}
-  MaxFlowPriceText: {fileID: 0}
-  AttackRatePriceText: {fileID: 0}
-  MovementSpeedPriceText: {fileID: 0}
-  damageButton: {fileID: 0}
-  maxFlowButton: {fileID: 0}
-  attackRateButton: {fileID: 0}
-  movementSpeedButton: {fileID: 0}
+  upgrade_button_1: {fileID: 4748542475824109556}
+  upgrade_button_2: {fileID: 2356098536145997763}
+  upgrade_button_3: {fileID: 2662532592737530404}
   damagePrice: 10
   maxFlowPrice: 10
   attackRatePrice: 10
@@ -1515,8 +1510,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 368.1356, y: -28.4451}
-  m_SizeDelta: {x: 86.9438, y: 66.5281}
+  m_AnchoredPosition: {x: 314.7, y: -30.834}
+  m_SizeDelta: {x: 86.9438, y: 61.6683}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5873340412543987037
 CanvasRenderer:
@@ -1774,8 +1769,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -34.6, y: -55.877373}
-  m_SizeDelta: {x: 191.5648, y: 337.5547}
+  m_AnchoredPosition: {x: -49, y: -40.693}
+  m_SizeDelta: {x: 191.5648, y: 307.18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3058771274918959319
 CanvasRenderer:

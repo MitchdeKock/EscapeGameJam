@@ -43,7 +43,7 @@ public class CanvasScript : MonoBehaviour
         upgrade_button_3.onClick.AddListener(BuyUpgrade);
     }
 
-    private void BuyUpgrade(int buttonNumber)
+    private void BuyUpgrade()
     {
         Debug.Log("cheese");
     }
