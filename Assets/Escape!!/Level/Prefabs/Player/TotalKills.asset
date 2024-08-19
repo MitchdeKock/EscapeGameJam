@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01c2b3e50a71cad4d915bdb48d093775, type: 3}
-  m_Name: BasicMelee
+  m_Script: {fileID: 11500000, guid: eeef7454bf8d4614296f8ab6c4b3ea08, type: 3}
+  m_Name: TotalKills
   m_EditorClassIdentifier: 
-  cooldown: 0.7
-  range: 4
-  attackArcAngle: 70
-  damage: 1
+  Value: 0

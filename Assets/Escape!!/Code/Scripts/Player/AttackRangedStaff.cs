@@ -16,6 +16,15 @@ public class AttackRangedStaff : BaseWeapon
     [SerializeField] private float damage;
 
     private float attackCooldownCounter = 0;
+
+    private void OnEnable()
+    {
+        cooldown = 0.5f;
+        range = 7;
+        damage = 1;
+        attackCooldownCounter = 0;
+    }
+
     public override void Attack(GameObject attacker)
     {
         Vector2 mousePos = Input.mousePosition;

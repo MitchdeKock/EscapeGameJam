@@ -110,6 +110,6 @@ public class PlayerController : MonoBehaviour
         Vector2 mousePos = Input.mousePosition;
         Vector2 relativeMouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane)) - transform.position;
 
-        transform.rotation = Quaternion.LookRotation(Vector3.forward, relativeMouseWorldPosition);
+        transform.GetChild(0).rotation = Quaternion.LookRotation(Vector3.forward, relativeMouseWorldPosition);
     }
 }
