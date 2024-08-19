@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bd4d6456aa8c8543b8d0d3acac88968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyFlowPrefab: {fileID: 140345161930300302, guid: 518c7ad078b35d640a939a95135fb897, type: 3}
 --- !u!114 &3917279792674691269
 MonoBehaviour:
   m_ObjectHideFlags: 0
