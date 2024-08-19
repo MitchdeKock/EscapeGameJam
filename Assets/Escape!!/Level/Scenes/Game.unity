@@ -712,9 +712,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eebe30f2d2ed73b42a6fdf96101e1063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxEnemies: 0
-  enemyPrefab: {fileID: 1984117510869575802, guid: acc03c9c3f349e94f9e4ab51bcbdec5f, type: 3}
-  spawnArea: {fileID: 0}
+  maxEnemies: 10
+  enemyPrefabs:
+  - {fileID: 1984117510869575802, guid: acc03c9c3f349e94f9e4ab51bcbdec5f, type: 3}
+  - {fileID: 6397024237508368197, guid: bada37af933ed6c4da5ba52837e6dee3, type: 3}
+  - {fileID: 182143565603860664, guid: 7a2d7eb56524ba14db4974848f554180, type: 3}
+  totalKills:
+    UseConstant: 1
+    ConstantValue: 0
+    Variable: {fileID: 0}
 --- !u!224 &600646959 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2619312955600995351, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
