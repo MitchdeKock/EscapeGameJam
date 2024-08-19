@@ -1286,7 +1286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2619312955600995351}
-  - component: {fileID: 6807723752221079675}
+  - component: {fileID: 514549018656529131}
   m_Layer: 5
   m_Name: Upgrade Screen
   m_TagString: Untagged
@@ -1314,7 +1314,7 @@ RectTransform:
   m_AnchoredPosition: {x: 430.5, y: 242}
   m_SizeDelta: {x: 861, y: 484}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6807723752221079675
+--- !u!114 &514549018656529131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1331,12 +1331,14 @@ MonoBehaviour:
   upgrade_button_1: {fileID: 4748542475824109556}
   upgrade_button_2: {fileID: 2356098536145997763}
   upgrade_button_3: {fileID: 2662532592737530404}
+  RefreshButton: {fileID: 7849367323714051771}
   damagePrice: 10
   maxFlowPrice: 10
   attackRatePrice: 10
   movementSpeedPrice: 10
-  mainAttack: {fileID: 11400000, guid: c3cc4a062139b3b49a279f04148df58d, type: 2}
-  secondaryAttack: {fileID: 11400000, guid: c98f1a6940b4e22499a0bf9d3030592a, type: 2}
+  rangedDamage: {fileID: 11400000, guid: ce482041f5b25e346a8bbf8c3870df4d, type: 2}
+  meleeDamage: {fileID: 11400000, guid: 9d3a9fe4480178846b9abdfad6ee68fa, type: 2}
+  movementSpeed: {fileID: 11400000, guid: 6fa96a4a411fb4e438f1cdf67e8434a2, type: 2}
   UpgradeScreen: {fileID: 1889334712998215291}
 --- !u!1 &5447982599507509173
 GameObject:

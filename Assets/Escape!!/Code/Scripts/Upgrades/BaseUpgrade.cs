@@ -6,5 +6,5 @@ public abstract class BaseUpgrade : ScriptableObject
     public abstract string name { get; }
     public abstract string description { get; }
     public abstract int price { get; set; }
-    public abstract void buyUpgrade(int Money);
+    public abstract void buyUpgrade();
 }

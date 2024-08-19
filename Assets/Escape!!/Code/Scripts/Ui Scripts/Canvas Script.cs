@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 public class CanvasScript : MonoBehaviour
 {
     [Header("Text references")]
@@ -16,6 +17,8 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] private Button upgrade_button_1;
     [SerializeField] private Button upgrade_button_2;
     [SerializeField] private Button upgrade_button_3;
+    [SerializeField] private Button RefreshButton;
+
 
     [Header("Prices")]
     [SerializeField] private int damagePrice = 10;
@@ -23,10 +26,17 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] private int attackRatePrice = 10;
     [SerializeField] private int movementSpeedPrice = 10;
 
-    [Header("Player attacks")]
-    [SerializeField] private AttackMeleeStaff mainAttack;
-    [SerializeField] private AttackRangedStaff secondaryAttack;
 
+    [Header("Upgrades")]
+    [SerializeField] private BaseUpgrade rangedDamage;
+    [SerializeField] private BaseUpgrade meleeDamage;
+    [SerializeField] private BaseUpgrade movementSpeed;
+
+    private List<BaseUpgrade> allUpgrades = new List<BaseUpgrade>();
+
+
+    private List<BaseUpgrade> currentUpgrades = new List<BaseUpgrade>();
+    [Header("Rendering")]
     [SerializeField] private GameObject UpgradeScreen;
     
     private CoreHealthHandler coreScriptComponent;
@@ -35,30 +45,74 @@ public class CanvasScript : MonoBehaviour
 
     void Start()
     {
+
+        RefreshButton.onClick.AddListener(assignUpgrades);
+
+        allUpgrades.Add(rangedDamage);
+        allUpgrades.Add(meleeDamage);
+        allUpgrades.Add(movementSpeed);
+
+
         coreScriptComponent = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-        upgrade_button_1.onClick.AddListener(BuyUpgrade);
-        upgrade_button_2.onClick.AddListener(BuyUpgrade);
-        upgrade_button_3.onClick.AddListener(BuyUpgrade);
-    }
 
-    private void BuyUpgrade()
-    {
-        Debug.Log("cheese");
+        assignUpgrades();
+
     }
 
 
-    public void onDamageButtonClicked()
+    private void assignUpgrades()
     {
-        if (coreScriptComponent.Health > damagePrice)
+        currentUpgrades = new List<BaseUpgrade>();
+        int min = 0;
+        int max = allUpgrades.Count;
+        int[] randomInts = Enumerable.Range(min, max).OrderBy(x => Random.Range(0, max)).Take(3).ToArray();
+
+        BaseUpgrade upgrade1 = allUpgrades[randomInts[0]];
+        BaseUpgrade upgrade2 = allUpgrades[randomInts[1]];
+        BaseUpgrade upgrade3 = allUpgrades[randomInts[2]];
+
+        SetUpgrade(upgrade1, upgrade_button_1);
+        SetUpgrade(upgrade2, upgrade_button_2);
+        SetUpgrade(upgrade3, upgrade_button_3);
+    }
+
+
+    private void SetUpgrade(BaseUpgrade upgrade, Button button)
+    {
+        button.transform.Find("Title_button").GetComponent<TMPro.TextMeshProUGUI>().text = upgrade.name;
+        button.transform.Find("Price_button").GetComponent<TMPro.TextMeshProUGUI>().text = upgrade.price.ToString() + "F";
+        button.transform.Find("Description_button").GetComponent<TMPro.TextMeshProUGUI>().text = upgrade.description;
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => BuyUpgrade(upgrade));
+    }
+    private void BuyUpgrade(BaseUpgrade upgrade)
+    {
+        if(coreScriptComponent.Health> upgrade.price)
         {
-            coreScriptComponent.Health -= damagePrice;
-            damagePrice += 5;
-            mainAttack.Damage += 1;
-            secondaryAttack.Damage += 1;
+            upgrade.buyUpgrade();
+            coreScriptComponent.Health -= upgrade.price;
+            upgrade.price += 5;
+            assignUpgrades();
+        }
+        else
+        {
+            Debug.Log("Sorry Cant Afford");
         }
     }
+
+
+//    public void onDamageButtonClicked()
+ //   {
+  //      if (coreScriptComponent.Health > damagePrice)
+   //     {
+    //        coreScriptComponent.Health -= damagePrice;
+     //       damagePrice += 5;
+      //      mainAttack.Damage += 1;
+       //     secondaryAttack.Damage += 1;
+        //}
+   // }
 
     public void onMaxFlowClicked()
     {
@@ -73,16 +127,16 @@ public class CanvasScript : MonoBehaviour
             //TODO something to show they cant buy the upgrade
         }
     }
-    public void onAttackClicked()
-    {
-        if (coreScriptComponent.Health > attackRatePrice)
-        {
-            coreScriptComponent.Health -= attackRatePrice;
-            mainAttack.Cooldown -= 0.01f;
-            secondaryAttack.Cooldown -= 0.01f;
-            attackRatePrice += 5;
-        }
-    }
+  //  public void onAttackClicked()
+   // {
+    //    if (coreScriptComponent.Health > attackRatePrice)
+     //   {
+      //      coreScriptComponent.Health -= attackRatePrice;
+       //     mainAttack.Cooldown -= 0.01f;
+        //    secondaryAttack.Cooldown -= 0.01f;
+         //   attackRatePrice += 5;
+    //    }
+   // }
     public void onMovementClicked()
     {
         if (coreScriptComponent.Health > movementSpeedPrice)
