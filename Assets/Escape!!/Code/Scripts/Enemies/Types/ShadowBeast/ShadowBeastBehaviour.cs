@@ -29,7 +29,7 @@ public class ShadowBeastBehaviour : MonoBehaviour
 
         // Setup states
         var attackState = new ShadowBeastAttackState(dashDamage, dashRange, dashCooldown, dashSpeed, this, target, GetComponent<Rigidbody2D>());
-        var ambushState = new ShadowBeastAmbushState(ambushDamage, ambushRange, ambushCooldown, this, target, stateMachine);
+        var ambushState = new ShadowBeastAmbushState(ambushDamage, ambushRange, ambushCooldown, this, target);
         var pursuitState = new ShadowBeastPursuitState(moveSpeed, this, target, GetComponent<Rigidbody2D>());
 
         stateMachine.AddAnyTransition(attackState, TargetInAttackRange());

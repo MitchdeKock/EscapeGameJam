@@ -42,7 +42,7 @@ public class GolemBehaviour : MonoBehaviour
         // Start state
         stateMachine.SetState(pursuiState);
 
-        void At(IState from, IState to, Func<bool> condition) => stateMachine.AddTransition(from, to, condition);
+        //void At(IState from, IState to, Func<bool> condition) => stateMachine.AddTransition(from, to, condition);
 
         Func<bool> TargetInAttackRange() => () => Vector3.Distance(transform.position, target.transform.position) <= slamRange && !isBusy;
         Func<bool> TargetOutOfRange() => () => Vector3.Distance(transform.position, target.transform.position) > throwRange && !isBusy;

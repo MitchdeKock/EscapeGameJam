@@ -38,14 +38,14 @@ public class ShadowBeastAttackState : IState
 
     public void Tick()
     {
-        if (attackCooldownCounter > 0 && !shadowBeast.isBusy)
+        if (attackCooldownCounter > 0)
         {
-            attackCooldownCounter -= Time.deltaTime;
+            if (!shadowBeast.isBusy)
+                attackCooldownCounter -= Time.deltaTime;
         }
         else
         {
             // ToDo attack indicator/anticipation
-            dashDurationCounter = range / speed;
             SetupAttack();
             attackCooldownCounter = cooldown;
         }
@@ -81,6 +81,8 @@ public class ShadowBeastAttackState : IState
         // ToDo enter dash animation
         shadowBeast.isBusy = true;
         startPosition = shadowBeast.transform.position;
-        direction = (shadowBeast.transform.position - target.transform.position).normalized;
+        dashDurationCounter = range / speed;
+        Debug.Log(dashDurationCounter);
+        direction = (target.transform.position - shadowBeast.transform.position).normalized;
     }
 }

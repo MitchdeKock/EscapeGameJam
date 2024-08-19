@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
 
-public class ShadowBeastAmbushState : MonoBehaviour
+public class ShadowBeastAmbushState : IState
 {
     private float damage;
     private float range;
@@ -16,6 +16,16 @@ public class ShadowBeastAmbushState : MonoBehaviour
     private float attackCooldownCounter;
     private float hideTimeCounter;
     private float attackDelayCounter;
+
+    public ShadowBeastAmbushState(float damage, float range, float cooldown, ShadowBeastBehaviour shadowBeast, CoreHealthHandler target)
+    {
+        this.damage = damage;
+        this.range = range;
+        this.cooldown = cooldown;
+        this.shadowBeast = shadowBeast;
+        this.target = target;
+    }
+
     public void OnEnter()
     {
         shadowBeast.isBusy = false;
@@ -23,9 +33,10 @@ public class ShadowBeastAmbushState : MonoBehaviour
 
     public void Tick()
     {
-        if (attackCooldownCounter > 0 && !shadowBeast.isBusy)
+        if (attackCooldownCounter > 0)
         {
-            attackCooldownCounter -= Time.deltaTime;
+            if (!shadowBeast.isBusy)
+                attackCooldownCounter -= Time.deltaTime;
         }
         else
         {
@@ -40,6 +51,7 @@ public class ShadowBeastAmbushState : MonoBehaviour
         else if (shadowBeast.isBusy)
         {
             // ToDo appear animation
+            shadowBeast.transform.position = target.transform.position;
             shadowBeast.transform.GetChild(0).gameObject.SetActive(true);
             if (attackDelayCounter > 0)
             {
