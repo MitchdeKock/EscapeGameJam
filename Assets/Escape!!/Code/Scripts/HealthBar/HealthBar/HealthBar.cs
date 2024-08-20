@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -79,6 +80,7 @@ public class HealthBar : MonoBehaviour
 
             if (canDie)
             { // Call on death events
+                Destroy(healthBarInstance);
                 OnDeath?.Invoke();
             }
         }
@@ -97,6 +99,16 @@ public class HealthBar : MonoBehaviour
         }
 
         ghostDelay = ghostDelayConstant;
+    }
+
+    public void HideHealthBar()
+    {
+        healthBarInstance.SetActive(false);
+    }
+
+    public void UnHideHealthBar()
+    {
+        healthBarInstance.SetActive(true);
     }
 
     public void TestHealth()

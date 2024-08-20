@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 public class StateMachine
 {
+    public IState CurrentState { get => _currentState; }
     private IState _currentState;
 
     private Dictionary<Type, List<Transition>> _transitions = new Dictionary<Type, List<Transition>>();
@@ -11,6 +12,7 @@ public class StateMachine
     private List<Transition> _anyTransitions = new List<Transition>();
 
     private static List<Transition> EmptyTransitions = new List<Transition>(0);
+
 
     public void Tick()
     {

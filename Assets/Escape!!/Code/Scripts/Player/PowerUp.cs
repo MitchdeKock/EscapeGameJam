@@ -42,7 +42,7 @@ public class PowerUp : MonoBehaviour
     void Update()
     {
         if(PauseManager.IsPaused) return;
-        if (!isActive && Input.GetKeyDown(KeyCode.LeftShift) && coreScriptComponent.Health > Cost)
+        if (!isActive && Input.GetKeyDown(KeyCode.LeftShift) && coreScriptComponent.Health > Cost+3)
         {
             coreScriptComponent.Health -= Cost;
             TogglePowerUp(true);
@@ -57,10 +57,9 @@ public class PowerUp : MonoBehaviour
             timer -= Time.deltaTime;
             if (timer <= 0f) //Number of seconds we want the cost to be
             {
-                if (coreScriptComponent.Health < 3) TogglePowerUp(false);
-                else
                 coreScriptComponent.Health -= 1;
                 ResetTimer();
+                if (coreScriptComponent.Health < 3) TogglePowerUp(false);
             }
         }
 

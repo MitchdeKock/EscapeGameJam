@@ -29,7 +29,7 @@ public class EnemyHealth : MonoBehaviour
     {
         var coreHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
         coreHealth.Health += 1;
-        OnEnemyDied.Invoke();
+        OnEnemyDied?.Invoke();
         Destroy(gameObject);
     }
 }

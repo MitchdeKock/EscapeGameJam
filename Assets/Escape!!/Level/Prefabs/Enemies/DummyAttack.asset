@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DummyAttack
   m_EditorClassIdentifier: 
   cooldown: 1
-  range: 4
+  range: 1
   attackArcAngle: 50
   damage: 1
