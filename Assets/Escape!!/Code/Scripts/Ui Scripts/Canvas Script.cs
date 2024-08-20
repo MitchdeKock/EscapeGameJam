@@ -40,7 +40,7 @@ public class CanvasScript : MonoBehaviour
     void Start()
     {
 
-        RefreshButton.onClick.AddListener(assignUpgrades);
+        RefreshButton.onClick.AddListener(RefreshClicked);
 
         allUpgrades.Add(rangedDamage);
         allUpgrades.Add(meleeDamage);
@@ -55,7 +55,14 @@ public class CanvasScript : MonoBehaviour
 
     }
 
+    private void RefreshClicked()
+    {
+        if (coreScriptComponent.Health > 5)
+        {
+            assignUpgrades();
+        }
 
+    }
     private void assignUpgrades()
     {
         int min = 0;
@@ -95,17 +102,6 @@ public class CanvasScript : MonoBehaviour
         }
     }
 
-
-//    public void onDamageButtonClicked()
- //   {
-  //      if (coreScriptComponent.Health > damagePrice)
-   //     {
-    //        coreScriptComponent.Health -= damagePrice;
-     //       damagePrice += 5;
-      //      mainAttack.Damage += 1;
-       //     secondaryAttack.Damage += 1;
-        //}
-   // }
 
     public void onMaxFlowClicked()
     {

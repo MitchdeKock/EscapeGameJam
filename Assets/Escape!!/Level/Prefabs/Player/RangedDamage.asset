@@ -15,3 +15,4 @@ MonoBehaviour:
   UpgradeName: Ranged Damage
   UpgradeDescription: Increases Ranged Damage
   UpgradePrice: 10
+  secondaryAttack: {fileID: 11400000, guid: c98f1a6940b4e22499a0bf9d3030592a, type: 2}
