@@ -18,6 +18,8 @@ public class upgradeRangedDamage : BaseUpgrade
     [SerializeField] private string UpgradeDescription = "Increases Ranged Damage";
     [SerializeField] private int UpgradePrice = 10;
 
+    [Header("Dependencies")]
+    [SerializeField] private AttackRangedStaff secondaryAttack;
     private void OnEnable()
     {
         price = 10;
@@ -29,7 +31,6 @@ public class upgradeRangedDamage : BaseUpgrade
     }
     public override void buyUpgrade()
     {
-
-            Debug.Log(UpgradeName);
+        secondaryAttack.Damage += 1;
     }
 }

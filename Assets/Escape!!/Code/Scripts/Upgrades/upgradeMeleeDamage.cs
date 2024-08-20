@@ -18,7 +18,8 @@ public class upgradeMeleeDamage : BaseUpgrade
     [SerializeField] private string UpgradeDescription = "Increases melee Damage";
     [SerializeField] private int UpgradePrice = 10;
 
-    private AttackMeleeStaff mainAttack;
+    [Header("Dependencies")]
+    [SerializeField] private AttackMeleeStaff mainAttack;
 
     private void OnEnable()
     {
@@ -30,9 +31,7 @@ public class upgradeMeleeDamage : BaseUpgrade
     }
     public override void buyUpgrade()
     {
-        mainAttack=GameObject.FindGameObjectWithTag("Player").GetComponent<AttackMeleeStaff>();
-        Debug.Log(mainAttack.Damage);
+      
         mainAttack.Damage += 1;
-        Debug.Log(mainAttack.Damage);
     }
 }
