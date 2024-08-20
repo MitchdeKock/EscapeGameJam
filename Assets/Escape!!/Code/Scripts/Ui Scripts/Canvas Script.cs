@@ -8,10 +8,6 @@ public class CanvasScript : MonoBehaviour
     [Header("Text references")]
     [SerializeField] private TMPro.TextMeshProUGUI flowCountText;
     [SerializeField] private TMPro.TextMeshProUGUI maxFlowText;
-    // [SerializeField] private TMPro.TextMeshProUGUI DamagePriceText;
-    // [SerializeField] private TMPro.TextMeshProUGUI MaxFlowPriceText;
-    // [SerializeField] private TMPro.TextMeshProUGUI AttackRatePriceText;
-    // [SerializeField] private TMPro.TextMeshProUGUI MovementSpeedPriceText;
 
     [Header("Button references")]
     [SerializeField] private Button upgrade_button_1;
@@ -34,8 +30,6 @@ public class CanvasScript : MonoBehaviour
 
     private List<BaseUpgrade> allUpgrades = new List<BaseUpgrade>();
 
-
-    private List<BaseUpgrade> currentUpgrades = new List<BaseUpgrade>();
     [Header("Rendering")]
     [SerializeField] private GameObject UpgradeScreen;
     
@@ -64,7 +58,6 @@ public class CanvasScript : MonoBehaviour
 
     private void assignUpgrades()
     {
-        currentUpgrades = new List<BaseUpgrade>();
         int min = 0;
         int max = allUpgrades.Count;
         int[] randomInts = Enumerable.Range(min, max).OrderBy(x => Random.Range(0, max)).Take(3).ToArray();
@@ -153,10 +146,6 @@ public class CanvasScript : MonoBehaviour
     {
         flowCountText.text = "Flow: " + coreScriptComponent.Health.ToString();
         maxFlowText.text = "Max Flow: " + coreScriptComponent.MaxHealth.ToString();
-       // DamagePriceText.text = damagePrice.ToString() + "F";
-       // AttackRatePriceText.text = attackRatePrice.ToString() + "F";
-       // MovementSpeedPriceText.text = movementSpeedPrice.ToString() + "F";
-      //  MaxFlowPriceText.text = maxFlowPrice.ToString() + "F";
 
 
         if (Input.GetKeyDown(KeyCode.E))

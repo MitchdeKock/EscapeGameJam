@@ -19,8 +19,20 @@ public class upgradeMovementSpeed : BaseUpgrade
     [SerializeField] private string UpgradeDescription = "Increases movement speed";
     [SerializeField] private int UpgradePrice = 10;
 
+    private PlayerController playerScript;
+
+    private void OnEnable()
+    {
+        price = 10;
+    }
+
+    public override void ResetUpgrade()
+    {
+        price = 10;
+    }
     public override void buyUpgrade()
     {
-       Debug.Log(UpgradeName);
+        playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        playerScript.MoveSpeed += 2;
     }
 }

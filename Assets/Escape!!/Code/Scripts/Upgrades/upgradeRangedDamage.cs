@@ -18,6 +18,15 @@ public class upgradeRangedDamage : BaseUpgrade
     [SerializeField] private string UpgradeDescription = "Increases Ranged Damage";
     [SerializeField] private int UpgradePrice = 10;
 
+    private void OnEnable()
+    {
+        price = 10;
+    }
+
+    public override void ResetUpgrade()
+    {
+        price = 10;
+    }
     public override void buyUpgrade()
     {
 
