@@ -13,10 +13,20 @@ public class upgradeMeleeDamage : BaseUpgrade
         set => UpgradePrice = value;
     }
 
+    public override int currentUpgrades
+    {
+        get => upgradeAmount;
+        set => upgradeAmount = value;
+    }
+
+    public override int maxUpgrade => maxUpgrades;
+
     [Header("Stats")]
     [SerializeField] private string UpgradeName = "Melee Damage";
     [SerializeField] private string UpgradeDescription = "Increases melee Damage";
     [SerializeField] private int UpgradePrice = 10;
+    [SerializeField] private int maxUpgrades = 10;
+    [SerializeField] private int upgradeAmount = 0;
 
     [Header("Dependencies")]
     [SerializeField] private AttackMeleeStaff mainAttack;
@@ -24,10 +34,12 @@ public class upgradeMeleeDamage : BaseUpgrade
     private void OnEnable()
     {
         price = 10;
+        upgradeAmount = 0;
     }
     public override void ResetUpgrade()
     {
         price = 10;
+        upgradeAmount = 0;
     }
     public override void buyUpgrade()
     {

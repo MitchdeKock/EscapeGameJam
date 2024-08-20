@@ -101,8 +101,16 @@ public class CanvasScript : MonoBehaviour
             upgrade.buyUpgrade();
             coreScriptComponent.Health -= upgrade.price;
             upgrade.price += 5;
+            upgrade.currentUpgrades += 1;
+            if(upgrade.currentUpgrades >= upgrade.maxUpgrade)
+            {
+                Debug.Log(allUpgrades.Count);
+                allUpgrades.Remove(upgrade);
+                Debug.Log(allUpgrades.Count);
+
+            }
             assignUpgrades();
-        }
+          }
         else
         {
             Debug.Log("Sorry Cant Afford");
