@@ -64,10 +64,10 @@ public class CanvasScript : MonoBehaviour
 
     private void RefreshClicked()
     {
-       // if (coreScriptComponent.Health > 5)
-        //{
+        if (coreScriptComponent.Health > 5)
+        {
             assignUpgrades();
-       // }
+        }
 
     }
     private void assignUpgrades()
@@ -109,18 +109,6 @@ public class CanvasScript : MonoBehaviour
         }
     }
 
-
-    
-    public void onMovementClicked()
-    {
-        if (coreScriptComponent.Health > movementSpeedPrice)
-        {
-            playerScript.MoveSpeed += 2;
-            playerScript.DashSpeed += 2;
-            coreScriptComponent.Health -= movementSpeedPrice;
-            movementSpeedPrice += 5;
-        }
-    }
 
     // Update is called once per frame
     void Update()
