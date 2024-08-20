@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GolemPursuitState : IState
@@ -26,6 +24,11 @@ public class GolemPursuitState : IState
     {
         Vector2 moveDirection = target.transform.position - golem.transform.position;
         rigidbody.velocity = moveDirection.normalized * moveSpeed;
+    }
+
+    public void TickCooldown()
+    {
+
     }
 
     public void OnExit()

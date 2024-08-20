@@ -1,46 +1,56 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 using UnityEngine.UI;
 
-public class ToxicVineBehaviour : MonoBehaviour
+public class ToxicVineBehaviour : EnemyBehaviour
 {
     [Header("Debug")]
-    [SerializeField] private bool ShowDebug;
+    public bool ShowDebug;
 
     [Header("Stats")]
-    [SerializeField] private float attackRange;
     [SerializeField] private float attackDamage;
+    [SerializeField] private float attackRange;
     [SerializeField] private float attackCooldown;
+    [Space]
+    [SerializeField] private float ambushDamage;
     [SerializeField] private float ambushRange;
     [SerializeField] private float ambushCooldown;
 
-    private StateMachine _stateMachine;
-    private CoreHealthHandler target;
-    [HideInInspector] public bool isBusy = false;
-
     private void Awake()
     {
-        _stateMachine = new StateMachine();
+        stateMachine = new StateMachine();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 
         // Setup states
         var attackState = new VineAttackState(attackCooldown, attackRange, attackDamage, this, target);
-        var ambushAttackState = new VineAmbushState(ambushCooldown, attackRange, attackDamage, this, target);
+        var ambushState = new VineAmbushState(ambushCooldown, attackRange, ambushDamage, this, target);
         var idleState = new VineIdleState(this);
 
-        _stateMachine.AddAnyTransition(attackState, TargetInAttackRange());
-        _stateMachine.AddAnyTransition(idleState, TargetOutOfRange());
-        _stateMachine.AddAnyTransition(ambushAttackState, TargetOutOfAttackRangeInAmbushRange());
+        stateMachine.AddAnyTransition(attackState, TargetInAttackRange());
+        stateMachine.AddAnyTransition(idleState, TargetOutOfRange());
+        stateMachine.AddAnyTransition(ambushState, TargetOutOfAttackRangeInAmbushRange());
 
         // Start state
-        _stateMachine.SetState(idleState);
+        stateMachine.SetState(idleState);
 
         Func<bool> TargetInAttackRange() => () => Vector3.Distance(transform.position, target.transform.position) <= attackRange && !isBusy;
         Func<bool> TargetOutOfRange() => () => Vector3.Distance(transform.position, target.transform.position) > ambushRange && !isBusy;
         Func<bool> TargetOutOfAttackRangeInAmbushRange() => () => Vector2.Distance(transform.position, target.transform.position) > attackRange && Vector2.Distance(transform.position, target.transform.position) <= ambushRange && !isBusy;
+
+        states = new List<IState>() { attackState, ambushState, idleState };
     }
 
-    private void Update() => _stateMachine.Tick();
+    private void Update()
+    {
+        foreach (IState state in states)
+        {
+            state.TickCooldown();
+        }
+
+        stateMachine.Tick();
+    }
 
     private void OnDrawGizmos()
     {

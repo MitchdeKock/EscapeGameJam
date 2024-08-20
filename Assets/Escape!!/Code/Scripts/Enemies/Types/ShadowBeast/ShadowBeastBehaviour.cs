@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
-public class ShadowBeastBehaviour : MonoBehaviour
+public class ShadowBeastBehaviour : EnemyBehaviour
 {
     [Header("Debug")]
-    [SerializeField] private bool ShowDebug;
+    public bool ShowDebug;
 
     [Header("Stats")]
     [SerializeField] private float dashDamage;
@@ -17,10 +18,6 @@ public class ShadowBeastBehaviour : MonoBehaviour
     [SerializeField] private float ambushRange;
     [SerializeField] private float ambushCooldown;
     [SerializeField] private float moveSpeed;
-
-    private StateMachine stateMachine;
-    private CoreHealthHandler target;
-    [HideInInspector] public bool isBusy = false;
 
     void Start()
     {
@@ -40,14 +37,24 @@ public class ShadowBeastBehaviour : MonoBehaviour
         // Start state
         stateMachine.SetState(pursuitState);
 
-        void At(IState from, IState to, Func<bool> condition) => stateMachine.AddTransition(from, to, condition);
-
+        //void At(IState from, IState to, Func<bool> condition) => stateMachine.AddTransition(from, to, condition);
         Func<bool> TargetInAttackRange() => () => Vector3.Distance(transform.position, target.transform.position) <= dashRange && !isBusy;
         Func<bool> TargetOutOfRange() => () => Vector3.Distance(transform.position, target.transform.position) > ambushRange && !isBusy;
-        Func<bool> TargetOutOfAttackRangeInAmbushRange() => () => Vector2.Distance(transform.position, target.transform.position) > dashRange && Vector2.Distance(transform.position, target.transform.position) <= ambushRange && !isBusy;
+        Func<bool> TargetOutOfAttackRangeInAmbushRange() => () => Vector2.Distance(transform.position, target.transform.position) > dashRange && Vector2.Distance(transform.position, target.transform.position) <= ambushRange && ambushState.canAmbush && !isBusy;
+
+        states = new List<IState>() { attackState, ambushState, pursuitState};
     }
 
-    private void Update() => stateMachine.Tick();
+    private void Update()
+    {
+        foreach (IState state in states)
+        {
+            state.TickCooldown();
+        }
+
+        Debug.Log(isBusy);
+        stateMachine.Tick();
+    }
 
     private void OnDrawGizmos()
     {

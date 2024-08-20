@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -11,78 +12,118 @@ public class ShadowBeastAttackState : IState
     private float damage;
     private float speed;
     private float range;
-    private ShadowBeastBehaviour shadowBeast;
+    private ShadowBeastBehaviour shadowBeastBehaviour;
     private CoreHealthHandler target;
     private Rigidbody2D rigidbody;
 
     private float attackCooldownCounter;
+    private float attackAnimationCounter;
     private float dashDurationCounter;
     private Vector2 direction;
     private Vector2 startPosition;
+    private bool isAttacking;
 
+    private Phase phase;
     public ShadowBeastAttackState(float damage, float range, float cooldown, float speed, ShadowBeastBehaviour shadowBeast, CoreHealthHandler target, Rigidbody2D rigidbody)
     {
         this.cooldown = cooldown;
         this.damage = damage;
         this.speed = speed;
         this.range = range;
-        this.shadowBeast = shadowBeast;
+        this.shadowBeastBehaviour = shadowBeast;
         this.target = target;
         this.rigidbody = rigidbody;
     }
 
     public void OnEnter()
     {
-        shadowBeast.isBusy = false;
+        if (shadowBeastBehaviour.ShowDebug)
+            Debug.Log($"{shadowBeastBehaviour.name} has entered {this.GetType().Name}");
+
+        shadowBeastBehaviour.isBusy = isAttacking = false;
+        phase = Phase.Default;
+        attackCooldownCounter = 1;
     }
 
     public void Tick()
     {
-        if (attackCooldownCounter > 0)
+        if (attackCooldownCounter <= 0)
         {
-            if (!shadowBeast.isBusy)
-                attackCooldownCounter -= Time.deltaTime;
-        }
-        else
-        {
-            // ToDo attack indicator/anticipation
-            SetupAttack();
             attackCooldownCounter = cooldown;
+            attackAnimationCounter = 1; // ToDo Replace with animation time
+            shadowBeastBehaviour.isBusy = isAttacking = true;
+            phase = Phase.Predash;
         }
 
-        if (dashDurationCounter > 0)
+        if (isAttacking)
         {
-            rigidbody.velocity = direction * speed;
-            dashDurationCounter -= Time.deltaTime;
-        }
-        else if(shadowBeast.isBusy)
-        {
-            RaycastHit2D[] hits = Physics2D.CircleCastAll(startPosition, shadowBeast.GetComponent<Collider2D>().bounds.max.x, direction, range);
-            foreach (RaycastHit2D hit in hits)
+            switch (phase)
             {
-                if (hit.collider.TryGetComponent<CoreHealthHandler>(out CoreHealthHandler coreHealthHandler))
-                {
-                    coreHealthHandler.Health -= (int)damage;
-                }
+                case Phase.Predash:
+                    if (attackAnimationCounter > 0)
+                    {
+                        attackAnimationCounter -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        startPosition = shadowBeastBehaviour.transform.position;
+                        dashDurationCounter = range / speed;
+                        direction = (target.transform.position - shadowBeastBehaviour.transform.position).normalized;
+                        hitTargets = new List<CoreHealthHandler>();
+                        phase = Phase.Dashing;
+                    }
+                    break;
+                case Phase.Dashing:
+                    if (dashDurationCounter > 0)
+                    {
+                        rigidbody.velocity = direction * speed;
+                        Attack();
+                        dashDurationCounter -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        shadowBeastBehaviour.isBusy = isAttacking = false;
+                        phase = Phase.Default;
+                    }
+                    break;
+                case Phase.Default:
+                    break;
             }
-            // ToDo exit dash animation?
-            shadowBeast.isBusy = false;
+        }
+    }
+
+    private List<CoreHealthHandler> hitTargets;
+
+    public void TickCooldown()
+    {
+        if (attackCooldownCounter > 0 && !isAttacking)
+        {
+            attackCooldownCounter -= Time.deltaTime;
         }
     }
 
     public void OnExit()
     {
-        shadowBeast.isBusy = false;
+        shadowBeastBehaviour.isBusy = isAttacking = false;
     }
 
-    private void SetupAttack()
+    private void Attack()
     {
-        // ToDo antisipation animation
-        // ToDo enter dash animation
-        shadowBeast.isBusy = true;
-        startPosition = shadowBeast.transform.position;
-        dashDurationCounter = range / speed;
-        Debug.Log(dashDurationCounter);
-        direction = (target.transform.position - shadowBeast.transform.position).normalized;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(shadowBeastBehaviour.transform.position, range);
+        foreach(Collider2D hit in hits)
+        {
+            if (hit.TryGetComponent(out CoreHealthHandler coreHealthHandler) && !hitTargets.Contains(coreHealthHandler))
+            {
+                coreHealthHandler.Health -= (int)damage;
+                hitTargets.Add(coreHealthHandler);
+            }
+        }
+    }
+
+    private enum Phase
+    {
+        Predash,
+        Dashing,
+        Default
     }
 }

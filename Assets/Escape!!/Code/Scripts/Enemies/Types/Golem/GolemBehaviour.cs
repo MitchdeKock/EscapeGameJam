@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class GolemBehaviour : MonoBehaviour
+public class GolemBehaviour : EnemyBehaviour
 {
     [Header("Debug")]
     [SerializeField] private bool ShowDebug;
@@ -13,17 +11,14 @@ public class GolemBehaviour : MonoBehaviour
     [SerializeField] private float slamDamage;
     [SerializeField] private float slamRange;
     [SerializeField] private float slamCooldown;
+    [Space]
     [SerializeField] private float throwDamage;
     [SerializeField] private float throwRange;
     [SerializeField] private float throwCooldown;
     [SerializeField] private RockProjectile rockProjectile;
+    [Space]
     [SerializeField] private float moveSpeed;
 
-    private StateMachine stateMachine;
-    private CoreHealthHandler target;
-    [HideInInspector] public bool isBusy = false;
-
-    GolemThrowState throwState;
     void Start()
     {
         stateMachine = new StateMachine();
@@ -32,12 +27,11 @@ public class GolemBehaviour : MonoBehaviour
         // Setup states
         var slamState = new GolemSlamState(slamDamage, slamRange, slamCooldown, this, target);
         var pursuiState = new GolemPursuitState(moveSpeed, this, target, GetComponent<Rigidbody2D>());
-        throwState = new GolemThrowState(throwDamage, throwRange, throwCooldown, rockProjectile, this, target, stateMachine, pursuiState);
+        var throwState = new GolemThrowState(throwDamage, throwRange, throwCooldown, rockProjectile, this, target, stateMachine, pursuiState);
 
         stateMachine.AddAnyTransition(slamState, TargetInAttackRange());
         stateMachine.AddAnyTransition(throwState, TargetOutOfAttackRangeInAmbushRange());
         stateMachine.AddAnyTransition(pursuiState, TargetOutOfRange());
-        //At(throwState, pursuiState, TargetOutOfRangeAndThrowOnCooldown());
 
         // Start state
         stateMachine.SetState(pursuiState);
@@ -48,17 +42,17 @@ public class GolemBehaviour : MonoBehaviour
         Func<bool> TargetOutOfRange() => () => Vector3.Distance(transform.position, target.transform.position) > throwRange && !isBusy;
         //Func<bool> TargetOutOfRangeAndThrowOnCooldown() => () => Vector3.Distance(transform.position, target.transform.position) > throwRange && !isBusy && !throwState.canThrow;
         Func<bool> TargetOutOfAttackRangeInAmbushRange() => () => Vector2.Distance(transform.position, target.transform.position) > slamRange && Vector2.Distance(transform.position, target.transform.position) <= throwRange && throwState.canThrow && !isBusy;
+
+        states = new List<IState>() { slamState, pursuiState, throwState };
     }
 
     private void Update()
     {
-        if (stateMachine.CurrentState != throwState)
+        foreach (IState state in states)
         {
-            if (throwState.attackCooldownCounter > 0)
-            {
-                throwState.attackCooldownCounter -= Time.deltaTime;
-            }
+            state.TickCooldown();
         }
+
         stateMachine.Tick();
     }
 
