@@ -1340,6 +1340,10 @@ MonoBehaviour:
   rangedDamage: {fileID: 11400000, guid: ce482041f5b25e346a8bbf8c3870df4d, type: 2}
   meleeDamage: {fileID: 11400000, guid: 9d3a9fe4480178846b9abdfad6ee68fa, type: 2}
   movementSpeed: {fileID: 11400000, guid: 6fa96a4a411fb4e438f1cdf67e8434a2, type: 2}
+  maxFlowUpgrade: {fileID: 11400000, guid: a24d02aa896cc73428f80935a23df011, type: 2}
+  meleeAttackRate: {fileID: 11400000, guid: 8f8ebe379c0558843bb9f5d07acbb499, type: 2}
+  rangedAttackRate: {fileID: 11400000, guid: 5d4432b430634434a8178fe41ab8b869, type: 2}
+  dashSpeed: {fileID: 11400000, guid: cdd00f1e04c487f429539ae9da7231ad, type: 2}
   UpgradeScreen: {fileID: 1889334712998215291}
 --- !u!1 &5447982599507509173
 GameObject:

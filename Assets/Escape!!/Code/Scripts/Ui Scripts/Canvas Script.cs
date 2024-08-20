@@ -27,6 +27,10 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] private BaseUpgrade rangedDamage;
     [SerializeField] private BaseUpgrade meleeDamage;
     [SerializeField] private BaseUpgrade movementSpeed;
+    [SerializeField] private BaseUpgrade maxFlowUpgrade;
+    [SerializeField] private BaseUpgrade meleeAttackRate;
+    [SerializeField] private BaseUpgrade rangedAttackRate;
+    [SerializeField] private BaseUpgrade dashSpeed;
 
     private List<BaseUpgrade> allUpgrades = new List<BaseUpgrade>();
 
@@ -45,7 +49,10 @@ public class CanvasScript : MonoBehaviour
         allUpgrades.Add(rangedDamage);
         allUpgrades.Add(meleeDamage);
         allUpgrades.Add(movementSpeed);
-
+        allUpgrades.Add(maxFlowUpgrade);
+        allUpgrades.Add(meleeAttackRate);
+        allUpgrades.Add(rangedAttackRate);
+        allUpgrades.Add(dashSpeed);
 
         coreScriptComponent = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -57,10 +64,10 @@ public class CanvasScript : MonoBehaviour
 
     private void RefreshClicked()
     {
-        if (coreScriptComponent.Health > 5)
-        {
+       // if (coreScriptComponent.Health > 5)
+        //{
             assignUpgrades();
-        }
+       // }
 
     }
     private void assignUpgrades()
@@ -103,29 +110,7 @@ public class CanvasScript : MonoBehaviour
     }
 
 
-    public void onMaxFlowClicked()
-    {
-        if (coreScriptComponent.Health > maxFlowPrice)
-        {
-            coreScriptComponent.Health -= maxFlowPrice;
-            maxFlowPrice += 5;
-            coreScriptComponent.MaxHealth += 5;
-        }
-        else
-        {
-            //TODO something to show they cant buy the upgrade
-        }
-    }
-  //  public void onAttackClicked()
-   // {
-    //    if (coreScriptComponent.Health > attackRatePrice)
-     //   {
-      //      coreScriptComponent.Health -= attackRatePrice;
-       //     mainAttack.Cooldown -= 0.01f;
-        //    secondaryAttack.Cooldown -= 0.01f;
-         //   attackRatePrice += 5;
-    //    }
-   // }
+    
     public void onMovementClicked()
     {
         if (coreScriptComponent.Health > movementSpeedPrice)
