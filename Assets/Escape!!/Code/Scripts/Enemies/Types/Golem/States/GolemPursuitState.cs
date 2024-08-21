@@ -1,36 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GolemPursuitState : IState
 {
     private float moveSpeed;
-    private GolemBehaviour golem;
+    private float stoppingDistance;
+    private GolemBehaviour golemBehaviour;
     private CoreHealthHandler target;
     private Rigidbody2D rigidbody;
 
-    public GolemPursuitState(float moveSpeed, GolemBehaviour vine, CoreHealthHandler target, Rigidbody2D rigidbody)
+    public GolemPursuitState(float moveSpeed, float stoppingDistance, GolemBehaviour vine, CoreHealthHandler target, Rigidbody2D rigidbody)
     {
         this.moveSpeed = moveSpeed;
-        this.golem = vine;
+        this.golemBehaviour = vine;
         this.target = target;
         this.rigidbody = rigidbody;
+        this.stoppingDistance = stoppingDistance;
     }
 
     public void OnEnter()
     {
-        golem.isBusy = false;
+        golemBehaviour.isBusy = false;
     }
 
     public void Tick()
     {
-        Vector2 moveDirection = target.transform.position - golem.transform.position;
-        rigidbody.velocity = moveDirection.normalized * moveSpeed;
+        float distance = Vector2.Distance(golemBehaviour.transform.position, target.transform.position);
+        float currentSpeed = moveSpeed;
+        if (distance < stoppingDistance + 1)
+        {
+            currentSpeed = Mathf.Lerp(0, moveSpeed, (distance - stoppingDistance) / (1));
+        }
+
+        Vector2 moveDirection = target.transform.position - golemBehaviour.transform.position;
+        rigidbody.velocity = moveDirection.normalized * currentSpeed;
+    }
+
+    public void TickCooldown()
+    {
+
     }
 
     public void OnExit()
     {
-        golem.isBusy = false;
+        golemBehaviour.isBusy = false;
         rigidbody.velocity = Vector2.zero;
     }
 }

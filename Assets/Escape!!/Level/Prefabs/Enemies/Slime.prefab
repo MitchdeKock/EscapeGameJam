@@ -95,11 +95,11 @@ GameObject:
   - component: {fileID: 3574450814378473833}
   - component: {fileID: 4900545967421972242}
   - component: {fileID: 8917627560859501520}
-  - component: {fileID: 4937059392640303966}
   - component: {fileID: 1984117510869575802}
   - component: {fileID: 3917279792674691269}
+  - component: {fileID: 3941154935827928338}
   m_Layer: 0
-  m_Name: Dummy
+  m_Name: Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 8447751602698261721}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1307948, y: 0.1453437, z: 0.07076962}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -193,19 +193,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4937059392640303966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8447751602698261721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 806bd32fc32a33c419e61a65eca294a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attack: {fileID: 11400000, guid: 781887ac9e1e8e94ab6c947d62e1c4ae, type: 2}
 --- !u!114 &1984117510869575802
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,3 +227,21 @@ MonoBehaviour:
   healthBarOffset: {x: 0, y: 0, z: 0}
   changeAmount: 0
   canDie: 1
+--- !u!114 &3941154935827928338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447751602698261721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44203cd4d0516e54aaf05e33e147880d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isBusy: 0
+  ShowDebug: 0
+  attackDamage: 1
+  attackRange: 1
+  attackCooldown: 1
+  moveSpeed: 3

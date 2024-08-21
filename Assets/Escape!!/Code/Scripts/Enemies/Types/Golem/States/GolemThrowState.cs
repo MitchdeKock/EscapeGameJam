@@ -1,49 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.Sockets;
 using UnityEngine;
 
 public class GolemThrowState : IState
 {
+    public bool canAttack => attackCooldownCounter <= 0;
+
     private float damage;
     private float range;
     private float cooldown;
     private RockProjectile rockProjectile;
-    private GolemBehaviour golem;
+    private GolemBehaviour golemBehaviour;
     private CoreHealthHandler target;
     private StateMachine stateMachine;
     private GolemPursuitState golemPursuitState;
 
     public float attackCooldownCounter;
     private float prepareAttackCooldownCounter;
-    public bool canThrow => attackCooldownCounter <= 0;
-
+    private bool isAttacking = false;
     public GolemThrowState(float damage, float range, float cooldown, RockProjectile rockProjectile, GolemBehaviour golem, CoreHealthHandler target, StateMachine stateMachine, GolemPursuitState golemPursuitState)
     {
         this.damage = damage;
         this.range = range;
         this.cooldown = cooldown;
         this.rockProjectile = rockProjectile;
-        this.golem = golem;
+        this.golemBehaviour = golem;
         this.target = target;
         this.stateMachine = stateMachine;
         this.golemPursuitState = golemPursuitState;
+        attackCooldownCounter = cooldown;
     }
 
     public void OnEnter()
     {
-        golem.isBusy = false;
+        golemBehaviour.isBusy = isAttacking = false;
     }
 
     public void Tick()
     {
-        if (attackCooldownCounter > 0)
+        if (attackCooldownCounter <= 0)
         {
-            attackCooldownCounter -= Time.deltaTime;
+            attackCooldownCounter = cooldown;
+            prepareAttackCooldownCounter = 1; // ToDo Replace with animation time
+            golemBehaviour.isBusy = isAttacking = true;
         }
-        else
+
+        if (isAttacking)
         {
-            // ToDo attack indicator/anticipation
             if (prepareAttackCooldownCounter > 0)
             {
                 prepareAttackCooldownCounter -= Time.deltaTime;
@@ -51,25 +52,28 @@ public class GolemThrowState : IState
             else
             {
                 Attack();
-                attackCooldownCounter = cooldown;
-                prepareAttackCooldownCounter = 2;
+                golemBehaviour.isBusy = isAttacking = false;
             }
+        }
+    }
+
+    public void TickCooldown()
+    {
+        if (attackCooldownCounter > 0 && !isAttacking)
+        {
+            attackCooldownCounter -= Time.deltaTime;
         }
     }
 
     public void OnExit()
     {
-        golem.isBusy = false;
+        golemBehaviour.isBusy = isAttacking = false;
     }
 
     private void Attack()
     {
-        golem.isBusy = true;
-
-        RockProjectile projectile = GameObject.Instantiate(rockProjectile, golem.transform.position, Quaternion.identity); // ToDo face throw direction
+        RockProjectile projectile = GameObject.Instantiate(rockProjectile, golemBehaviour.transform.position, Quaternion.identity);
         projectile.InitializeRockProjectile(target.transform.position, damage);
         stateMachine.SetState(golemPursuitState);
-
-        golem.isBusy = false;
     }
 }

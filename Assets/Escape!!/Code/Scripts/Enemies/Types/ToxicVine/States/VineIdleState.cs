@@ -4,24 +4,31 @@ using UnityEngine;
 
 public class VineIdleState : IState
 {
-    private ToxicVineBehaviour vine;
+    private ToxicVineBehaviour vineBehaviour;
 
     public VineIdleState(ToxicVineBehaviour vine)
     {
-        this.vine = vine;
+        this.vineBehaviour = vine;
     }
 
     public void OnEnter()
     {
-        Debug.Log($"{vine.name} has entered {this.GetType().Name}");
-        //Todo trigger animation
+        if (vineBehaviour.ShowDebug)
+            Debug.Log($"{vineBehaviour.name} has entered {this.GetType().Name}");
+
+        //Todo idle animation
     }
 
     public void Tick()
     {
     }
 
+    public void TickCooldown()
+    {
+    }
+
     public void OnExit()
     {
     }
+
 }

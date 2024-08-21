@@ -3,92 +3,144 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ShadowBeastAmbushState : IState
 {
+    public bool canAmbush => attackCooldownCounter <= 0;
+
     private float damage;
     private float range;
     private float cooldown;
 
-    private ShadowBeastBehaviour shadowBeast;
+    private ShadowBeastBehaviour shadowBeastBehaviour;
     private CoreHealthHandler target;
+    private HealthBar healthBar;
+    private Collider2D collider;
 
     private float attackCooldownCounter;
     private float hideTimeCounter;
-    private float attackDelayCounter;
+    private float warningCounter;
+    private bool isAttacking;
+    private Phase phase;
 
-    public ShadowBeastAmbushState(float damage, float range, float cooldown, ShadowBeastBehaviour shadowBeast, CoreHealthHandler target)
+    public ShadowBeastAmbushState(float damage, float range, float cooldown, ShadowBeastBehaviour shadowBeastBehaviour, CoreHealthHandler target)
     {
         this.damage = damage;
         this.range = range;
         this.cooldown = cooldown;
-        this.shadowBeast = shadowBeast;
+        this.shadowBeastBehaviour = shadowBeastBehaviour;
         this.target = target;
+        healthBar = shadowBeastBehaviour.GetComponent<HealthBar>();
+        collider = shadowBeastBehaviour.GetComponent<Collider2D>();
+        attackCooldownCounter = cooldown;
     }
 
     public void OnEnter()
     {
-        shadowBeast.isBusy = false;
+        if (shadowBeastBehaviour.ShowDebug)
+            Debug.Log($"{shadowBeastBehaviour.name} has entered {this.GetType().Name}");
+
+        shadowBeastBehaviour.isBusy = isAttacking = false;
     }
 
     public void Tick()
     {
-        if (attackCooldownCounter > 0)
+        if (attackCooldownCounter <= 0)
         {
-            if (!shadowBeast.isBusy)
-                attackCooldownCounter -= Time.deltaTime;
-        }
-        else
-        {
-            SetupAttack();
             attackCooldownCounter = cooldown;
+            HideShadowBeast();
+            hideTimeCounter = 1;
+            phase = Phase.Invisible;
+            shadowBeastBehaviour.isBusy = isAttacking = true;
         }
 
-        if (hideTimeCounter > 0)
+        switch (phase)
         {
-            hideTimeCounter -= Time.deltaTime;
-        }
-        else if (shadowBeast.isBusy)
-        {
-            // ToDo appear animation
-            shadowBeast.transform.position = target.transform.position;
-            shadowBeast.transform.GetChild(0).gameObject.SetActive(true);
-            if (attackDelayCounter > 0)
-            {
-                attackDelayCounter -= Time.deltaTime;
-            }
-            else
-            {
-                // ToDo Attack animation
-                foreach (var target in TargetsInRange())
+            case Phase.Invisible:
+                if (hideTimeCounter > 0)
                 {
-                    target.Health -= (int)damage;
+                    hideTimeCounter -= Time.deltaTime;
                 }
+                else
+                {
+                    Vector3 targetPosition = target.transform.position;
+                    targetPosition.z = shadowBeastBehaviour.transform.position.z;
+                    shadowBeastBehaviour.transform.position = targetPosition;
+                    ShowWarning();
+                    phase = Phase.Attacking;
+                    warningCounter = 1;
+                }
+                break;
+            case Phase.Attacking:
+                if (warningCounter > 0)
+                {
+                    warningCounter -= Time.deltaTime;
+                }
+                else
+                {
+                    ShowShadowBeast();
+                    Attack();
+                    shadowBeastBehaviour.isBusy = isAttacking = false;
+                    phase = Phase.Default;
+                    HideWarning();
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
-                shadowBeast.isBusy = false;
-            }
+    public void TickCooldown()
+    {
+        if (attackCooldownCounter > 0 && !isAttacking)
+        {
+            attackCooldownCounter -= Time.deltaTime;
         }
     }
 
     public void OnExit()
     {
-        shadowBeast.isBusy = false;
+        shadowBeastBehaviour.isBusy = isAttacking = false;
     }
 
-    private void SetupAttack()
+    private void Attack()
     {
-        shadowBeast.isBusy = true;
-        // ToDo Disappear animation
-        shadowBeast.transform.GetChild(0).gameObject.SetActive(false);
-        hideTimeCounter = 1;
-        attackDelayCounter = 0.5f;
+        foreach (var target in TargetsInRange())
+        {
+            target.Health -= (int)damage;
+        }
+    }
+
+    private void ShowWarning()
+    {
+
+    }
+
+    private void HideWarning()
+    {
+
+    }
+
+    private void HideShadowBeast()
+    {
+        collider.enabled = false;
+        shadowBeastBehaviour.transform.GetChild(0).gameObject.SetActive(false);
+        healthBar.HideHealthBar();
+    }
+
+    private void ShowShadowBeast()
+    {
+        collider.enabled = true;
+        shadowBeastBehaviour.transform.GetChild(0).gameObject.SetActive(true);
+        healthBar.UnHideHealthBar();
     }
 
     private List<CoreHealthHandler> TargetsInRange()
     {
         List<CoreHealthHandler> objectsInRange = new List<CoreHealthHandler>();
 
-        Vector2 centerPosition = shadowBeast.transform.position;
+        Vector2 centerPosition = shadowBeastBehaviour.transform.position;
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(centerPosition, range);
 
@@ -101,5 +153,12 @@ public class ShadowBeastAmbushState : IState
         }
 
         return objectsInRange;
+    }
+
+    private enum Phase
+    {
+        Default,
+        Invisible,
+        Attacking
     }
 }

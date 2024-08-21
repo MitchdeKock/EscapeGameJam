@@ -50,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ea4eb16c6b87a54c9d908b1f63d26f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBusy: 0
   ShowDebug: 0
   slamDamage: 4
   slamRange: 4
@@ -59,7 +60,6 @@ MonoBehaviour:
   throwCooldown: 5
   rockProjectile: {fileID: 3047362298072662250, guid: 9a951a8e2a76d5041b5fdfaaecaad2d5, type: 3}
   moveSpeed: 2
-  isBusy: 0
 --- !u!50 &5313953614652789577
 Rigidbody2D:
   serializedVersion: 4

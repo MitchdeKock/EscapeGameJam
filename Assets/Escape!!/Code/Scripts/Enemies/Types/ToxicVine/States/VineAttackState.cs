@@ -7,68 +7,87 @@ public class VineAttackState : IState
 {
     public bool canAttack { get => attackCooldownCounter <= 0; }
 
-    private float attackCooldown;
-    private float attackRange;
-    private float attackDamage;
-    private ToxicVineBehaviour vine;
+    private float damage;
+    private float range;
+    private float cooldown;
+    private ToxicVineBehaviour vineBehaviour;
     private CoreHealthHandler target;
 
     private float attackCooldownCounter;
+    private float attackAnimationCounter;
+    private bool isAttacking = false;
 
-    public VineAttackState(float attackCooldown, float attackRange, float attackDamage, ToxicVineBehaviour vine, CoreHealthHandler target)
+    public VineAttackState(float cooldown, float range, float damage, ToxicVineBehaviour vine, CoreHealthHandler target)
     {
-        this.attackCooldown = attackCooldown;
-        this.attackRange = attackRange;
-        this.attackDamage = attackDamage;
-        this.vine = vine;
+        this.cooldown = cooldown;
+        this.range = range;
+        this.damage = damage;
+        this.vineBehaviour = vine;
         this.target = target;
     }
 
     public void OnEnter()
     {
-        Debug.Log($"{vine.name} has entered {this.GetType().Name}");
-        attackCooldownCounter = attackCooldown;
-        vine.isBusy = false;
+        if (vineBehaviour.ShowDebug)
+            Debug.Log($"{vineBehaviour.name} has entered {this.GetType().Name}");
+
+        attackCooldownCounter = 1;
+        vineBehaviour.isBusy = isAttacking = false;
     }
 
     public void Tick()
     {
-        if (attackCooldownCounter > 0)
+        if (attackCooldownCounter <= 0)
+        {
+            attackCooldownCounter = cooldown;
+            attackAnimationCounter = 1; // ToDo Replace with animation time
+            vineBehaviour.isBusy = isAttacking = true;
+        }
+
+        if (isAttacking)
+        {
+            if (attackAnimationCounter > 0)
+            {
+                attackAnimationCounter -= Time.deltaTime;
+            }
+            else
+            {
+                Attack();
+                vineBehaviour.isBusy = isAttacking = false;
+            }
+        }
+    }
+
+    public void TickCooldown()
+    {
+        if (attackCooldownCounter > 0 && !isAttacking)
         {
             attackCooldownCounter -= Time.deltaTime;
-        }
-        else
-        {
-            // ToDo attack indicator/anticipation
-            BasicAttack();
-            attackCooldownCounter = attackCooldown;
         }
     }
 
     public void OnExit()
     {
-        vine.isBusy = false;
+        vineBehaviour.isBusy = isAttacking = false;
     }
 
-    private void BasicAttack()
+    private void Attack()
     {
-        vine.isBusy = true;
-
         foreach (var target in TargetsInRange())
         {
-            target.Health -= (int)attackDamage;
+            target.Health -= (int)damage;
         }
 
-        vine.isBusy = false;
+        vineBehaviour.isBusy = false;
     }
 
     private List<CoreHealthHandler> TargetsInRange()
     {
         List<CoreHealthHandler> objectsInArc = new List<CoreHealthHandler>();
 
-        Vector2 centerPosition = vine.transform.position;
+        Vector2 centerPosition = vineBehaviour.transform.position;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(centerPosition, attackRange);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(centerPosition, range);
 
         foreach (Collider2D collider in colliders)
         {

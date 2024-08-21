@@ -7,34 +7,42 @@ public class Spawning : MonoBehaviour
 {
     [SerializeField] private int maxEnemies;
     [SerializeField] private EnemyHealth[] enemyPrefabs;
+    [SerializeField] private DifficultyManager difficultyManager;
+    [SerializeField] private FloatReference totalKills;
+    [SerializeField] private FloatReference secondsPlayed;
 
     private int currentNumberOfEnemies;
-    [SerializeField] private FloatReference totalKills;
+    private float spawnCounter;
 
     private void Start()
     {
         TrySpawnEnemy();
         totalKills.Value = 0;
+        secondsPlayed.Value = 0;
     }
 
-    private float counter;
     private void Update()
     {
-        if (counter > 0)
+        if (spawnCounter > 0)
         {
-            counter -= Time.deltaTime;
+            spawnCounter -= Time.deltaTime;
         }
         else
         {
             TrySpawnEnemy();
-            counter = 4;
+            spawnCounter = difficultyManager.SpawnRate;
+            Debug.Log($"Time Between Spawns: {spawnCounter}");
         }
+
+        secondsPlayed.Value += Time.deltaTime;
+        
     }
 
     private void TrySpawnEnemy()
     {
         if (currentNumberOfEnemies < maxEnemies)
         {
+            Debug.Log($"Enemy multiplier: {difficultyManager.EnemyMultiplier}");
             EnemyHealth enemy = Instantiate(enemyPrefabs[UnityEngine.Random.Range((int)0, (int)enemyPrefabs.Length)], GetRandomWorldPointOffScreen(2), Quaternion.identity);
             enemy.OnEnemyDied += EnemyDied;
             currentNumberOfEnemies++;

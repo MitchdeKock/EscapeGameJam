@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f0ed77b3d3c9cf4991934d94f4dd3e0, type: 3}
-  m_Name: DummyAttack
+  m_Script: {fileID: 11500000, guid: eeef7454bf8d4614296f8ab6c4b3ea08, type: 3}
+  m_Name: TimePlayedSeconds
   m_EditorClassIdentifier: 
-  cooldown: 1
-  range: 1
-  attackArcAngle: 50
-  damage: 1
+  Value: 0
