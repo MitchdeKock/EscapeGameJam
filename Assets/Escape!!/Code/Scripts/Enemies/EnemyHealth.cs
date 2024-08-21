@@ -9,8 +9,21 @@ public class EnemyHealth : MonoBehaviour
     public event Action OnEnemyDied;
     [SerializeField] private GameObject enemyFlowPrefab; // Reference to the EnemyFlow prefab
 
+    private SpriteRenderer sprite;
+
+    public IEnumerator Flash()
+    {
+        Color oldColour = sprite.color;
+        sprite.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        sprite.color= oldColour;
+    }
+
     private void Start()
     {
+        Transform spriteTransform = transform.Find("Sprite");
+
+        sprite = spriteTransform.GetComponent<SpriteRenderer>();
         healthBar = GetComponent<HealthBar>();
         healthBar.OnDeath += OnDeath;
     }
@@ -22,6 +35,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void RemoveHealth(float amount)
     {
+        StartCoroutine(Flash());
         healthBar.ChangeHealth(-amount);
     }
 
