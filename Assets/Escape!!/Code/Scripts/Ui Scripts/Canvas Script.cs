@@ -2,21 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 public class CanvasScript : MonoBehaviour
 {
     [Header("Text references")]
     [SerializeField] private TMPro.TextMeshProUGUI flowCountText;
     [SerializeField] private TMPro.TextMeshProUGUI maxFlowText;
-    [SerializeField] private TMPro.TextMeshProUGUI DamagePriceText;
-    [SerializeField] private TMPro.TextMeshProUGUI MaxFlowPriceText;
-    [SerializeField] private TMPro.TextMeshProUGUI AttackRatePriceText;
-    [SerializeField] private TMPro.TextMeshProUGUI MovementSpeedPriceText;
 
     [Header("Button references")]
-    [SerializeField] private Button damageButton;
-    [SerializeField] private Button maxFlowButton;
-    [SerializeField] private Button attackRateButton;
-    [SerializeField] private Button movementSpeedButton;
+    [SerializeField] private Button upgrade_button_1;
+    [SerializeField] private Button upgrade_button_2;
+    [SerializeField] private Button upgrade_button_3;
+    [SerializeField] private Button RefreshButton;
+
 
     [Header("Prices")]
     [SerializeField] private int damagePrice = 10;
@@ -24,80 +22,107 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] private int attackRatePrice = 10;
     [SerializeField] private int movementSpeedPrice = 10;
 
-    [Header("Player attacks")]
-    [SerializeField] private AttackMeleeStaff mainAttack;
-    [SerializeField] private AttackRangedStaff secondaryAttack;
 
+    [Header("Upgrades")]
+    [SerializeField] private BaseUpgrade rangedDamage;
+    [SerializeField] private BaseUpgrade meleeDamage;
+    [SerializeField] private BaseUpgrade movementSpeed;
+    [SerializeField] private BaseUpgrade maxFlowUpgrade;
+    [SerializeField] private BaseUpgrade meleeAttackRate;
+    [SerializeField] private BaseUpgrade rangedAttackRate;
+    [SerializeField] private BaseUpgrade dashSpeed;
+
+    private List<BaseUpgrade> allUpgrades = new List<BaseUpgrade>();
+
+    [Header("Rendering")]
     [SerializeField] private GameObject UpgradeScreen;
     
     private CoreHealthHandler coreScriptComponent;
     private PlayerController playerScript;
 
+
     void Start()
     {
+
+        RefreshButton.onClick.AddListener(RefreshClicked);
+
+        allUpgrades.Add(rangedDamage);
+        allUpgrades.Add(meleeDamage);
+        allUpgrades.Add(movementSpeed);
+        allUpgrades.Add(maxFlowUpgrade);
+        allUpgrades.Add(meleeAttackRate);
+        allUpgrades.Add(rangedAttackRate);
+        allUpgrades.Add(dashSpeed);
+
         coreScriptComponent = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
-        //damageButton.onClick.AddListener(onDamageButtonClicked);
-        //maxFlowButton.onClick.AddListener(onMaxFlowClicked);
-        //attackRateButton.onClick.AddListener(onAttackClicked);
-        //movementSpeedButton.onClick.AddListener(onMovementClicked);
+
+        assignUpgrades();
+
     }
 
-    public void onDamageButtonClicked()
+    private void RefreshClicked()
     {
-        if (coreScriptComponent.Health > damagePrice)
+        if (coreScriptComponent.Health > 5)
         {
-            coreScriptComponent.Health -= damagePrice;
-            damagePrice += 5;
-            mainAttack.Damage += 1;
-            secondaryAttack.Damage += 1;
+            assignUpgrades();
         }
+
+    }
+    private void assignUpgrades()
+    {
+        int min = 0;
+        int max = allUpgrades.Count;
+        int[] randomInts = Enumerable.Range(min, max).OrderBy(x => Random.Range(0, max)).Take(3).ToArray();
+
+        BaseUpgrade upgrade1 = allUpgrades[randomInts[0]];
+        BaseUpgrade upgrade2 = allUpgrades[randomInts[1]];
+        BaseUpgrade upgrade3 = allUpgrades[randomInts[2]];
+
+        SetUpgrade(upgrade1, upgrade_button_1);
+        SetUpgrade(upgrade2, upgrade_button_2);
+        SetUpgrade(upgrade3, upgrade_button_3);
     }
 
-    public void onMaxFlowClicked()
+
+    private void SetUpgrade(BaseUpgrade upgrade, Button button)
     {
-        if (coreScriptComponent.Health > maxFlowPrice)
+        button.transform.Find("Title_button").GetComponent<TMPro.TextMeshProUGUI>().text = upgrade.name;
+        button.transform.Find("Price_button").GetComponent<TMPro.TextMeshProUGUI>().text = upgrade.price.ToString() + "F";
+        button.transform.Find("Description_button").GetComponent<TMPro.TextMeshProUGUI>().text = upgrade.description;
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => BuyUpgrade(upgrade));
+    }
+    private void BuyUpgrade(BaseUpgrade upgrade)
+    {
+        if(coreScriptComponent.Health> upgrade.price)
         {
-            coreScriptComponent.Health -= maxFlowPrice;
-            maxFlowPrice += 5;
-            coreScriptComponent.MaxHealth += 5;
-        }
+            upgrade.buyUpgrade();
+            coreScriptComponent.Health -= upgrade.price;
+            upgrade.price += 5;
+            upgrade.currentUpgrades += 1;
+            if(upgrade.currentUpgrades >= upgrade.maxUpgrade)
+            {
+                Debug.Log(allUpgrades.Count);
+                allUpgrades.Remove(upgrade);
+                Debug.Log(allUpgrades.Count);
+
+            }
+            assignUpgrades();
+          }
         else
         {
-            //TODO something to show they cant buy the upgrade
+            Debug.Log("Sorry Cant Afford");
         }
     }
-    public void onAttackClicked()
-    {
-        if (coreScriptComponent.Health > attackRatePrice)
-        {
-            coreScriptComponent.Health -= attackRatePrice;
-            mainAttack.Cooldown -= 0.01f;
-            secondaryAttack.Cooldown -= 0.01f;
-            attackRatePrice += 5;
-        }
-    }
-    public void onMovementClicked()
-    {
-        if (coreScriptComponent.Health > movementSpeedPrice)
-        {
-            playerScript.MoveSpeed += 2;
-            playerScript.DashSpeed += 2;
-            coreScriptComponent.Health -= movementSpeedPrice;
-            movementSpeedPrice += 5;
-        }
-    }
+
 
     // Update is called once per frame
     void Update()
     {
         flowCountText.text = "Flow: " + coreScriptComponent.Health.ToString();
         maxFlowText.text = "Max Flow: " + coreScriptComponent.MaxHealth.ToString();
-        DamagePriceText.text = damagePrice.ToString() + "F";
-        AttackRatePriceText.text = attackRatePrice.ToString() + "F";
-        MovementSpeedPriceText.text = movementSpeedPrice.ToString() + "F";
-        MaxFlowPriceText.text = maxFlowPrice.ToString() + "F";
 
 
         if (Input.GetKeyDown(KeyCode.E))

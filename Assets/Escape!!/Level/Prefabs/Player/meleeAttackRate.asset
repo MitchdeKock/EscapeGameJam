@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c796d90de0d65ca4bb6de2a38873d25b, type: 3}
+  m_Name: meleeAttackRate
+  m_EditorClassIdentifier: 
+  UpgradeName: Melee Attack Rate
+  UpgradeDescription: Increases Melee Attack Rate
+  UpgradePrice: 10
+  mainAttack: {fileID: 11400000, guid: c3cc4a062139b3b49a279f04148df58d, type: 2}

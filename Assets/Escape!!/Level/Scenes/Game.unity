@@ -794,7 +794,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &624978564
 Canvas:
   m_ObjectHideFlags: 0
@@ -1390,6 +1390,26 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 501409364100806452, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: m_Name
+      value: Title_button
+      objectReference: {fileID: 0}
+    - target: {fileID: 1518063746468261417, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1518063746468261417, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: UpgradeScreen
+      value: 
+      objectReference: {fileID: 2050712728}
+    - target: {fileID: 1850975177276449903, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: m_Name
+      value: Description_button
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861448008618110410, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: m_Name
+      value: Title_button
+      objectReference: {fileID: 0}
     - target: {fileID: 1889334712998215291, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1474,6 +1494,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2863180277241388526, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: m_Name
+      value: Price_button
+      objectReference: {fileID: 0}
+    - target: {fileID: 3341768516375134266, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: m_Name
+      value: Description_button
+      objectReference: {fileID: 0}
+    - target: {fileID: 3428550001311871536, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: m_Name
+      value: Price_button
+      objectReference: {fileID: 0}
     - target: {fileID: 4796277500393796631, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
       propertyPath: m_Name
       value: Upgrade Screen
@@ -1481,6 +1513,18 @@ PrefabInstance:
     - target: {fileID: 4796277500393796631, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399112567707512729, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: m_Name
+      value: Price_button
+      objectReference: {fileID: 0}
+    - target: {fileID: 7510882733579124674, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: m_Name
+      value: Title_button
+      objectReference: {fileID: 0}
+    - target: {fileID: 8261695985377925133, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+      propertyPath: m_Name
+      value: Description_button
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1831,6 +1875,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2050712728 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1889334712998215291, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
+  m_PrefabInstance: {fileID: 1013844839}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2058776215
 GameObject:
   m_ObjectHideFlags: 3
