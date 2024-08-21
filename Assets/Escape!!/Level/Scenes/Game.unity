@@ -717,10 +717,15 @@ MonoBehaviour:
   - {fileID: 1984117510869575802, guid: acc03c9c3f349e94f9e4ab51bcbdec5f, type: 3}
   - {fileID: 6397024237508368197, guid: bada37af933ed6c4da5ba52837e6dee3, type: 3}
   - {fileID: 182143565603860664, guid: 7a2d7eb56524ba14db4974848f554180, type: 3}
+  difficultyManager: {fileID: 11400000, guid: e7e51ffa05aa38b4aa173d76488a81ec, type: 2}
   totalKills:
-    UseConstant: 1
+    UseConstant: 0
     ConstantValue: 0
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: bef937c2f572aec4f8fa3bd9dca88eb3, type: 2}
+  secondsPlayed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 75fff6614c1eb2d4eaeae3ac7fd38cf4, type: 2}
 --- !u!224 &600646959 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2619312955600995351, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
