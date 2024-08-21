@@ -26,7 +26,7 @@ public class GolemBehaviour : EnemyBehaviour
 
         // Setup states
         var slamState = new GolemSlamState(slamDamage, slamRange, slamCooldown, this, target);
-        var pursuiState = new GolemPursuitState(moveSpeed, this, target, GetComponent<Rigidbody2D>());
+        var pursuiState = new GolemPursuitState(moveSpeed, slamRange - 1, this, target, GetComponent<Rigidbody2D>());
         var throwState = new GolemThrowState(throwDamage, throwRange, throwCooldown, rockProjectile, this, target, stateMachine, pursuiState);
 
         stateMachine.AddAnyTransition(slamState, TargetInAttackRange());
@@ -38,10 +38,10 @@ public class GolemBehaviour : EnemyBehaviour
 
         //void At(IState from, IState to, Func<bool> condition) => stateMachine.AddTransition(from, to, condition);
 
-        Func<bool> TargetInAttackRange() => () => Vector3.Distance(transform.position, target.transform.position) <= slamRange && !isBusy;
-        Func<bool> TargetOutOfRange() => () => Vector3.Distance(transform.position, target.transform.position) > throwRange && !isBusy;
+        Func<bool> TargetInAttackRange() => () => Vector3.Distance(transform.position, target.transform.position) <= slamRange && !isBusy && slamState.canAttack;
+        Func<bool> TargetOutOfRange() => () => (Vector3.Distance(transform.position, target.transform.position) > throwRange || (!slamState.canAttack && !throwState.canAttack)) && !isBusy;
         //Func<bool> TargetOutOfRangeAndThrowOnCooldown() => () => Vector3.Distance(transform.position, target.transform.position) > throwRange && !isBusy && !throwState.canThrow;
-        Func<bool> TargetOutOfAttackRangeInAmbushRange() => () => Vector2.Distance(transform.position, target.transform.position) > slamRange && Vector2.Distance(transform.position, target.transform.position) <= throwRange && throwState.canThrow && !isBusy;
+        Func<bool> TargetOutOfAttackRangeInAmbushRange() => () => Vector2.Distance(transform.position, target.transform.position) > slamRange && Vector2.Distance(transform.position, target.transform.position) <= throwRange && throwState.canAttack && !isBusy;
 
         states = new List<IState>() { slamState, pursuiState, throwState };
     }

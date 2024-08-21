@@ -15,6 +15,7 @@ public class ShadowBeastBehaviour : EnemyBehaviour
     [SerializeField] private float dashSpeed;
     [SerializeField] private float dashCooldown;
     [SerializeField] private float ambushDamage;
+    [SerializeField] private float damageRange;
     [SerializeField] private float ambushRange;
     [SerializeField] private float ambushCooldown;
     [SerializeField] private float moveSpeed;
@@ -25,21 +26,20 @@ public class ShadowBeastBehaviour : EnemyBehaviour
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 
         // Setup states
-        var attackState = new ShadowBeastAttackState(dashDamage, dashRange, dashCooldown, dashSpeed, this, target, GetComponent<Rigidbody2D>());
-        var ambushState = new ShadowBeastAmbushState(ambushDamage, ambushRange, ambushCooldown, this, target);
-        var pursuitState = new ShadowBeastPursuitState(moveSpeed, this, target, GetComponent<Rigidbody2D>());
+        var attackState = new ShadowBeastAttackState(dashDamage, dashRange, damageRange, dashCooldown, dashSpeed, this, target, GetComponent<Rigidbody2D>());
+        var ambushState = new ShadowBeastAmbushState(ambushDamage, damageRange, ambushCooldown, this, target);
+        var pursuitState = new ShadowBeastPursuitState(moveSpeed, dashRange - 1, this, target, GetComponent<Rigidbody2D>());
 
         stateMachine.AddAnyTransition(attackState, TargetInAttackRange());
         stateMachine.AddAnyTransition(ambushState, TargetOutOfAttackRangeInAmbushRange());
         stateMachine.AddAnyTransition(pursuitState, TargetOutOfRange());
-        //At(throwState, pursuiState, TargetOutOfRangeAndThrowOnCooldown());
 
         // Start state
         stateMachine.SetState(pursuitState);
 
         //void At(IState from, IState to, Func<bool> condition) => stateMachine.AddTransition(from, to, condition);
-        Func<bool> TargetInAttackRange() => () => Vector3.Distance(transform.position, target.transform.position) <= dashRange && !isBusy;
-        Func<bool> TargetOutOfRange() => () => Vector3.Distance(transform.position, target.transform.position) > ambushRange && !isBusy;
+        Func<bool> TargetInAttackRange() => () => Vector3.Distance(transform.position, target.transform.position) <= dashRange && !isBusy && attackState.canAttack;
+        Func<bool> TargetOutOfRange() => () => (Vector3.Distance(transform.position, target.transform.position) > ambushRange || (!attackState.canAttack && !ambushState.canAmbush)) && !isBusy;
         Func<bool> TargetOutOfAttackRangeInAmbushRange() => () => Vector2.Distance(transform.position, target.transform.position) > dashRange && Vector2.Distance(transform.position, target.transform.position) <= ambushRange && ambushState.canAmbush && !isBusy;
 
         states = new List<IState>() { attackState, ambushState, pursuitState};
@@ -52,7 +52,6 @@ public class ShadowBeastBehaviour : EnemyBehaviour
             state.TickCooldown();
         }
 
-        Debug.Log(isBusy);
         stateMachine.Tick();
     }
 
@@ -61,6 +60,8 @@ public class ShadowBeastBehaviour : EnemyBehaviour
         if (ShowDebug)
         {
             Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, damageRange);
+            Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, dashRange);
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, ambushRange);

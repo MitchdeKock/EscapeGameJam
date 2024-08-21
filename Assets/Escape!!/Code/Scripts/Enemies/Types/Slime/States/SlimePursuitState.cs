@@ -8,25 +8,35 @@ public class SlimePursuitState : IState
     private Transform target;
 
     private float moveSpeed;
+    private float stoppingDistance;
 
-    public SlimePursuitState(SlimeBehaviour slimeBehaviour, Transform target, float moveSpeed)
+    public SlimePursuitState(SlimeBehaviour slimeBehaviour, Transform target, float moveSpeed, float stoppingDistance)
     {
         this.slimeBehaviour = slimeBehaviour;
         this.target = target;
         this.moveSpeed = moveSpeed;
+        this.stoppingDistance = stoppingDistance;   
     }
 
     public void OnEnter()
     {
-        Debug.Log($"{slimeBehaviour.name} has entered {this.GetType().Name}");
+        if (slimeBehaviour.ShowDebug)
+            Debug.Log($"{slimeBehaviour.name} has entered {this.GetType().Name}");
         rigidbody = slimeBehaviour.GetComponent<Rigidbody2D>();
         slimeBehaviour.isBusy = false;
     }
 
     public void Tick()
     {
-        Vector2 moveDirection = target.position - slimeBehaviour.transform.position;
-        rigidbody.velocity = moveDirection.normalized * moveSpeed;
+        float distance = Vector2.Distance(slimeBehaviour.transform.position, target.transform.position);
+        float currentSpeed = moveSpeed;
+        if (distance < stoppingDistance + 1)
+        {
+            currentSpeed = Mathf.Lerp(0, moveSpeed, (distance - stoppingDistance) / (1));
+        }
+
+        Vector2 moveDirection = target.transform.position - slimeBehaviour.transform.position;
+        rigidbody.velocity = moveDirection.normalized * currentSpeed;
     }
 
     public void TickCooldown()

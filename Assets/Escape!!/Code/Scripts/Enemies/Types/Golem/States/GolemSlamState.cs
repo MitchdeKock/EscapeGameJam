@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GolemSlamState : IState
 {
+    public bool canAttack => attackCooldownCounter <= 0;
+
     private float damage;
     private float range;
     private float cooldown;
@@ -20,12 +22,12 @@ public class GolemSlamState : IState
         this.cooldown = cooldown;
         this.golemBehaviour = golem;
         this.target = target;
+        attackCooldownCounter = cooldown;
     }
 
     public void OnEnter()
     {
         golemBehaviour.isBusy = isAttacking  = false;
-        attackCooldownCounter = 1;
     }
 
     public void Tick()

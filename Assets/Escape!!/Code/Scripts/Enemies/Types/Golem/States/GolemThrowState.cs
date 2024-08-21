@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GolemThrowState : IState
 {
-    public bool canThrow => attackCooldownCounter <= 0;
+    public bool canAttack => attackCooldownCounter <= 0;
 
     private float damage;
     private float range;
@@ -26,6 +26,7 @@ public class GolemThrowState : IState
         this.target = target;
         this.stateMachine = stateMachine;
         this.golemPursuitState = golemPursuitState;
+        attackCooldownCounter = cooldown;
     }
 
     public void OnEnter()

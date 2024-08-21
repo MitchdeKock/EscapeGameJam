@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ef908b08fc9e854fa86c75daa44c6fa, type: 3}
+  m_Name: Intended
+  m_EditorClassIdentifier: 
+  MaxKills: 100
+  killFactor: 1
+  MaxTime: 600
+  timeFactor: 1
+  MaxDifficultyMultiplier: 5
+  MinTimeBetweenSpawns: 0.5
+  MaxTimeBetweenSpawns: 5
+  totalKills:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: bef937c2f572aec4f8fa3bd9dca88eb3, type: 2}
+  timePlayed:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: 75fff6614c1eb2d4eaeae3ac7fd38cf4, type: 2}

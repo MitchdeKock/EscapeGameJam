@@ -21,7 +21,6 @@ public class EnemyHealth : MonoBehaviour
 
     public void RemoveHealth(float amount)
     {
-        Debug.Log($"{gameObject.name} was hit for {amount}."); // TODO remove debug
         healthBar.ChangeHealth(-amount);
     }
 

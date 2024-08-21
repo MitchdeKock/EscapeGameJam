@@ -16,6 +16,7 @@ public class ShadowBeastAmbushState : IState
     private ShadowBeastBehaviour shadowBeastBehaviour;
     private CoreHealthHandler target;
     private HealthBar healthBar;
+    private Collider2D collider;
 
     private float attackCooldownCounter;
     private float hideTimeCounter;
@@ -23,14 +24,16 @@ public class ShadowBeastAmbushState : IState
     private bool isAttacking;
     private Phase phase;
 
-    public ShadowBeastAmbushState(float damage, float range, float cooldown, ShadowBeastBehaviour shadowBeast, CoreHealthHandler target)
+    public ShadowBeastAmbushState(float damage, float range, float cooldown, ShadowBeastBehaviour shadowBeastBehaviour, CoreHealthHandler target)
     {
         this.damage = damage;
         this.range = range;
         this.cooldown = cooldown;
-        this.shadowBeastBehaviour = shadowBeast;
+        this.shadowBeastBehaviour = shadowBeastBehaviour;
         this.target = target;
-        healthBar = shadowBeast.GetComponent<HealthBar>();
+        healthBar = shadowBeastBehaviour.GetComponent<HealthBar>();
+        collider = shadowBeastBehaviour.GetComponent<Collider2D>();
+        attackCooldownCounter = cooldown;
     }
 
     public void OnEnter()
@@ -39,7 +42,6 @@ public class ShadowBeastAmbushState : IState
             Debug.Log($"{shadowBeastBehaviour.name} has entered {this.GetType().Name}");
 
         shadowBeastBehaviour.isBusy = isAttacking = false;
-        attackCooldownCounter = 1;
     }
 
     public void Tick()
@@ -122,12 +124,14 @@ public class ShadowBeastAmbushState : IState
 
     private void HideShadowBeast()
     {
+        collider.enabled = false;
         shadowBeastBehaviour.transform.GetChild(0).gameObject.SetActive(false);
         healthBar.HideHealthBar();
     }
 
     private void ShowShadowBeast()
     {
+        collider.enabled = true;
         shadowBeastBehaviour.transform.GetChild(0).gameObject.SetActive(true);
         healthBar.UnHideHealthBar();
     }

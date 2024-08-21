@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 8805122664236490938}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -32.75, y: 3.57, z: -0.119133815}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -229,13 +229,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5774d9dee8e4b4b478e68d5b94807ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowDebug: 0
+  isBusy: 0
+  ShowDebug: 1
   dashDamage: 3
   dashRange: 5
-  dashSpeed: 20
-  dashCooldown: 3
+  dashSpeed: 12
+  dashCooldown: 5
   ambushDamage: 5
+  damageRange: 3
   ambushRange: 15
-  ambushCooldown: 5
+  ambushCooldown: 20
   moveSpeed: 8
-  isBusy: 0

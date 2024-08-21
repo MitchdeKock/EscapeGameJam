@@ -8,10 +8,13 @@ using UnityEngine.EventSystems;
 
 public class ShadowBeastAttackState : IState
 {
+    public bool canAttack => attackCooldownCounter <= 0;
+
     private float cooldown;
     private float damage;
     private float speed;
     private float range;
+    private float damageRange;
     private ShadowBeastBehaviour shadowBeastBehaviour;
     private CoreHealthHandler target;
     private Rigidbody2D rigidbody;
@@ -24,15 +27,17 @@ public class ShadowBeastAttackState : IState
     private bool isAttacking;
 
     private Phase phase;
-    public ShadowBeastAttackState(float damage, float range, float cooldown, float speed, ShadowBeastBehaviour shadowBeast, CoreHealthHandler target, Rigidbody2D rigidbody)
+    public ShadowBeastAttackState(float damage, float range, float damageRange, float cooldown, float speed, ShadowBeastBehaviour shadowBeast, CoreHealthHandler target, Rigidbody2D rigidbody)
     {
         this.cooldown = cooldown;
         this.damage = damage;
         this.speed = speed;
         this.range = range;
+        this.damageRange = damageRange;
         this.shadowBeastBehaviour = shadowBeast;
         this.target = target;
         this.rigidbody = rigidbody;
+        attackCooldownCounter = cooldown;
     }
 
     public void OnEnter()
@@ -42,7 +47,6 @@ public class ShadowBeastAttackState : IState
 
         shadowBeastBehaviour.isBusy = isAttacking = false;
         phase = Phase.Default;
-        attackCooldownCounter = 1;
     }
 
     public void Tick()
@@ -76,7 +80,7 @@ public class ShadowBeastAttackState : IState
                 case Phase.Dashing:
                     if (dashDurationCounter > 0)
                     {
-                        rigidbody.velocity = direction * speed;
+                        rigidbody.velocity = direction * speed; // ToDo add a curve to the speed
                         Attack();
                         dashDurationCounter -= Time.deltaTime;
                     }
@@ -109,7 +113,7 @@ public class ShadowBeastAttackState : IState
 
     private void Attack()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(shadowBeastBehaviour.transform.position, range);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(shadowBeastBehaviour.transform.position, damageRange);
         foreach(Collider2D hit in hits)
         {
             if (hit.TryGetComponent(out CoreHealthHandler coreHealthHandler) && !hitTargets.Contains(coreHealthHandler))

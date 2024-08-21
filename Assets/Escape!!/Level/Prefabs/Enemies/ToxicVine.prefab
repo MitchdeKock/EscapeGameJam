@@ -198,7 +198,7 @@ Transform:
   m_GameObject: {fileID: 5536930185851945684}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -218,13 +218,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526f446510102e2479e786fc1647784a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBusy: 0
   ShowDebug: 0
-  attackRange: 3
   attackDamage: 2
+  attackRange: 3
   attackCooldown: 4
+  ambushDamage: 0
   ambushRange: 15
   ambushCooldown: 5
-  isBusy: 0
 --- !u!50 &8354548347838368369
 Rigidbody2D:
   serializedVersion: 4

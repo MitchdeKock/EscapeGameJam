@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SlimeAttackState : IState
 {
+    public bool canAttack => attackCooldownCounter <= 0;
     private SlimeBehaviour enemyBehaviour;
     private CoreHealthHandler target;
     private float damage;

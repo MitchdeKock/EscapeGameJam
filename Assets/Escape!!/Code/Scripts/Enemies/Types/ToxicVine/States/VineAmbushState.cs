@@ -11,6 +11,7 @@ public class VineAmbushState : IState
     private ToxicVineBehaviour vineBehaviour;
     private CoreHealthHandler target;
     private HealthBar healthBar;
+    private Collider2D collider;
 
     private float attackCooldownCounter;
     private float tryAmbushCounter;
@@ -25,6 +26,7 @@ public class VineAmbushState : IState
         this.vineBehaviour = vineBehaviour;
         this.target = target;
         healthBar = vineBehaviour.GetComponent<HealthBar>();
+        collider = vineBehaviour.GetComponent<Collider2D>();
     }
 
     public void OnEnter()
@@ -132,12 +134,14 @@ public class VineAmbushState : IState
 
     private void HideVine()
     {
+        collider.enabled = false;
         vineBehaviour.transform.GetChild(0).gameObject.SetActive(false);
         healthBar.HideHealthBar();
     }
 
     private void ShowVine()
     {
+        collider.enabled = true;
         vineBehaviour.transform.GetChild(0).gameObject.SetActive(true);
         healthBar.UnHideHealthBar();
     }
