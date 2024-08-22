@@ -9,11 +9,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float dashDuration = 0.3f;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Projectile rangedProjectile;
+    [SerializeField] private Animator bodyAnimator;
+    [SerializeField] private Animator headAnimator;
 
     private Vector2 moveInput;
+    private Vector2 lastMoveInput;
     private float activeMoveSpeed;
     private float dashCooldownCounter;
     private float dashDurationCounter;
+    private float blinkCounter;
 
     [Header("Attacks")]
     [SerializeField] private BaseWeapon mainAttack;
@@ -67,7 +71,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             GetMoveInput();
-            FaceMousePosition();
+            //FaceMousePosition();
         }
 
         Dash();
@@ -77,6 +81,15 @@ public class PlayerController : MonoBehaviour
         if (dashCooldownCounter > 0)
         {
             dashCooldownCounter -= Time.deltaTime;
+        }
+        if (blinkCounter > 0)
+        {
+            blinkCounter -= Time.deltaTime;
+        }
+        else
+        {
+            blinkCounter = UnityEngine.Random.Range(3, 7);
+            headAnimator.SetTrigger("Blink");
         }
     }
 
@@ -103,6 +116,19 @@ public class PlayerController : MonoBehaviour
     {
         moveInput.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveInput.Normalize();
+
+        if (moveInput.magnitude > 0.05f)
+        {
+            lastMoveInput = moveInput;
+        }
+
+        // Animate
+        bodyAnimator.SetFloat("MoveX", lastMoveInput.x);
+        bodyAnimator.SetFloat("MoveY", lastMoveInput.y);
+        bodyAnimator.SetFloat("MoveMagnitude", moveInput.magnitude);
+
+        headAnimator.SetFloat("MoveX", lastMoveInput.x);
+        headAnimator.SetFloat("MoveY", lastMoveInput.y);
     }
 
     private void FaceMousePosition()
@@ -110,6 +136,7 @@ public class PlayerController : MonoBehaviour
         Vector2 mousePos = Input.mousePosition;
         Vector2 relativeMouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane)) - transform.position;
 
-        transform.GetChild(0).rotation = Quaternion.LookRotation(Vector3.forward, relativeMouseWorldPosition);
+        Transform staff = transform.GetChild(2);
+        staff.rotation = Quaternion.LookRotation(Vector3.forward, relativeMouseWorldPosition);
     }
 }
