@@ -36,7 +36,7 @@ public class CoreHealthHandler : MonoBehaviour
         {
             int oldHealth = health;
             health = Math.Min(value, maxHealth);
-            if (oldHealth - health>0 && oldHealth-health<10) {
+            if (oldHealth>health && !PauseManager.IsPaused) {
                 StartCoroutine(Flash());
             }
             OnHealthValueChanged?.Invoke(health);
