@@ -76,16 +76,45 @@ public class CanvasScript : MonoBehaviour
         int max = allUpgrades.Count;
         int[] randomInts = Enumerable.Range(min, max).OrderBy(x => Random.Range(0, max)).Take(3).ToArray();
 
-        BaseUpgrade upgrade1 = allUpgrades[randomInts[0]];
-        BaseUpgrade upgrade2 = allUpgrades[randomInts[1]];
-        BaseUpgrade upgrade3 = allUpgrades[randomInts[2]];
+        if(randomInts.Length > 0) {
+            BaseUpgrade upgrade1 = allUpgrades[randomInts[0]];
+            SetUpgrade(upgrade1, upgrade_button_1);
+        }
+        else
+        {
+            outOfUpgrades(upgrade_button_1);
+        }
 
-        SetUpgrade(upgrade1, upgrade_button_1);
-        SetUpgrade(upgrade2, upgrade_button_2);
-        SetUpgrade(upgrade3, upgrade_button_3);
+        if (randomInts.Length > 1)
+        {
+            BaseUpgrade upgrade2 = allUpgrades[randomInts[1]];
+            SetUpgrade(upgrade2, upgrade_button_2);
+        }
+        else
+        {
+            outOfUpgrades(upgrade_button_2);
+        }
+       
+        if(randomInts.Length > 2) { 
+            BaseUpgrade upgrade3 = allUpgrades[randomInts[2]];
+            SetUpgrade(upgrade3, upgrade_button_3);
+        }
+        else
+        {
+            outOfUpgrades(upgrade_button_3);
+        }
+
+        
+        
     }
 
-
+    private void outOfUpgrades(Button button)
+    {
+        button.transform.Find("Title_button").GetComponent<TMPro.TextMeshProUGUI>().text = "";
+        button.transform.Find("Price_button").GetComponent<TMPro.TextMeshProUGUI>().text = "";
+        button.transform.Find("Description_button").GetComponent<TMPro.TextMeshProUGUI>().text = "Sorry Out of Upgrades";
+        button.onClick.RemoveAllListeners();
+    }
     private void SetUpgrade(BaseUpgrade upgrade, Button button)
     {
         button.transform.Find("Title_button").GetComponent<TMPro.TextMeshProUGUI>().text = upgrade.name;
