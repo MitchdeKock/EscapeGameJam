@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class GameOverManager : MonoBehaviour
 {
     [SerializeField] GameObject gameOverScreen;
-    // [SerializeField] TextMeshPro currentScore;
     [SerializeField] TextMeshPro finalScore;
 
     private CoreHealthHandler _coreHealth;
@@ -31,6 +30,7 @@ public class GameOverManager : MonoBehaviour
     }
     public void Restart()
     {
+        PauseManager.UnPause();
         SceneManager.LoadScene(SceneManager.GetSceneByName("Game").buildIndex);
     }
 }
