@@ -154,7 +154,7 @@ public class CanvasScript : MonoBehaviour
         maxFlowText.text = "Max Flow: " + coreScriptComponent.MaxHealth.ToString();
 
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && coreScriptComponent.Health > 0)
         {
             PauseManager.TogglePause();
             UpgradeScreen.SetActive(!UpgradeScreen.activeSelf);
