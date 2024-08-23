@@ -15,8 +15,6 @@ public class VineIdleState : IState
     {
         if (vineBehaviour.ShowDebug)
             Debug.Log($"{vineBehaviour.name} has entered {this.GetType().Name}");
-
-        //Todo idle animation
     }
 
     public void Tick()

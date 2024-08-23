@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class VineAmbushState : IState
 {
@@ -12,13 +13,15 @@ public class VineAmbushState : IState
     private CoreHealthHandler target;
     private HealthBar healthBar;
     private Collider2D collider;
+    private Animator animator;
 
     private float attackCooldownCounter;
     private float tryAmbushCounter;
     private float warningCounter;
     private float underGroundCounter;
+    private float despawnCounter;
     private Phase phase;
-    public VineAmbushState(float ambushCooldown, float ambushRange, float ambushDamage, ToxicVineBehaviour vineBehaviour, CoreHealthHandler target)
+    public VineAmbushState(float ambushCooldown, float ambushRange, float ambushDamage, ToxicVineBehaviour vineBehaviour, CoreHealthHandler target, Animator animator)
     {
         this.ambushCooldown = ambushCooldown;
         this.ambushRange = ambushRange;
@@ -27,6 +30,7 @@ public class VineAmbushState : IState
         this.target = target;
         healthBar = vineBehaviour.GetComponent<HealthBar>();
         collider = vineBehaviour.GetComponent<Collider2D>();
+        this.animator = animator;
     }
 
     public void OnEnter()
@@ -51,13 +55,12 @@ public class VineAmbushState : IState
             {
                 if (UnityEngine.Random.Range(1, 100) >= 20)
                 {
-                    // ToDo ammbush
-                    vineBehaviour.isBusy = true;
-                    attackCooldownCounter = ambushCooldown;
-
+                    animator.SetTrigger("Despawn");
+                    despawnCounter = animator.GetCurrentAnimatorStateInfo(0).length;
                     underGroundCounter = 1;
+                    attackCooldownCounter = ambushCooldown;
+                    vineBehaviour.isBusy = true;
                     phase = Phase.UnderGround;
-                    HideVine();
                 }
             }
             tryAmbushCounter = 1;
@@ -66,18 +69,27 @@ public class VineAmbushState : IState
         switch (phase)
         {
             case Phase.UnderGround:
-                if (underGroundCounter > 0)
+                if (despawnCounter > 0)
                 {
-                    underGroundCounter -= Time.deltaTime;
+                    despawnCounter -= Time.deltaTime;
+
                 }
                 else
                 {
-                    Vector3 targetPosition = target.transform.position;
-                    targetPosition.z = vineBehaviour.transform.position.z;
-                    vineBehaviour.transform.position = targetPosition;
-                    ShowWarning();
-                    phase = Phase.InitiateAttack;
-                    warningCounter = 1;
+                    HideVine();
+                    if (underGroundCounter > 0)
+                    {
+                        underGroundCounter -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        Vector3 targetPosition = target.transform.position;
+                        targetPosition.z = vineBehaviour.transform.position.z;
+                        vineBehaviour.transform.position = targetPosition;
+                        ShowWarning();
+                        phase = Phase.InitiateAttack;
+                        warningCounter = 1;
+                    }
                 }
                 break;
             case Phase.InitiateAttack:
@@ -87,6 +99,8 @@ public class VineAmbushState : IState
                 }
                 else
                 {
+                    ShowVine();
+                    animator.SetTrigger("Ambush");
                     Attack();
                 }
                 break;
@@ -111,7 +125,6 @@ public class VineAmbushState : IState
     private void Attack()
     {
         HideWarning();
-        ShowVine();
 
         foreach (var target in TargetsInRange())
         {
@@ -135,14 +148,14 @@ public class VineAmbushState : IState
     private void HideVine()
     {
         collider.enabled = false;
-        vineBehaviour.transform.GetChild(0).gameObject.SetActive(false);
+        vineBehaviour.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
         healthBar.HideHealthBar();
     }
 
     private void ShowVine()
     {
         collider.enabled = true;
-        vineBehaviour.transform.GetChild(0).gameObject.SetActive(true);
+        vineBehaviour.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
         healthBar.UnHideHealthBar();
     }
 

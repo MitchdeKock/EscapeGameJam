@@ -9,6 +9,9 @@ public class ToxicVineBehaviour : EnemyBehaviour
     [Header("Debug")]
     public bool ShowDebug;
 
+    [Space]
+    [SerializeField] private Animator animator;
+
     [Header("Stats")]
     [SerializeField] private float attackDamage;
     [SerializeField] private float attackRange;
@@ -24,8 +27,8 @@ public class ToxicVineBehaviour : EnemyBehaviour
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 
         // Setup states
-        var attackState = new VineAttackState(attackCooldown, attackRange, attackDamage, this, target);
-        var ambushState = new VineAmbushState(ambushCooldown, attackRange, ambushDamage, this, target);
+        var attackState = new VineAttackState(attackCooldown, attackRange, attackDamage, this, target, animator);
+        var ambushState = new VineAmbushState(ambushCooldown, attackRange, ambushDamage, this, target, animator);
         var idleState = new VineIdleState(this);
 
         stateMachine.AddAnyTransition(attackState, TargetInAttackRange());

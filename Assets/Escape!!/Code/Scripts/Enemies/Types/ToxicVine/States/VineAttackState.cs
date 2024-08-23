@@ -12,18 +12,20 @@ public class VineAttackState : IState
     private float cooldown;
     private ToxicVineBehaviour vineBehaviour;
     private CoreHealthHandler target;
+    private Animator animator;
 
     private float attackCooldownCounter;
     private float attackAnimationCounter;
     private bool isAttacking = false;
 
-    public VineAttackState(float cooldown, float range, float damage, ToxicVineBehaviour vine, CoreHealthHandler target)
+    public VineAttackState(float cooldown, float range, float damage, ToxicVineBehaviour vine, CoreHealthHandler target, Animator animator)
     {
         this.cooldown = cooldown;
         this.range = range;
         this.damage = damage;
         this.vineBehaviour = vine;
         this.target = target;
+        this.animator = animator;
     }
 
     public void OnEnter()
@@ -52,6 +54,7 @@ public class VineAttackState : IState
             }
             else
             {
+                animator.SetTrigger("Attack");
                 Attack();
                 vineBehaviour.isBusy = isAttacking = false;
             }
