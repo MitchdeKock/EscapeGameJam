@@ -338,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth:
     UseConstant: 1
-    ConstantValue: 10
+    ConstantValue: 4
     Variable: {fileID: 0}
   ghostDelayConstant: 1
   ghostHealthChangeSpeed: 10
