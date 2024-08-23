@@ -8,14 +8,14 @@ using UnityEngine.SceneManagement;
 public class GameOverManager : MonoBehaviour
 {
     [SerializeField] GameObject gameOverScreen;
-    TextMeshPro finalScore;
+    [SerializeField] TextMeshProUGUI finalScore;
+    [SerializeField] private FloatReference totalKills;
 
     private CoreHealthHandler _coreHealth;
     private void Start()
     {
         _coreHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
         _coreHealth.OnHealthValueChanged += isGameOver;
-        finalScore = gameOverScreen.transform.GetChild(2).GetComponent<TextMeshPro>();
     }
     public void isGameOver(int health)
     {
@@ -28,6 +28,7 @@ public class GameOverManager : MonoBehaviour
     {
         PauseManager.Pause();
         gameOverScreen.SetActive(true);
+        finalScore.text = $"FINAL SCORE: {totalKills.Value}";
     }
     public void Restart()
     {
