@@ -324,8 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49edcb7142cc5c44692c762c3002459d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  dashSpeed: 10
+  moveSpeed: 7
+  dashSpeed: 20
   dashCooldown: 1
   dashDuration: 0.3
   rb: {fileID: 4714606338313735237}
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11bca2c8d09fa3542bfb9b8d8fc48c6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 5
   maxHealth: 20
 --- !u!114 &8692934171883196061
 MonoBehaviour:

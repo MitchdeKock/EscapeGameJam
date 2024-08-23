@@ -28,7 +28,7 @@ public class PowerUp : MonoBehaviour
         Cost = 5;
         _powerUpModel = new PowerUpModel()
         {
-            DashSpeedUpgrade = 5,
+            DashSpeedUpgrade = 20,
             MoveSpeedUpgrade = 5,
             DashCoolDownUpgrade = -1,
             DashDurationUpgrade = 1,

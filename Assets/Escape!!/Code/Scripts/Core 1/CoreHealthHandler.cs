@@ -12,14 +12,11 @@ public class CoreHealthHandler : MonoBehaviour
     private SpriteRenderer BodySprite;
     public IEnumerator Flash()
     {
-        Color oldColourHead = Headsprite.color;
-        Color oldColourBody = BodySprite.color;
-
         Headsprite.color = Color.red;
         BodySprite.color = Color.red;
         yield return new WaitForSeconds(0.1f);
-        Headsprite.color = oldColourHead;
-        BodySprite.color = oldColourBody;
+        Headsprite.color = Color.white;
+        BodySprite.color = Color.white;
     }
     private void Start()
     {

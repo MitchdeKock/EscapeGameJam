@@ -52,14 +52,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isBusy: 0
   ShowDebug: 0
-  slamDamage: 4
-  slamRange: 4
+  slamDamage: 5
+  slamRange: 3.5
   slamCooldown: 2
   throwDamage: 4
   throwRange: 15
   throwCooldown: 5
   rockProjectile: {fileID: 3047362298072662250, guid: 9a951a8e2a76d5041b5fdfaaecaad2d5, type: 3}
-  moveSpeed: 2
+  moveSpeed: 5
 --- !u!50 &5313953614652789577
 Rigidbody2D:
   serializedVersion: 4
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth:
     UseConstant: 1
-    ConstantValue: 5
+    ConstantValue: 6
     Variable: {fileID: 0}
   ghostDelayConstant: 1
   ghostHealthChangeSpeed: 10
@@ -268,8 +268,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1349882898891770767}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

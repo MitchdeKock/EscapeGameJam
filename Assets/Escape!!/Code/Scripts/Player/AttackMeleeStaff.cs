@@ -20,9 +20,9 @@ public class AttackMeleeStaff : BaseWeapon
 
     private void OnEnable()
     {
-        cooldown = 0.7f;
-        range = 4;
-        damage = 1;
+        cooldown = 1f;
+        range = 4.5f;
+        damage = 2;
         attackArcAngle = 70;
         attackCooldownCounter = 0;
     }
@@ -55,9 +55,9 @@ public class AttackMeleeStaff : BaseWeapon
         List<EnemyHealth> objectsInArc = new List<EnemyHealth>();
 
         Vector2 centerPosition = attacker.transform.position;
-        Vector2 direction = attacker.transform.GetChild(0).up;
+        Vector2 direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - attacker.transform.position).normalized;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(centerPosition, range/*, detectionLayer*/); // ToDo Assign enemies to a layer
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(centerPosition, range);
 
         foreach (Collider2D collider in colliders)
         {

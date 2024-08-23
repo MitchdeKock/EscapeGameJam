@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01c2b3e50a71cad4d915bdb48d093775, type: 3}
   m_Name: BasicMelee
   m_EditorClassIdentifier: 
-  cooldown: 0.7
-  range: 4
+  cooldown: 1
+  range: 4.5
   attackArcAngle: 70
-  damage: 1
+  damage: 2

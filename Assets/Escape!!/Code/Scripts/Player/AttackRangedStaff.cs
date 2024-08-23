@@ -19,7 +19,7 @@ public class AttackRangedStaff : BaseWeapon
 
     private void OnEnable()
     {
-        cooldown = 0.5f;
+        cooldown = 1.5f;
         range = 7;
         damage = 1;
         attackCooldownCounter = 0;
@@ -33,7 +33,7 @@ public class AttackRangedStaff : BaseWeapon
 
         Projectile projectile = GameObject.Instantiate<Projectile>(this.Projectile, attacker.transform.position, projectileRotation);
         Physics2D.IgnoreCollision(projectile.GetComponent<Collider2D>(), attacker.GetComponent<Collider2D>());
-        projectile.InitializeProjectile(damage, range, 10); // ToDo Assign enemies to a layer
+        projectile.InitializeProjectile(damage, range, 20);
 
         attackCooldownCounter = cooldown;
     }
