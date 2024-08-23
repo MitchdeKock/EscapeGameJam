@@ -44,8 +44,6 @@ public class EnemyHealth : MonoBehaviour
         var pos = transform.position;
         pos.z = 0;
         Instantiate(enemyFlowPrefab, pos, transform.rotation);
-        var coreHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
-        coreHealth.Health += 1;
         OnEnemyDied?.Invoke();
         Destroy(gameObject);
     }
