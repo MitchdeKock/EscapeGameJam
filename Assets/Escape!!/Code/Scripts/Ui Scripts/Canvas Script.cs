@@ -67,6 +67,7 @@ public class CanvasScript : MonoBehaviour
         if (coreScriptComponent.Health > 5)
         {
             assignUpgrades();
+            coreScriptComponent.Health -= 5;
         }
 
     }
