@@ -13,10 +13,9 @@ public class EnemyHealth : MonoBehaviour
 
     public IEnumerator Flash()
     {
-        Color oldColour = sprite.color;
         sprite.color = Color.red;
         yield return new WaitForSeconds(0.1f);
-        sprite.color = oldColour;
+        sprite.color = Color.white;
     }
 
     private void Start()
