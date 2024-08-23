@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba5ef516f8838a41a1e7bd12491fae3, type: 3}
+  m_Name: RangeUpgrade
+  m_EditorClassIdentifier: 
+  UpgradeName: Projectile Range
+  UpgradeDescription: Increases Ranged on projectile
+  UpgradePrice: 10
+  maxUpgrades: 10
+  upgradeAmount: 0
+  secondaryAttack: {fileID: 11400000, guid: c98f1a6940b4e22499a0bf9d3030592a, type: 2}

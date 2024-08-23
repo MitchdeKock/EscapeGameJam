@@ -31,6 +31,7 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] private BaseUpgrade meleeAttackRate;
     [SerializeField] private BaseUpgrade rangedAttackRate;
     [SerializeField] private BaseUpgrade dashSpeed;
+    [SerializeField] private BaseUpgrade projectileRange;
 
     private List<BaseUpgrade> allUpgrades = new List<BaseUpgrade>();
 
@@ -53,6 +54,7 @@ public class CanvasScript : MonoBehaviour
         allUpgrades.Add(meleeAttackRate);
         allUpgrades.Add(rangedAttackRate);
         allUpgrades.Add(dashSpeed);
+        allUpgrades.Add(projectileRange);
 
         coreScriptComponent = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
