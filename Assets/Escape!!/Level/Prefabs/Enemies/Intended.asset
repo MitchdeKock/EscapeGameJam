@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ef908b08fc9e854fa86c75daa44c6fa, type: 3}
   m_Name: Intended
   m_EditorClassIdentifier: 
-  MaxKills: 100
+  MaxKills: 500
   killFactor: 1
   MaxTime: 600
   timeFactor: 1
-  MaxDifficultyMultiplier: 5
-  MinTimeBetweenSpawns: 0.5
-  MaxTimeBetweenSpawns: 5
+  MaxDifficultyMultiplier: 3
+  MinTimeBetweenSpawns: 0.1
+  MaxTimeBetweenSpawns: 1
   totalKills:
     UseConstant: 0
     ConstantValue: 0

@@ -241,14 +241,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBusy: 0
-  ShowDebug: 0
+  ShowDebug: 1
   animator: {fileID: 2344649701510346413}
   attackDamage: 2
-  attackRange: 3
-  attackCooldown: 4
-  ambushDamage: 0
+  attackRange: 4.5
+  attackCooldown: 2
+  ambushDamage: 5
   ambushRange: 15
-  ambushCooldown: 5
+  ambushCooldown: 8
 --- !u!50 &8354548347838368369
 Rigidbody2D:
   serializedVersion: 4
