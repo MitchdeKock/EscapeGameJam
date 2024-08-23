@@ -19,6 +19,8 @@ public class DestroyState : IState
 
     public void OnEnter()
     {
+        var coreHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
+        coreHealth.Health += 1;
         GameObject.Destroy(_monoBehaviour.gameObject);
     }
 
