@@ -15,7 +15,7 @@ public class GameOverManager : MonoBehaviour
     {
         _coreHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
         _coreHealth.OnHealthValueChanged += isGameOver;
-        finalScore = gameOverScreen.GetComponentAtIndex<TextMeshPro>(2);
+        finalScore = gameOverScreen.transform.GetChild(2).GetComponent<TextMeshPro>();
     }
     public void isGameOver(int health)
     {
