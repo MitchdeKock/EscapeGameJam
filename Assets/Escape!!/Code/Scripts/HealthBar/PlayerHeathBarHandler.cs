@@ -60,8 +60,8 @@ public class PlayerHeathBarHandler : MonoBehaviour
             fill.color = Color.red;
         }
         else
-        { 
-            fill.color = Color.yellow; 
+        {
+            fill.color = new Color(0.1333333f, 0.6156863f, 0.8901961f);
             currHealthtext.color = Color.black;
         }
 
