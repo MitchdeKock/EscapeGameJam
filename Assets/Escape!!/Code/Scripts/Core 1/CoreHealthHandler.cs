@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class CoreHealthHandler : MonoBehaviour
 {
     [SerializeField] private int health = 1;
     [SerializeField] private int maxHealth = 20;
+    [SerializeField] private AudioClip healthSound;
+    [SerializeField] private AudioClip hurtSound;
     private SpriteRenderer Headsprite;
     private SpriteRenderer BodySprite;
     public IEnumerator Flash()
@@ -35,6 +38,11 @@ public class CoreHealthHandler : MonoBehaviour
             health = Math.Min(value, maxHealth);
             if (oldHealth>health && !PauseManager.IsPaused) {
                 StartCoroutine(Flash());
+                SFXManager.instance.PlaySoundFXClip(hurtSound, Headsprite.transform, 1f);
+            }
+            else
+            {
+                SFXManager.instance.PlaySoundFXClip(healthSound, Headsprite.transform, 1f);
             }
             OnHealthValueChanged?.Invoke(health);
         }
