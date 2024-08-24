@@ -11,6 +11,7 @@ public class ShadowBeastPursuitState : IState
     private ShadowBeastBehaviour shadowBeastBehaviour;
     private CoreHealthHandler target;
     private Rigidbody2D rigidbody;
+    private SpriteRenderer spriteRenderer;
 
     public ShadowBeastPursuitState(float moveSpeed, float stoppingDistance, ShadowBeastBehaviour shadowBeast, CoreHealthHandler target, Rigidbody2D rigidbody)
     {
@@ -19,6 +20,7 @@ public class ShadowBeastPursuitState : IState
         this.shadowBeastBehaviour = shadowBeast;
         this.target = target;
         this.rigidbody = rigidbody;
+        spriteRenderer = shadowBeast.transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     public void OnEnter()
@@ -40,6 +42,15 @@ public class ShadowBeastPursuitState : IState
 
         Vector2 moveDirection = target.transform.position - shadowBeastBehaviour.transform.position;
         rigidbody.velocity = moveDirection.normalized * currentSpeed;
+
+        if (rigidbody.velocity.x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 
     public void TickCooldown()

@@ -6,6 +6,7 @@ public class SlimePursuitState : IState
     private readonly SlimeBehaviour slimeBehaviour;
     private Rigidbody2D rigidbody;
     private Transform target;
+    private SpriteRenderer spriteRenderer;
 
     private float moveSpeed;
     private float stoppingDistance;
@@ -15,7 +16,8 @@ public class SlimePursuitState : IState
         this.slimeBehaviour = slimeBehaviour;
         this.target = target;
         this.moveSpeed = moveSpeed;
-        this.stoppingDistance = stoppingDistance;   
+        this.stoppingDistance = stoppingDistance;
+        spriteRenderer = slimeBehaviour.transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     public void OnEnter()
@@ -37,6 +39,15 @@ public class SlimePursuitState : IState
 
         Vector2 moveDirection = target.transform.position - slimeBehaviour.transform.position;
         rigidbody.velocity = moveDirection.normalized * currentSpeed;
+
+        if (rigidbody.velocity.x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 
     public void TickCooldown()

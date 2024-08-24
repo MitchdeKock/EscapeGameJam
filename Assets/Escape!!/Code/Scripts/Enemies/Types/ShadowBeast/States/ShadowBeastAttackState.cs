@@ -18,6 +18,7 @@ public class ShadowBeastAttackState : IState
     private ShadowBeastBehaviour shadowBeastBehaviour;
     private CoreHealthHandler target;
     private Rigidbody2D rigidbody;
+    private Animator animator;
 
     private float attackCooldownCounter;
     private float attackAnimationCounter;
@@ -27,7 +28,7 @@ public class ShadowBeastAttackState : IState
     private bool isAttacking;
 
     private Phase phase;
-    public ShadowBeastAttackState(float damage, float range, float damageRange, float cooldown, float speed, ShadowBeastBehaviour shadowBeast, CoreHealthHandler target, Rigidbody2D rigidbody)
+    public ShadowBeastAttackState(float damage, float range, float damageRange, float cooldown, float speed, ShadowBeastBehaviour shadowBeast, CoreHealthHandler target, Rigidbody2D rigidbody, Animator animator)
     {
         this.cooldown = cooldown;
         this.damage = damage;
@@ -38,6 +39,7 @@ public class ShadowBeastAttackState : IState
         this.target = target;
         this.rigidbody = rigidbody;
         attackCooldownCounter = cooldown;
+        this.animator = animator;
     }
 
     public void OnEnter()
@@ -54,7 +56,7 @@ public class ShadowBeastAttackState : IState
         if (attackCooldownCounter <= 0)
         {
             attackCooldownCounter = cooldown;
-            attackAnimationCounter = 1; // ToDo Replace with animation time
+            attackAnimationCounter = 1;
             shadowBeastBehaviour.isBusy = isAttacking = true;
             phase = Phase.Predash;
         }
@@ -80,6 +82,7 @@ public class ShadowBeastAttackState : IState
                 case Phase.Dashing:
                     if (dashDurationCounter > 0)
                     {
+                        animator.SetTrigger("attack");
                         rigidbody.velocity = direction * speed; // ToDo add a curve to the speed
                         Attack();
                         dashDurationCounter -= Time.deltaTime;

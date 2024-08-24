@@ -9,6 +9,9 @@ public class ShadowBeastBehaviour : EnemyBehaviour
     [Header("Debug")]
     public bool ShowDebug;
 
+    [Space]
+    [SerializeField] private Animator animator;
+
     [Header("Stats")]
     [SerializeField] private float dashDamage;
     [SerializeField] private float dashRange;
@@ -26,8 +29,8 @@ public class ShadowBeastBehaviour : EnemyBehaviour
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 
         // Setup states
-        var attackState = new ShadowBeastAttackState(dashDamage, dashRange, damageRange, dashCooldown, dashSpeed, this, target, GetComponent<Rigidbody2D>());
-        var ambushState = new ShadowBeastAmbushState(ambushDamage, damageRange, ambushCooldown, this, target);
+        var attackState = new ShadowBeastAttackState(dashDamage, dashRange, damageRange, dashCooldown, dashSpeed, this, target, GetComponent<Rigidbody2D>(), animator);
+        var ambushState = new ShadowBeastAmbushState(ambushDamage, damageRange, ambushCooldown, this, target, animator);
         var pursuitState = new ShadowBeastPursuitState(moveSpeed, dashRange - 1, this, target, GetComponent<Rigidbody2D>());
 
         stateMachine.AddAnyTransition(attackState, TargetInAttackRange());

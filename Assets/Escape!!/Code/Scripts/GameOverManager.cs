@@ -35,4 +35,10 @@ public class GameOverManager : MonoBehaviour
         PauseManager.UnPause();
         SceneManager.LoadScene(SceneManager.GetSceneByName("Game").buildIndex);
     }
+
+    public void BackToMain()
+    {
+        PauseManager.UnPause();
+        SceneManager.LoadScene(SceneManager.GetSceneByName("MainMenu").buildIndex);
+    }
 }

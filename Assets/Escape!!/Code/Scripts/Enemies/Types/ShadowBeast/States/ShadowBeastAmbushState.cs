@@ -17,14 +17,16 @@ public class ShadowBeastAmbushState : IState
     private CoreHealthHandler target;
     private HealthBar healthBar;
     private Collider2D collider;
+    private Animator animator;
 
     private float attackCooldownCounter;
+    private float despawnCounter;
     private float hideTimeCounter;
     private float warningCounter;
     private bool isAttacking;
     private Phase phase;
 
-    public ShadowBeastAmbushState(float damage, float range, float cooldown, ShadowBeastBehaviour shadowBeastBehaviour, CoreHealthHandler target)
+    public ShadowBeastAmbushState(float damage, float range, float cooldown, ShadowBeastBehaviour shadowBeastBehaviour, CoreHealthHandler target, Animator animator)
     {
         this.damage = damage;
         this.range = range;
@@ -34,6 +36,7 @@ public class ShadowBeastAmbushState : IState
         healthBar = shadowBeastBehaviour.GetComponent<HealthBar>();
         collider = shadowBeastBehaviour.GetComponent<Collider2D>();
         attackCooldownCounter = cooldown;
+        this.animator = animator;
     }
 
     public void OnEnter()
@@ -48,8 +51,9 @@ public class ShadowBeastAmbushState : IState
     {
         if (attackCooldownCounter <= 0)
         {
+            animator.SetTrigger("vanish");
+            despawnCounter = animator.GetCurrentAnimatorStateInfo(0).length;
             attackCooldownCounter = cooldown;
-            HideShadowBeast();
             hideTimeCounter = 1;
             phase = Phase.Invisible;
             shadowBeastBehaviour.isBusy = isAttacking = true;
@@ -58,18 +62,26 @@ public class ShadowBeastAmbushState : IState
         switch (phase)
         {
             case Phase.Invisible:
-                if (hideTimeCounter > 0)
+                if (despawnCounter > 0)
                 {
-                    hideTimeCounter -= Time.deltaTime;
+                    despawnCounter -= Time.deltaTime;
                 }
                 else
                 {
-                    Vector3 targetPosition = target.transform.position;
-                    targetPosition.z = shadowBeastBehaviour.transform.position.z;
-                    shadowBeastBehaviour.transform.position = targetPosition;
-                    ShowWarning();
-                    phase = Phase.Attacking;
-                    warningCounter = 1;
+                    HideShadowBeast();
+                    if (hideTimeCounter > 0)
+                    {
+                        hideTimeCounter -= Time.deltaTime;
+                    }
+                    else
+                    {
+                        Vector3 targetPosition = target.transform.position;
+                        targetPosition.z = shadowBeastBehaviour.transform.position.z;
+                        shadowBeastBehaviour.transform.position = targetPosition;
+                        ShowWarning();
+                        phase = Phase.Attacking;
+                        warningCounter = 1;
+                    }
                 }
                 break;
             case Phase.Attacking:
@@ -80,6 +92,7 @@ public class ShadowBeastAmbushState : IState
                 else
                 {
                     ShowShadowBeast();
+                    animator.SetTrigger("ambush");
                     Attack();
                     shadowBeastBehaviour.isBusy = isAttacking = false;
                     phase = Phase.Default;
@@ -125,14 +138,14 @@ public class ShadowBeastAmbushState : IState
     private void HideShadowBeast()
     {
         collider.enabled = false;
-        shadowBeastBehaviour.transform.GetChild(0).gameObject.SetActive(false);
+        shadowBeastBehaviour.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
         healthBar.HideHealthBar();
     }
 
     private void ShowShadowBeast()
     {
         collider.enabled = true;
-        shadowBeastBehaviour.transform.GetChild(0).gameObject.SetActive(true);
+        shadowBeastBehaviour.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
         healthBar.UnHideHealthBar();
     }
 
