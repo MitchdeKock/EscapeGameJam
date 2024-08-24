@@ -205,6 +205,7 @@ MonoBehaviour:
   healthBarOffset: {x: 0, y: 0, z: 0}
   changeAmount: 0
   canDie: 1
+  maxLive: 5
 --- !u!114 &7025559867502461298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,8 +237,8 @@ MonoBehaviour:
   dashRange: 5
   dashSpeed: 12
   dashCooldown: 5
-  ambushDamage: 5
+  ambushDamage: 3
   damageRange: 3
   ambushRange: 15
-  ambushCooldown: 20
+  ambushCooldown: 4
   moveSpeed: 8

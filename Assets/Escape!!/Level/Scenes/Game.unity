@@ -753,6 +753,7 @@ MonoBehaviour:
   - {fileID: 1984117510869575802, guid: acc03c9c3f349e94f9e4ab51bcbdec5f, type: 3}
   - {fileID: 6397024237508368197, guid: bada37af933ed6c4da5ba52837e6dee3, type: 3}
   - {fileID: 182143565603860664, guid: 7a2d7eb56524ba14db4974848f554180, type: 3}
+  - {fileID: 7025559867502461298, guid: b2291ddaf5acd86478d5274184036b00, type: 3}
   difficultyManager: {fileID: 11400000, guid: e7e51ffa05aa38b4aa173d76488a81ec, type: 2}
   totalKills:
     UseConstant: 0
@@ -763,8 +764,9 @@ MonoBehaviour:
     ConstantValue: 0
     Variable: {fileID: 11400000, guid: 75fff6614c1eb2d4eaeae3ac7fd38cf4, type: 2}
   enemyWeights:
-  - 0.5
   - 0.4
+  - 0.3
+  - 0.2
   - 0.1
 --- !u!224 &600646959 stripped
 RectTransform:
