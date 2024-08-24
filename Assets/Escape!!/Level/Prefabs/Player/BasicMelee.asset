@@ -16,3 +16,4 @@ MonoBehaviour:
   range: 4.5
   attackArcAngle: 70
   damage: 2
+  attackSound: {fileID: 8300000, guid: 323e15cfe809e114ab92c9f4b25e8bc2, type: 3}
