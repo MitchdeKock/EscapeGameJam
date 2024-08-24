@@ -10,6 +10,7 @@ public class HealthBar : MonoBehaviour
 
     public event DeathHandler OnDeath;
 
+    public event DeathHandler timedOut;
     [SerializeField] public FloatReference maxHealth;
 
     [Header("HealthBar animation settings")]
@@ -20,6 +21,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private GameObject healthBarPrefab;
     [SerializeField] private Vector3 healthBarOffset;
 
+    private Camera mainCamera;
     // Cached ui elements
     private GameObject healthBarInstance = null;
     private Image healthBarFill;
@@ -35,9 +37,12 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private float changeAmount = 0;
 
     [SerializeField] private bool canDie = true;
-
+    private float liveTime; //this is in seconds
+    [SerializeField] private float maxLive = 5f; //this is in seconds
     void Start()
     {
+        mainCamera= Camera.main;
+        liveTime = maxLive;
         // Initialise health values
         health = ghostHealth = maxHealth.Value;
 
@@ -58,6 +63,22 @@ public class HealthBar : MonoBehaviour
 
     void Update()
     {
+
+        Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
+        bool isVisible = viewPos.x > 0 && viewPos.x < 1 &&
+                     viewPos.y > 0 && viewPos.y < 1 &&
+                     viewPos.z > 0;
+
+        if(!isVisible)
+        {
+
+            liveTime -= Time.deltaTime;
+        }
+        if (liveTime < 0)
+        {
+            Destroy(healthBarInstance);
+            timedOut?.Invoke();
+        }
         if (healthBarInstance != null)
         {
             HandleDelayedHealthChange();
@@ -71,7 +92,7 @@ public class HealthBar : MonoBehaviour
     {
         // Change health
         health += amount;
-
+        liveTime = maxLive;
         // Check if still alive
         if (health <= 0)
         {

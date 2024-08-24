@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
 {
     private HealthBar healthBar;
     public event Action OnEnemyDied;
+    public event Action EnemyDespawned;
     [SerializeField] private GameObject enemyFlowPrefab; // Reference to the EnemyFlow prefab
 
     private SpriteRenderer sprite;
@@ -25,6 +26,7 @@ public class EnemyHealth : MonoBehaviour
         sprite = spriteTransform.GetComponent<SpriteRenderer>();
         healthBar = GetComponent<HealthBar>();
         healthBar.OnDeath += OnDeath;
+        healthBar.timedOut += timedOut;
     }
 
     public void AddHealth(float amount)
@@ -44,6 +46,12 @@ public class EnemyHealth : MonoBehaviour
         pos.z = 0;
         Instantiate(enemyFlowPrefab, pos, transform.rotation);
         OnEnemyDied?.Invoke();
+        Destroy(gameObject);
+    }
+
+    private void timedOut()
+    {
+        EnemyDespawned?.Invoke();
         Destroy(gameObject);
     }
 }
