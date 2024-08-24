@@ -49,6 +49,7 @@ public class Spawning : MonoBehaviour
             int enemyIndex = GetWeightedRandomIndex();
             EnemyHealth enemy = Instantiate(enemyPrefabs[enemyIndex], GetRandomWorldPointOffScreen(2), Quaternion.identity);
             enemy.OnEnemyDied += EnemyDied;
+            enemy.EnemyDespawned += EnemyDespawned;
             currentNumberOfEnemies++;
         }
     }
@@ -80,6 +81,10 @@ public class Spawning : MonoBehaviour
         totalKills.Value++;
     }
 
+    private void EnemyDespawned()
+    {
+        currentNumberOfEnemies--;
+    }
     public Vector3 GetRandomWorldPointOffScreen(float distanceOffScreen) // ChatGPT code
     {
         Vector3 randomPoint = Vector3.zero;
