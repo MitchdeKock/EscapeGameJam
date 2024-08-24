@@ -13,6 +13,8 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private Button CreditsButton;
     [SerializeField] private Button TutorialBackButton;
     [SerializeField] private Button CreditsBackButton;
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button settingBackButon;
 
     [Header("Menu")]
     [SerializeField] private GameObject Menu;
@@ -21,14 +23,18 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private GameObject Tutorial;
     [SerializeField] private GameObject Credits;
     [SerializeField] private GameObject DefaultMenu;
+    [SerializeField] private GameObject settingsMenu;
+
     void Start()
     {
         //PauseManager.Pause();
         PlayButton.onClick.AddListener(onStart);
         TutorialButton.onClick.AddListener(OpenTutorial);
         CreditsButton.onClick.AddListener(OpenCredits);
+        settingsButton.onClick.AddListener(openSettings);
         TutorialBackButton.onClick.AddListener(ReturnToMenu);
         CreditsBackButton.onClick.AddListener(ReturnToMenu);
+        settingBackButon.onClick.AddListener(ReturnToMenu);
         ReturnToMenu();
     }
 
@@ -45,11 +51,17 @@ public class MainMenuScript : MonoBehaviour
 
     }
 
+    private void openSettings()
+    {
+        DefaultMenu.SetActive(false);
+        settingsMenu.SetActive(true);
+    }
     private void ReturnToMenu()
     {
         DefaultMenu?.SetActive(true);
         Tutorial.SetActive(false);
         Credits.SetActive(false);
+        settingsMenu?.SetActive(false);
     }
     public void onStart()
     {
