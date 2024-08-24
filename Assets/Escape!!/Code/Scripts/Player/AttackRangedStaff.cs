@@ -14,6 +14,7 @@ public class AttackRangedStaff : BaseWeapon
     [SerializeField] private float cooldown;
     [SerializeField] private float range;
     [SerializeField] private float damage;
+    [SerializeField] private AudioClip rangedSoundClip;
 
     private float attackCooldownCounter = 0;
 
@@ -34,6 +35,8 @@ public class AttackRangedStaff : BaseWeapon
         Projectile projectile = GameObject.Instantiate<Projectile>(this.Projectile, attacker.transform.position, projectileRotation);
         Physics2D.IgnoreCollision(projectile.GetComponent<Collider2D>(), attacker.GetComponent<Collider2D>());
         projectile.InitializeProjectile(damage, range, 20);
+
+        SFXManager.instance.PlaySoundFXClip(rangedSoundClip, attacker.transform, 1f);
 
         attackCooldownCounter = cooldown;
     }

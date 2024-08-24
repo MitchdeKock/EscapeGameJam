@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Projectile rangedProjectile;
     [SerializeField] private Animator bodyAnimator;
     [SerializeField] private Animator headAnimator;
+    [SerializeField] private AudioClip dashSound;
 
     private Vector2 moveInput;
     private Vector2 lastMoveInput;
@@ -66,6 +67,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (dashCooldownCounter <= 0 && dashDurationCounter <= 0)
                 {
+                    SFXManager.instance.PlaySoundFXClip(dashSound, transform, 1f);
                     activeMoveSpeed = dashSpeed;
                     dashDurationCounter = dashDuration;
                 }

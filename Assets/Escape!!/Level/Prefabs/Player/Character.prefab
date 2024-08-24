@@ -332,6 +332,7 @@ MonoBehaviour:
   rangedProjectile: {fileID: 5806350095286291592, guid: b796e976fb87db64aa47ba75f6cf4522, type: 3}
   bodyAnimator: {fileID: 6111842592755367400}
   headAnimator: {fileID: 5036947176707096339}
+  dashSound: {fileID: 8300000, guid: 4e349dc959014a845b9aa317d1c2b7f0, type: 3}
   mainAttack: {fileID: 11400000, guid: c3cc4a062139b3b49a279f04148df58d, type: 2}
   secondaryAttack: {fileID: 11400000, guid: c98f1a6940b4e22499a0bf9d3030592a, type: 2}
 --- !u!114 &4388858032433407004
@@ -348,6 +349,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 5
   maxHealth: 20
+  healthSound: {fileID: 8300000, guid: cfce0cea076109f478783201b2a9f57f, type: 3}
+  hurtSound: {fileID: 8300000, guid: 2b21ef916f6943c439b71a7c74568878, type: 3}
 --- !u!114 &8692934171883196061
 MonoBehaviour:
   m_ObjectHideFlags: 0

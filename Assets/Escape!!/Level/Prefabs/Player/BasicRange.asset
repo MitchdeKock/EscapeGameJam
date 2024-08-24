@@ -16,3 +16,4 @@ MonoBehaviour:
   cooldown: 1.5
   range: 7
   damage: 1
+  rangedSoundClip: {fileID: 8300000, guid: a652877b012108e41871f867ada9f176, type: 3}

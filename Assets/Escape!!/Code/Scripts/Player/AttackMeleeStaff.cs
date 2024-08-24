@@ -15,6 +15,7 @@ public class AttackMeleeStaff : BaseWeapon
     [SerializeField] private float range;
     [SerializeField] private float attackArcAngle;
     [SerializeField] private float damage;
+    [SerializeField] private AudioClip attackSound;
 
     private float attackCooldownCounter = 0;
 
@@ -33,7 +34,7 @@ public class AttackMeleeStaff : BaseWeapon
         {
             enemy.RemoveHealth(damage);
         }
-
+        SFXManager.instance.PlaySoundFXClip(attackSound, attacker.transform, 1f);
         attackCooldownCounter = cooldown;
     }
     public override void Tick()
