@@ -2333,17 +2333,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3156460905094171937, guid: 7453549d9eb2f064796d73ec81206f93, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -2344023519280673940, guid: dc4b256e9f8985d4583575d5b844b1ae, type: 2}
     - target: {fileID: 4036729217764841479, guid: 7453549d9eb2f064796d73ec81206f93, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.6590922
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4036729217764841479, guid: 7453549d9eb2f064796d73ec81206f93, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.5727696
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4036729217764841479, guid: 7453549d9eb2f064796d73ec81206f93, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.16863556
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4036729217764841479, guid: 7453549d9eb2f064796d73ec81206f93, type: 3}
       propertyPath: m_LocalRotation.w
