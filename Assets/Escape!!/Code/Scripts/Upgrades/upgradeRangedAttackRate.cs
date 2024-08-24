@@ -44,6 +44,6 @@ public class upgradeRangedAttackRate : BaseUpgrade
     }
     public override void buyUpgrade()
     {
-        secondaryAttack.Cooldown -= 0.01f;
+        secondaryAttack.Cooldown -= 0.1f;
     }
 }

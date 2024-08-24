@@ -43,6 +43,6 @@ public class upgradeMeleeAttackRate : BaseUpgrade
     }
     public override void buyUpgrade()
     {
-        mainAttack.Cooldown -= 0.01f;
+        mainAttack.Cooldown -= 0.1f;
     }
 }
