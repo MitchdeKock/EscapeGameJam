@@ -251,8 +251,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -146.76508, y: -70.84027}
-  m_SizeDelta: {x: 243.3508, y: 50}
+  m_AnchoredPosition: {x: -187.1677, y: -63.97}
+  m_SizeDelta: {x: 291.6353, y: 63.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3510387777438446677
 CanvasRenderer:
@@ -1404,6 +1404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flowCountText: {fileID: 9108424196639374980}
   maxFlowText: {fileID: 5817194740765902726}
+  refreshText: {fileID: 6026800662375584018}
   upgrade_button_1: {fileID: 4748542475824109556}
   upgrade_button_2: {fileID: 2356098536145997763}
   upgrade_button_3: {fileID: 2662532592737530404}
@@ -1419,6 +1420,7 @@ MonoBehaviour:
   meleeAttackRate: {fileID: 11400000, guid: 8f8ebe379c0558843bb9f5d07acbb499, type: 2}
   rangedAttackRate: {fileID: 11400000, guid: 5d4432b430634434a8178fe41ab8b869, type: 2}
   dashSpeed: {fileID: 11400000, guid: cdd00f1e04c487f429539ae9da7231ad, type: 2}
+  projectileRange: {fileID: 0}
   UpgradeScreen: {fileID: 1889334712998215291}
 --- !u!1 &5447982599507509173
 GameObject:
@@ -1454,8 +1456,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 119.527435, y: -45.84027}
-  m_SizeDelta: {x: 201.4618, y: 50}
+  m_AnchoredPosition: {x: 92.6, y: -32.1}
+  m_SizeDelta: {x: 213.1368, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7885254547123019252
 CanvasRenderer:
@@ -2084,7 +2086,7 @@ GameObject:
   - component: {fileID: 313162037197146591}
   - component: {fileID: 6026800662375584018}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Refresh Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

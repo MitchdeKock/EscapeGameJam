@@ -8,6 +8,7 @@ public class CanvasScript : MonoBehaviour
     [Header("Text references")]
     [SerializeField] private TMPro.TextMeshProUGUI flowCountText;
     [SerializeField] private TMPro.TextMeshProUGUI maxFlowText;
+    [SerializeField] private TMPro.TextMeshProUGUI refreshText;
 
     [Header("Button references")]
     [SerializeField] private Button upgrade_button_1;
@@ -86,6 +87,7 @@ public class CanvasScript : MonoBehaviour
         else
         {
             outOfUpgrades(upgrade_button_1);
+            refreshText.text = "Out of upgrades. Good Luck";
         }
 
         if (randomInts.Length > 1)
