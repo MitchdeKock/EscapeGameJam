@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuScript : MonoBehaviour
@@ -22,7 +23,7 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private GameObject DefaultMenu;
     void Start()
     {
-        PauseManager.Pause();
+        //PauseManager.Pause();
         PlayButton.onClick.AddListener(onStart);
         TutorialButton.onClick.AddListener(OpenTutorial);
         CreditsButton.onClick.AddListener(OpenCredits);
@@ -50,10 +51,9 @@ public class MainMenuScript : MonoBehaviour
         Tutorial.SetActive(false);
         Credits.SetActive(false);
     }
-    private void onStart()
+    public void onStart()
     {
-        PauseManager.UnPause();
-        Menu.SetActive(false);
+        SceneManager.LoadScene("Game");
     }
     // Update is called once per frame
     void Update()
