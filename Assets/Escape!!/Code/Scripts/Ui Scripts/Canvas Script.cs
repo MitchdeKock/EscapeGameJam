@@ -161,7 +161,7 @@ public class CanvasScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && coreScriptComponent.Health > 0)
         {
-            PauseManager.TogglePause();
+            PauseManager.TogglePause(false);
             UpgradeScreen.SetActive(!UpgradeScreen.activeSelf);
         }
 

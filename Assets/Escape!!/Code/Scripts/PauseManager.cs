@@ -6,7 +6,7 @@ public static class PauseManager
 {
     public static bool IsPaused { get; private set;}
 
-    public static void TogglePause()
+    public static void TogglePause(bool pauseMusic=true)
     {
         if (IsPaused)
         {
@@ -14,11 +14,11 @@ public static class PauseManager
         }
         else
         {
-            Pause();
+            Pause(pauseMusic);
         }
     }
 
-    public static void Pause()
+    public static void Pause(bool pauseMusic = true)
     {
         if (IsPaused)
         {
@@ -28,7 +28,7 @@ public static class PauseManager
         {
             IsPaused = true;
             Time.timeScale = 0;
-            AudioListener.pause = true;
+            AudioListener.pause = pauseMusic;
         }
     }
 
