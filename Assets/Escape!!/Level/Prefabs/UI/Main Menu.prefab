@@ -2062,8 +2062,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 371, y: -24}
-  m_SizeDelta: {x: 239.076, y: 72.4417}
+  m_AnchoredPosition: {x: 366, y: -32}
+  m_SizeDelta: {x: 239.076, y: 107.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5687026351326472498
 CanvasRenderer:
@@ -2099,7 +2099,9 @@ MonoBehaviour:
     under Creative Commons
 
     SFX: leohpaz Liscensed under the Unity Asset Store
-    EULA'
+    EULA
+
+    UI Assets: Black Hammer Liscensed under the Unity Asset Store EULA'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2126,8 +2128,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2162,7 +2164,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -745.9418, y: -56.397915, z: 0, w: 0}
+  m_margin: {x: -749.4802, y: -56.397915, z: -22.115051, w: -20.345787}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
