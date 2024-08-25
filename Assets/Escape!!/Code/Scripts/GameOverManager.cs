@@ -9,7 +9,8 @@ public class GameOverManager : MonoBehaviour
 {
     [SerializeField] GameObject gameOverScreen;
     [SerializeField] TextMeshProUGUI finalScore;
-    [SerializeField] private FloatReference totalKills;
+    [SerializeField] TextMeshProUGUI perviousHighScore;
+    [SerializeField] private FloatReference totalFlow;
 
     private CoreHealthHandler _coreHealth;
     private void Start()
@@ -28,11 +29,18 @@ public class GameOverManager : MonoBehaviour
     {
         PauseManager.Pause();
         gameOverScreen.SetActive(true);
-        finalScore.text = $"FINAL SCORE: {totalKills.Value}";
-        if (totalKills.Value > PlayerPrefs.GetFloat("score", 0))
+        string s = "Final Score";
+        if (totalFlow.Value > PlayerPrefs.GetFloat("score", 0))
         {
-            PlayerPrefs.SetFloat("score", totalKills.Value);
+            PlayerPrefs.SetFloat("score", totalFlow.Value);
+            s = "New High Score";
         }
+
+        perviousHighScore.text = $"High Score: {PlayerPrefs.GetFloat("score", 0)}";
+
+        finalScore.text = $"{s}: {totalFlow.Value}";
+
+        totalFlow.Value = 0;
     }
     public void Restart()
     {

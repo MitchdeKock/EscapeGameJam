@@ -8,7 +8,8 @@ public class EnemyHealth : MonoBehaviour
     private HealthBar healthBar;
     public event Action OnEnemyDied;
     public event Action EnemyDespawned;
-    [SerializeField] private GameObject enemyFlowPrefab; // Reference to the EnemyFlow prefab
+    [SerializeField] private HealthFlowBehaviour enemyFlowPrefab; // Reference to the EnemyFlow prefab
+    [SerializeField] private int flowGiven;
 
     private SpriteRenderer sprite;
     public float multiplier;
@@ -47,7 +48,8 @@ public class EnemyHealth : MonoBehaviour
     {
         var pos = transform.position;
         pos.z = 0;
-        Instantiate(enemyFlowPrefab, pos, transform.rotation);
+        var o = Instantiate(enemyFlowPrefab, pos, transform.rotation);
+        o.flowGiven = flowGiven;
         OnEnemyDied?.Invoke();
         Destroy(gameObject);
     }

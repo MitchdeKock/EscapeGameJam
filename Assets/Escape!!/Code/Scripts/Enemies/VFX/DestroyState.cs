@@ -7,11 +7,11 @@ using UnityEngine;
 
 public class DestroyState : IState
 {
-    private readonly MonoBehaviour _monoBehaviour;
+    private readonly HealthFlowBehaviour healthFlowBehaviour;
 
-    public DestroyState(MonoBehaviour monoBehaviour)
+    public DestroyState(HealthFlowBehaviour healthFlowBehaviour)
     {
-        _monoBehaviour = monoBehaviour;
+        this.healthFlowBehaviour = healthFlowBehaviour;
     }
 
     public void Tick() { }
@@ -20,8 +20,9 @@ public class DestroyState : IState
     public void OnEnter()
     {
         var coreHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
-        coreHealth.Health += 1;
-        GameObject.Destroy(_monoBehaviour.gameObject);
+        coreHealth.Health += healthFlowBehaviour.flowGiven;
+        healthFlowBehaviour.totalFlow.Value += healthFlowBehaviour.flowGiven;
+        GameObject.Destroy(healthFlowBehaviour.gameObject);
     }
 
     public void OnExit() { }

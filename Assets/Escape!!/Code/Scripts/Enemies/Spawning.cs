@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawning : MonoBehaviour
@@ -14,6 +15,7 @@ public class Spawning : MonoBehaviour
 
     private int currentNumberOfEnemies;
     private float spawnCounter;
+    private float counter;
 
     private void Start()
     {
@@ -38,7 +40,11 @@ public class Spawning : MonoBehaviour
         }
 
         secondsPlayed.Value += Time.deltaTime;
-        
+
+        if (counter < 120)
+        {
+            counter += Time.deltaTime;
+        }
     }
 
     private void TrySpawnEnemy()
@@ -46,7 +52,24 @@ public class Spawning : MonoBehaviour
         if (currentNumberOfEnemies < maxEnemies)
         {
             //Debug.Log($"Enemy multiplier: {difficultyManager.EnemyMultiplier}");
-            int enemyIndex = GetWeightedRandomIndex();
+            int enemyIndex;
+            if (counter < 5)
+            {
+                enemyIndex = GetWeightedRandomIndex(new float[] { 1, 0, 0, 0 });
+            }
+            else if (counter < 30) 
+            {
+                enemyIndex = GetWeightedRandomIndex(new float[] { 0.7f, 0.1f, 0.1f, 0.1f });
+            }
+            else if (counter < 120)
+            {
+                enemyIndex = GetWeightedRandomIndex(enemyWeights);
+            }
+            else
+            {
+                enemyIndex = GetWeightedRandomIndex(new float[] { 0.1f, 0.4f, 0.25f, 0.25f });
+            }
+
             EnemyHealth enemy = Instantiate(enemyPrefabs[enemyIndex], GetRandomWorldPointOffScreen(2), Quaternion.identity);
             enemy.multiplier = difficultyManager.EnemyMultiplier;
             enemy.GetComponent<EnemyBehaviour>().multiplier = difficultyManager.EnemyMultiplier;
@@ -56,22 +79,22 @@ public class Spawning : MonoBehaviour
         }
     }
 
-    private int GetWeightedRandomIndex()
+    private int GetWeightedRandomIndex(float[] weights)
     {
         float totalWeight = 0;
-        foreach (float weight in enemyWeights) //resiliance incase weights add up to more than 1
+        foreach (float weight in weights) //resiliance incase weights add up to more than 1
         {
             totalWeight += weight;
         }
 
         float randomValue = UnityEngine.Random.Range(0, totalWeight);
-        for (int i = 0; i < enemyWeights.Length; i++)
+        for (int i = 0; i < weights.Length; i++)
         {
-            if (randomValue < enemyWeights[i])
+            if (randomValue < weights[i])
             {
                 return i;
             }
-            randomValue -= enemyWeights[i];
+            randomValue -= weights[i];
         }
 
         return 0; // Fallback in case of rounding errors

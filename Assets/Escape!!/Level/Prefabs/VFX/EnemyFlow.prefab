@@ -73,6 +73,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa48699eec5c69344b9ae4a12545410e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flowGiven: 0
+  totalFlow:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: b2b30a61d44bc4d4d83e29069252cbd7, type: 2}
 --- !u!1001 &7898593032623639872
 PrefabInstance:
   m_ObjectHideFlags: 0

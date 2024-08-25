@@ -475,6 +475,10 @@ MonoBehaviour:
   staffAnimator: {fileID: 6659109320713222858}
   dashSound: {fileID: 8300000, guid: 4e349dc959014a845b9aa317d1c2b7f0, type: 3}
   staff: {fileID: 3257405429718996845}
+  totalFlow:
+    UseConstant: 0
+    ConstantValue: 0
+    Variable: {fileID: 11400000, guid: b2b30a61d44bc4d4d83e29069252cbd7, type: 2}
   mainAttack: {fileID: 11400000, guid: c3cc4a062139b3b49a279f04148df58d, type: 2}
   secondaryAttack: {fileID: 11400000, guid: c98f1a6940b4e22499a0bf9d3030592a, type: 2}
 --- !u!114 &4388858032433407004

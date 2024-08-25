@@ -214,6 +214,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Retry
       objectReference: {fileID: 0}
+    - target: {fileID: 233319187877559474, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_margin.x
+      value: -0.44149786
+      objectReference: {fileID: 0}
+    - target: {fileID: 733258712951435000, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 733258712951435000, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -409
+      objectReference: {fileID: 0}
     - target: {fileID: 1201738874406743786, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -266,6 +278,10 @@ PrefabInstance:
       propertyPath: _coreHealth
       value: 
       objectReference: {fileID: 2484271034878932609}
+    - target: {fileID: 4614478340006852830, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: totalKills.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: b2b30a61d44bc4d4d83e29069252cbd7, type: 2}
     - target: {fileID: 4635497353026018498, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
       propertyPath: m_SizeDelta.x
       value: 317.2091

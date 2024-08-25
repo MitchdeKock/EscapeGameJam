@@ -3398,10 +3398,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 7285946727924465097}
   finalScore: {fileID: 233319187877559474}
-  totalKills:
+  perviousHighScore: {fileID: 3911275971091234195}
+  totalFlow:
     UseConstant: 0
     ConstantValue: 0
-    Variable: {fileID: 11400000, guid: bef937c2f572aec4f8fa3bd9dca88eb3, type: 2}
+    Variable: {fileID: 11400000, guid: b2b30a61d44bc4d4d83e29069252cbd7, type: 2}
 --- !u!114 &8431971866325332137
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4239,6 +4240,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3911275971091234195 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2307684066928909569, guid: 6735ccd0a9b5cb043869d6a6edaf4fe2, type: 3}
+  m_PrefabInstance: {fileID: 1603614256380092562}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7184995519313392588 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8500286942577627998, guid: 6735ccd0a9b5cb043869d6a6edaf4fe2, type: 3}
@@ -4257,6 +4269,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8264707859918394386}
     m_Modifications:
+    - target: {fileID: 6917473348025394486, guid: 865f4aa62bec82943b1f48473ecfee7b, type: 3}
+      propertyPath: m_text
+      value: Total Flow
+      objectReference: {fileID: 0}
     - target: {fileID: 7725296482173163083, guid: 865f4aa62bec82943b1f48473ecfee7b, type: 3}
       propertyPath: m_Name
       value: max score

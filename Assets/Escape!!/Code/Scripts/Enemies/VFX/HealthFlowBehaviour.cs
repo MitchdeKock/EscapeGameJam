@@ -1,13 +1,12 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 public class HealthFlowBehaviour : MonoBehaviour
 {
     private StateMachine _stateMachine;
     private CoreHealthHandler target;
+    public int flowGiven;
+    [SerializeField] public FloatReference totalFlow;
 
     private void Awake()
     {

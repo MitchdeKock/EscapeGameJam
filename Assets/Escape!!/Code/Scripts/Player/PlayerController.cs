@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator staffAnimator;
     [SerializeField] private AudioClip dashSound;
     [SerializeField] private Transform staff;
+    [SerializeField] private FloatReference totalFlow;
 
     private Vector2 moveInput;
     private Vector2 lastMoveInput;
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        totalFlow.Value = 0;
         activeMoveSpeed = moveSpeed;
     }
 
