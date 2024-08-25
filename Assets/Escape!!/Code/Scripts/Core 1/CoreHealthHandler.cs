@@ -37,7 +37,7 @@ public class CoreHealthHandler : MonoBehaviour
                 StartCoroutine(Flash());
                 SFXManager.instance.PlaySoundFXClip(hurtSound, Headsprite.transform, 1f);
             }
-            else
+            else if (oldHealth < health && !PauseManager.IsPaused) 
             {
                 SFXManager.instance.PlaySoundFXClip(healthSound, Headsprite.transform, 1f);
             }
