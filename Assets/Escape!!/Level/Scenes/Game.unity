@@ -1548,10 +1548,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Title_button
       objectReference: {fileID: 0}
-    - target: {fileID: 514549018656529131, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
-      propertyPath: projectileRange
-      value: 
-      objectReference: {fileID: 11400000, guid: 5bc9934cf6eb77a42b318b22d9969412, type: 2}
     - target: {fileID: 1518063746468261417, guid: a6baeaeeff326744ab10dea785853b27, type: 3}
       propertyPath: m_Enabled
       value: 0

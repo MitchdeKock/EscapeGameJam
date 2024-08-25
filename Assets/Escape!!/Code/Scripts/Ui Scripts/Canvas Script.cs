@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using TMPro;
 public class CanvasScript : MonoBehaviour
 {
     [Header("Text references")]
@@ -38,7 +39,13 @@ public class CanvasScript : MonoBehaviour
 
     [Header("Rendering")]
     [SerializeField] private GameObject UpgradeScreen;
-    
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip upgradeSound;
+    [SerializeField] private AudioClip failedSound;
+    [SerializeField] private AudioClip refreshSound;
+
+
     private CoreHealthHandler coreScriptComponent;
     private PlayerController playerScript;
 
@@ -69,13 +76,20 @@ public class CanvasScript : MonoBehaviour
     {
         if (coreScriptComponent.Health > 5)
         {
+            StartCoroutine(FadeTextColor(flowCountText, Color.cyan, Color.white, 1f));
+            SFXManager.instance.PlaySoundFXClip(refreshSound, transform, 1f);
             assignUpgrades();
             coreScriptComponent.Health -= 5;
+        }
+        else
+        {
+            PurchaseFailed();
         }
 
     }
     private void assignUpgrades()
     {
+        flowCountText.color = Color.white;
         int min = 0;
         int max = allUpgrades.Count;
         int[] randomInts = Enumerable.Range(min, max).OrderBy(x => Random.Range(0, max)).Take(3).ToArray();
@@ -132,6 +146,8 @@ public class CanvasScript : MonoBehaviour
     {
         if(coreScriptComponent.Health> upgrade.price)
         {
+            StartCoroutine(FadeTextColor(flowCountText, Color.cyan, Color.white, 1f));
+            SFXManager.instance.PlaySoundFXClip(upgradeSound, transform, 1f);
             upgrade.buyUpgrade();
             coreScriptComponent.Health -= upgrade.price;
             upgrade.price += 5;
@@ -147,7 +163,7 @@ public class CanvasScript : MonoBehaviour
           }
         else
         {
-            Debug.Log("Sorry Cant Afford");
+            PurchaseFailed();
         }
     }
 
@@ -166,5 +182,24 @@ public class CanvasScript : MonoBehaviour
         }
 
 
+    }
+    private IEnumerator FadeTextColor(TextMeshProUGUI text, Color startColor, Color endColor, float duration)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            t = Mathf.Pow(t, 3);
+            text.color = Color.Lerp(startColor, endColor, t);
+            elapsedTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+        text.color = endColor;
+    }
+    public void PurchaseFailed()
+    {
+        //TODO add some visual
+        SFXManager.instance.PlaySoundFXClip(failedSound, transform, 1f);
+        StartCoroutine(FadeTextColor(flowCountText, Color.red, Color.white, 1f));
     }
 }

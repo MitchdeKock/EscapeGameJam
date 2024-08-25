@@ -1420,8 +1420,11 @@ MonoBehaviour:
   meleeAttackRate: {fileID: 11400000, guid: 8f8ebe379c0558843bb9f5d07acbb499, type: 2}
   rangedAttackRate: {fileID: 11400000, guid: 5d4432b430634434a8178fe41ab8b869, type: 2}
   dashSpeed: {fileID: 11400000, guid: cdd00f1e04c487f429539ae9da7231ad, type: 2}
-  projectileRange: {fileID: 0}
+  projectileRange: {fileID: 11400000, guid: 5bc9934cf6eb77a42b318b22d9969412, type: 2}
   UpgradeScreen: {fileID: 1889334712998215291}
+  upgradeSound: {fileID: 8300000, guid: b0e62ed71b1538648b719821f4f63b4c, type: 3}
+  failedSound: {fileID: 8300000, guid: 1ed8fb76fc64e4e46847348138782234, type: 3}
+  refreshSound: {fileID: 8300000, guid: abdbbfd33a46f4549987385f85c536b5, type: 3}
 --- !u!1 &5447982599507509173
 GameObject:
   m_ObjectHideFlags: 0
