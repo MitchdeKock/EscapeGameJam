@@ -10,12 +10,13 @@ public class GolemSlamState : IState
     private float cooldown;
     private GolemBehaviour golemBehaviour;
     private CoreHealthHandler target;
+    private Animator animator;
 
     private float attackCooldownCounter;
     private float attackAnimationCounter;
     private bool isAttacking = false;
 
-    public GolemSlamState(float damage, float range, float cooldown, GolemBehaviour golem, CoreHealthHandler target)
+    public GolemSlamState(float damage, float range, float cooldown, GolemBehaviour golem, CoreHealthHandler target, Animator animator)
     {
         this.damage = damage;
         this.range = range;
@@ -23,6 +24,7 @@ public class GolemSlamState : IState
         this.golemBehaviour = golem;
         this.target = target;
         attackCooldownCounter = cooldown;
+        this.animator = animator;
     }
 
     public void OnEnter()
@@ -47,6 +49,7 @@ public class GolemSlamState : IState
             }
             else
             {
+                animator.SetTrigger("attack");
                 Attack();
                 golemBehaviour.isBusy = isAttacking = false;
             }

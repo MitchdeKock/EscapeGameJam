@@ -6,6 +6,8 @@ public class GolemBehaviour : EnemyBehaviour
 {
     [Header("Debug")]
     [SerializeField] private bool ShowDebug;
+    [Space]
+    [SerializeField] private Animator animator;
 
     [Header("Stats")]
     [SerializeField] private float slamDamage;
@@ -25,7 +27,7 @@ public class GolemBehaviour : EnemyBehaviour
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 
         // Setup states
-        var slamState = new GolemSlamState(slamDamage, slamRange, slamCooldown, this, target);
+        var slamState = new GolemSlamState(slamDamage, slamRange, slamCooldown, this, target, animator);
         var pursuiState = new GolemPursuitState(moveSpeed, slamRange - 1, this, target, GetComponent<Rigidbody2D>());
         var throwState = new GolemThrowState(throwDamage, throwRange, throwCooldown, rockProjectile, this, target, stateMachine, pursuiState);
 

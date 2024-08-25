@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isBusy: 0
-  ShowDebug: 1
+  ShowDebug: 0
   animator: {fileID: 2344649701510346413}
   attackDamage: 2
   attackRange: 4.5
@@ -346,3 +346,4 @@ MonoBehaviour:
   healthBarOffset: {x: 0, y: 0, z: 0}
   changeAmount: 0
   canDie: 1
+  maxLive: 5

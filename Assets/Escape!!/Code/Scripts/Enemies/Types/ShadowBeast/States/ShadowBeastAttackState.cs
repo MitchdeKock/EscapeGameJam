@@ -72,12 +72,13 @@ public class ShadowBeastAttackState : IState
                         direction = (target.transform.position - shadowBeastBehaviour.transform.position).normalized;
                         hitTargets = new List<CoreHealthHandler>();
                         phase = Phase.Dashing;
+                        animator.SetTrigger("attack");
                     }
                     break;
                 case Phase.Dashing:
                     if (dashDurationCounter > 0)
                     {
-                        animator.SetTrigger("attack");
+                        
                         rigidbody.velocity = direction * speed; // ToDo add a curve to the speed
                         Attack();
                         dashDurationCounter -= Time.deltaTime;

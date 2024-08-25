@@ -7,6 +7,7 @@ public class GolemPursuitState : IState
     private GolemBehaviour golemBehaviour;
     private CoreHealthHandler target;
     private Rigidbody2D rigidbody;
+    private SpriteRenderer spriteRenderer;
 
     public GolemPursuitState(float moveSpeed, float stoppingDistance, GolemBehaviour vine, CoreHealthHandler target, Rigidbody2D rigidbody)
     {
@@ -15,6 +16,7 @@ public class GolemPursuitState : IState
         this.target = target;
         this.rigidbody = rigidbody;
         this.stoppingDistance = stoppingDistance;
+        spriteRenderer = golemBehaviour.transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     public void OnEnter()
@@ -33,6 +35,15 @@ public class GolemPursuitState : IState
 
         Vector2 moveDirection = target.transform.position - golemBehaviour.transform.position;
         rigidbody.velocity = moveDirection.normalized * currentSpeed;
+
+        if (rigidbody.velocity.x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else
+        {
+            spriteRenderer.flipX = true;
+        }
     }
 
     public void TickCooldown()

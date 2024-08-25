@@ -33,12 +33,12 @@ public class GameOverManager : MonoBehaviour
     public void Restart()
     {
         PauseManager.UnPause();
-        SceneManager.LoadScene(SceneManager.GetSceneByName("Game").buildIndex);
+        SceneManager.LoadScene("Game");
     }
 
     public void BackToMain()
     {
         PauseManager.UnPause();
-        SceneManager.LoadScene(SceneManager.GetSceneByName("MainMenu").buildIndex);
+        SceneManager.LoadScene("MainMenu");
     }
 }

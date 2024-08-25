@@ -224,7 +224,7 @@ MonoBehaviour:
   ghostDelayConstant: 1
   ghostHealthChangeSpeed: 10
   healthBarPrefab: {fileID: 2501737999704916074, guid: 242d4965e7f1c384287a5f8fea19c953, type: 3}
-  healthBarOffset: {x: 0, y: 0, z: 0}
+  healthBarOffset: {x: 0, y: 2, z: 0}
   changeAmount: 0
   canDie: 1
   maxLive: 5
