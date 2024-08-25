@@ -44,6 +44,7 @@ public class CanvasScript : MonoBehaviour
     [SerializeField] private AudioClip upgradeSound;
     [SerializeField] private AudioClip failedSound;
     [SerializeField] private AudioClip refreshSound;
+    [SerializeField] private AudioClip menuToggleSound;
 
 
     private CoreHealthHandler coreScriptComponent;
@@ -177,6 +178,7 @@ public class CanvasScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && coreScriptComponent.Health > 0)
         {
+            SFXManager.instance.PlaySoundFXClip(menuToggleSound, transform, 1f);
             PauseManager.TogglePause(false);
             UpgradeScreen.SetActive(!UpgradeScreen.activeSelf);
         }
