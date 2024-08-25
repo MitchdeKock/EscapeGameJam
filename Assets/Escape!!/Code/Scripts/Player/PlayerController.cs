@@ -140,6 +140,24 @@ public class PlayerController : MonoBehaviour
             lastMoveInput = moveInput;
         }
 
+        if (rb.velocity.x > 0.1)
+        {
+            transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = 3;
+        }
+        else if (rb.velocity.x < -0.1)
+        {
+            transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = 0;
+        }
+
+        if (rb.velocity.y > 0.1)
+        {
+            transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = 0;
+        }
+        else if (rb.velocity.y < -0.1)
+        {
+            transform.GetChild(2).GetComponent<SpriteRenderer>().sortingOrder = 3;
+        }
+
         // Animate
         bodyAnimator.SetFloat("MoveX", lastMoveInput.x);
         bodyAnimator.SetFloat("MoveY", lastMoveInput.y);

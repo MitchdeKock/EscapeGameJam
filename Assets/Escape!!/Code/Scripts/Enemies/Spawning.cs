@@ -34,7 +34,7 @@ public class Spawning : MonoBehaviour
         {
             TrySpawnEnemy();
             spawnCounter = difficultyManager.SpawnRate;
-            Debug.Log($"Time Between Spawns: {spawnCounter}");
+            //Debug.Log($"Time Between Spawns: {spawnCounter}");
         }
 
         secondsPlayed.Value += Time.deltaTime;
@@ -45,7 +45,7 @@ public class Spawning : MonoBehaviour
     {
         if (currentNumberOfEnemies < maxEnemies)
         {
-            Debug.Log($"Enemy multiplier: {difficultyManager.EnemyMultiplier}");
+            //Debug.Log($"Enemy multiplier: {difficultyManager.EnemyMultiplier}");
             int enemyIndex = GetWeightedRandomIndex();
             EnemyHealth enemy = Instantiate(enemyPrefabs[enemyIndex], GetRandomWorldPointOffScreen(2), Quaternion.identity);
             enemy.multiplier = difficultyManager.EnemyMultiplier;
