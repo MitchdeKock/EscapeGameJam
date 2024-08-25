@@ -1,3 +1,4 @@
+using Assets.Escape__.Code.Scripts.Enemies;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,7 @@ public class GolemBehaviour : EnemyBehaviour
 
     void Start()
     {
-        slamDamage *= multiplier;
+        slamDamage = EnemyDamageFix.ScaleDamage(slamDamage, multiplier);
         stateMachine = new StateMachine();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 
