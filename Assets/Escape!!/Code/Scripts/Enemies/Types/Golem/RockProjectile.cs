@@ -39,6 +39,7 @@ public class RockProjectile : MonoBehaviour
 
             transform.position = Vector3.Lerp(startPoint, endPoint, movementCurve.Evaluate(t));
             transform.localScale = Vector3.Lerp(Vector3.one, new Vector3(2f, 2f, 2f), scaleCurve.Evaluate(t));
+            transform.Rotate(Vector3.forward, 90* Time.deltaTime);
         }
         else
         {
