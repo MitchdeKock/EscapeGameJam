@@ -53,8 +53,12 @@ public class PlayerHeathBarHandler : MonoBehaviour
     {
         SetMaxHealth(_healthMax);
         SetHealth(_health);
-
-        if (_isPowerUpActive)
+        if(_health < 8 && !_isPowerUpActive)
+        {
+            currHealthtext.color = Color.black;
+            fill.color = Color.yellow;
+        }
+        else if (_isPowerUpActive)
         {
             currHealthtext.color = Color.red;
             fill.color = Color.red;
@@ -62,7 +66,7 @@ public class PlayerHeathBarHandler : MonoBehaviour
         else
         {
             fill.color = new Color(0.1333333f, 0.6156863f, 0.8901961f);
-            currHealthtext.color = Color.black;
+            currHealthtext.color = Color.blue;
         }
 
         currHealthtext.text = $"{_health}";
