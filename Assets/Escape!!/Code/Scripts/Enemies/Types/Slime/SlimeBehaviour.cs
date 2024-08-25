@@ -15,6 +15,7 @@ public class SlimeBehaviour : EnemyBehaviour
 
     private void Awake()
     {
+        attackDamage *= multiplier;
         stateMachine = new StateMachine();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 

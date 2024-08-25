@@ -25,6 +25,7 @@ public class ShadowBeastBehaviour : EnemyBehaviour
 
     void Start()
     {
+        ambushDamage *= multiplier;
         stateMachine = new StateMachine();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 
