@@ -29,6 +29,10 @@ public class GameOverManager : MonoBehaviour
         PauseManager.Pause();
         gameOverScreen.SetActive(true);
         finalScore.text = $"FINAL SCORE: {totalKills.Value}";
+        if (totalKills.Value > PlayerPrefs.GetFloat("score", 0))
+        {
+            PlayerPrefs.SetFloat("score", totalKills.Value);
+        }
     }
     public void Restart()
     {

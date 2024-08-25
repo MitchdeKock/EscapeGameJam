@@ -214,6 +214,14 @@ PrefabInstance:
       propertyPath: m_text
       value: Retry
       objectReference: {fileID: 0}
+    - target: {fileID: 1626805259221622403, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626805259221622403, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1839903448344618614, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
       propertyPath: _powerUp
       value: 
@@ -230,6 +238,18 @@ PrefabInstance:
       propertyPath: totalKills.UseConstant
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2855649051223980832, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855649051223980832, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855649051223980832, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4509586799185858201, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
       propertyPath: _powerUp
       value: 
@@ -242,6 +262,18 @@ PrefabInstance:
       propertyPath: MainMenuScript
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4982403045315235692, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982403045315235692, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4982403045315235692, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6562543236838229207, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
       propertyPath: m_Name
       value: Ui
@@ -250,8 +282,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: FINALSCORE
       objectReference: {fileID: 0}
+    - target: {fileID: 7096842369761109782, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7096842369761109782, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7096842369761109782, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7285946727924465097, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7478508420533360471, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7478508420533360471, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8264707859918394386, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
@@ -273,6 +325,18 @@ PrefabInstance:
     - target: {fileID: 8264707859918394386, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
       propertyPath: m_LocalScale.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8514417091772358608, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8514417091772358608, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681957579651295023, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
+      propertyPath: m_Name
+      value: Resume Button
       objectReference: {fileID: 0}
     - target: {fileID: 8876749886059169361, guid: d459bbc2e22daa646a2e2a18ead6630c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2475,10 +2539,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4468323637865496210, guid: e1fe76ed7c8f1a34099ae9849d0de934, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5128939145092090357, guid: e1fe76ed7c8f1a34099ae9849d0de934, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
