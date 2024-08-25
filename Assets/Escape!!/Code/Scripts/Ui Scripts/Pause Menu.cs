@@ -39,8 +39,16 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && coreScriptComponent.Health > 0)
         {
-            PauseManager.TogglePause();
-            pausemenu.SetActive(!pausemenu.activeSelf);
+            if (PauseManager.IsPaused && pausemenu.activeSelf)
+            {
+                PauseManager.UnPause();
+                pausemenu.SetActive(false);
+            }
+            else if (!pausemenu.activeSelf && !PauseManager.IsPaused)
+            {
+                PauseManager.Pause();
+                pausemenu.SetActive(true);
+            }
         }
     }
 

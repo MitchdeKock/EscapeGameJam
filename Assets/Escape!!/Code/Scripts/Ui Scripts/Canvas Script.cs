@@ -184,9 +184,18 @@ public class CanvasScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && coreScriptComponent.Health > 0)
         {
-            SFXManager.instance.PlaySoundFXClip(menuToggleSound, transform, 1f);
-            PauseManager.TogglePause(false);
-            UpgradeScreen.SetActive(!UpgradeScreen.activeSelf);
+            if (PauseManager.IsPaused && UpgradeScreen.activeSelf)
+            {
+                PauseManager.UnPause();
+                UpgradeScreen.SetActive(false);
+                SFXManager.instance.PlaySoundFXClip(menuToggleSound, transform, 1f);
+            }
+            else if (!UpgradeScreen.activeSelf && !PauseManager.IsPaused)
+            {
+                PauseManager.Pause();
+                UpgradeScreen.SetActive(true);
+                SFXManager.instance.PlaySoundFXClip(menuToggleSound, transform, 1f);
+            }
         }
 
 

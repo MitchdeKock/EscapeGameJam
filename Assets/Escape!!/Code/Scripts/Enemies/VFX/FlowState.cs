@@ -17,7 +17,7 @@ public class FlowState : IState
 
     public void OnEnter()
     {
-        Debug.Log($"{enemyBehaviour.name} has entered {this.GetType().Name}");
+        //Debug.Log($"{enemyBehaviour.name} has entered {this.GetType().Name}");
         rigidbody = enemyBehaviour.GetComponent<Rigidbody2D>();
     }
 
