@@ -826,40 +826,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -19.195
       objectReference: {fileID: 0}
-    - target: {fileID: 7408613252659450526, guid: b5b50329e3e088e408e08ee2b6d7ff1b, type: 3}
-      propertyPath: m_text
-      value: 'Sprites: Stefan de Kock & Shali Becker
-
-        Music:  Kevin MacLeod
-        Licensed under Creative Commons
-
-        SFX: leohpaz Liscensed under the
-        Unity Asset Store EULA'
-      objectReference: {fileID: 0}
-    - target: {fileID: 7408613252659450526, guid: b5b50329e3e088e408e08ee2b6d7ff1b, type: 3}
-      propertyPath: m_margin.x
-      value: -745.9418
-      objectReference: {fileID: 0}
-    - target: {fileID: 7408613252659450526, guid: b5b50329e3e088e408e08ee2b6d7ff1b, type: 3}
-      propertyPath: m_margin.y
-      value: -56.397915
-      objectReference: {fileID: 0}
-    - target: {fileID: 7408613252659450526, guid: b5b50329e3e088e408e08ee2b6d7ff1b, type: 3}
-      propertyPath: m_fontColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7408613252659450526, guid: b5b50329e3e088e408e08ee2b6d7ff1b, type: 3}
-      propertyPath: m_fontColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7408613252659450526, guid: b5b50329e3e088e408e08ee2b6d7ff1b, type: 3}
-      propertyPath: m_fontColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7408613252659450526, guid: b5b50329e3e088e408e08ee2b6d7ff1b, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4294967295
-      objectReference: {fileID: 0}
     - target: {fileID: 7451985010911788387, guid: b5b50329e3e088e408e08ee2b6d7ff1b, type: 3}
       propertyPath: m_SizeDelta.x
       value: 338.3325
