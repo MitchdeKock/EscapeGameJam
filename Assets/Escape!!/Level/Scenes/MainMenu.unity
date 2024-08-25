@@ -142,6 +142,19 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7408613252659450526, guid: b5b50329e3e088e408e08ee2b6d7ff1b, type: 3}
+      propertyPath: m_text
+      value: 'Sprites: Stefan de Kock & Shaili Becker
+
+        Music: Kevin MacLeod
+        Licensed under Creative Commons
+
+        SFX: leohpaz Liscensed under the
+        Unity Asset Store EULA
+
+        UI Assets: Black Hammer Liscensed under the
+        Unity Asset Store EULA'
+      objectReference: {fileID: 0}
     - target: {fileID: 7627592189680774816, guid: b5b50329e3e088e408e08ee2b6d7ff1b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
