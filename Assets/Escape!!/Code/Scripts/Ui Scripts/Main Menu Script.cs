@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -24,6 +25,8 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] private GameObject Credits;
     [SerializeField] private GameObject DefaultMenu;
     [SerializeField] private GameObject settingsMenu;
+    [Space][Space][Space][Space][Space][Space]
+    [SerializeField] private TextMeshProUGUI text;
 
     void Start()
     {
@@ -36,6 +39,7 @@ public class MainMenuScript : MonoBehaviour
         CreditsBackButton.onClick.AddListener(ReturnToMenu);
         settingBackButon.onClick.AddListener(ReturnToMenu);
         ReturnToMenu();
+        text.text = "High Score:\n" + PlayerPrefs.GetFloat("score", 0).ToString();
     }
 
     private void OpenCredits()
