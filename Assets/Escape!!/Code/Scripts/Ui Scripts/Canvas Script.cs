@@ -65,6 +65,12 @@ public class CanvasScript : MonoBehaviour
         allUpgrades.Add(dashSpeed);
         allUpgrades.Add(projectileRange);
 
+
+        allUpgrades.ForEach((element) =>
+        {
+            element.ResetUpgrade();
+        });
+
         coreScriptComponent = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 
