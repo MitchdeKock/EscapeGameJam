@@ -26,7 +26,7 @@ public class EnemyHealth : MonoBehaviour
 
         sprite = spriteTransform.GetComponent<SpriteRenderer>();
         healthBar = GetComponent<HealthBar>();
-        healthBar.maxHealth.Value *= multiplier;
+        healthBar.maxHealth.Value = Mathf.Round(healthBar.maxHealth.Value*multiplier);
         healthBar.InitializeHealth();
         healthBar.OnDeath += OnDeath;
         healthBar.timedOut += timedOut;
