@@ -1,3 +1,4 @@
+using Assets.Escape__.Code.Scripts.Enemies;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ public class ShadowBeastBehaviour : EnemyBehaviour
 
     void Start()
     {
-        ambushDamage *= multiplier;
+        ambushDamage = EnemyDamageFix.ScaleDamage(ambushDamage,multiplier);
         stateMachine = new StateMachine();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 

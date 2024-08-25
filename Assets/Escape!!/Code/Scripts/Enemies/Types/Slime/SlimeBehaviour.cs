@@ -1,3 +1,4 @@
+using Assets.Escape__.Code.Scripts.Enemies;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,7 @@ public class SlimeBehaviour : EnemyBehaviour
 
     private void Awake()
     {
-        attackDamage *= multiplier;
+        attackDamage = EnemyDamageFix.ScaleDamage(attackDamage, multiplier);
         stateMachine = new StateMachine();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 
