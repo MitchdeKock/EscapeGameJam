@@ -48,6 +48,8 @@ public class Spawning : MonoBehaviour
             Debug.Log($"Enemy multiplier: {difficultyManager.EnemyMultiplier}");
             int enemyIndex = GetWeightedRandomIndex();
             EnemyHealth enemy = Instantiate(enemyPrefabs[enemyIndex], GetRandomWorldPointOffScreen(2), Quaternion.identity);
+            enemy.multiplier = difficultyManager.EnemyMultiplier;
+            enemy.GetComponent<EnemyBehaviour>().multiplier = difficultyManager.EnemyMultiplier;
             enemy.OnEnemyDied += EnemyDied;
             enemy.EnemyDespawned += EnemyDespawned;
             currentNumberOfEnemies++;

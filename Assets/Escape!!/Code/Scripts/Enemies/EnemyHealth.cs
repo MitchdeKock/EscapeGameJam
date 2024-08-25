@@ -11,6 +11,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private GameObject enemyFlowPrefab; // Reference to the EnemyFlow prefab
 
     private SpriteRenderer sprite;
+    public float multiplier;
 
     public IEnumerator Flash()
     {
@@ -25,6 +26,8 @@ public class EnemyHealth : MonoBehaviour
 
         sprite = spriteTransform.GetComponent<SpriteRenderer>();
         healthBar = GetComponent<HealthBar>();
+        healthBar.maxHealth.Value *= multiplier;
+        healthBar.InitializeHealth();
         healthBar.OnDeath += OnDeath;
         healthBar.timedOut += timedOut;
     }

@@ -11,13 +11,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Projectile rangedProjectile;
     [SerializeField] private Animator bodyAnimator;
     [SerializeField] private Animator headAnimator;
+    [SerializeField] private Animator staffAnimator;
     [SerializeField] private AudioClip dashSound;
+    [SerializeField] private Transform staff;
 
     private Vector2 moveInput;
     private Vector2 lastMoveInput;
     private float activeMoveSpeed;
     private float dashCooldownCounter;
     private float dashDurationCounter;
+    private float slashCounter;
     private float blinkCounter;
 
     [Header("Attacks")]
@@ -54,11 +57,15 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButton("Fire1") && mainAttack.canAttack)
             {
                 mainAttack.Attack(this.gameObject);
+                staffAnimator.SetTrigger("attack");
+                staff.gameObject.SetActive(true);
+                slashCounter = 0.2f;
             }
 
             if (Input.GetButton("Fire2") && secondaryAttack.canAttack)
             {
                 secondaryAttack.Attack(this.gameObject);
+                staffAnimator.SetTrigger("attack");
             }
 
             GetMoveInput();
@@ -73,7 +80,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             GetMoveInput();
-            //FaceMousePosition();
+            FaceMousePosition();
         }
 
         Dash();
@@ -92,6 +99,15 @@ public class PlayerController : MonoBehaviour
         {
             blinkCounter = UnityEngine.Random.Range(3, 7);
             headAnimator.SetTrigger("Blink");
+        }
+
+        if (slashCounter > 0)
+        {
+            slashCounter -= Time.deltaTime;
+        }
+        else
+        {
+            staff.gameObject.SetActive(false);
         }
     }
 
@@ -131,6 +147,9 @@ public class PlayerController : MonoBehaviour
 
         headAnimator.SetFloat("MoveX", lastMoveInput.x);
         headAnimator.SetFloat("MoveY", lastMoveInput.y);
+
+        staffAnimator.SetFloat("MoveX", lastMoveInput.x);
+        staffAnimator.SetFloat("MoveY", lastMoveInput.y);
     }
 
     private void FaceMousePosition()
@@ -138,7 +157,6 @@ public class PlayerController : MonoBehaviour
         Vector2 mousePos = Input.mousePosition;
         Vector2 relativeMouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane)) - transform.position;
 
-        Transform staff = transform.GetChild(2);
         staff.rotation = Quaternion.LookRotation(Vector3.forward, relativeMouseWorldPosition);
     }
 }

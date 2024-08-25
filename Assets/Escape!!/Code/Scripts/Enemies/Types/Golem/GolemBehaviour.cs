@@ -23,6 +23,7 @@ public class GolemBehaviour : EnemyBehaviour
 
     void Start()
     {
+        slamDamage *= multiplier;
         stateMachine = new StateMachine();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<CoreHealthHandler>();
 

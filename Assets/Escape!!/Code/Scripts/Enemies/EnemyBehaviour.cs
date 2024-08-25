@@ -7,4 +7,5 @@ public abstract class EnemyBehaviour : MonoBehaviour
     protected CoreHealthHandler target;
     protected List<IState> states;
     [HideInInspector] public bool isBusy;
+    public float multiplier;
 }

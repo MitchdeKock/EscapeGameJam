@@ -39,12 +39,17 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private bool canDie = true;
     private float liveTime; //this is in seconds
     [SerializeField] private float maxLive = 5f; //this is in seconds
+
+    public void InitializeHealth()
+    {
+        health = ghostHealth = maxHealth.Value;
+    }
     void Start()
     {
         mainCamera= Camera.main;
         liveTime = maxLive;
         // Initialise health values
-        health = ghostHealth = maxHealth.Value;
+        InitializeHealth();
 
         // Instantiate healthBar
         GameObject worldCanvas = GameObject.FindGameObjectWithTag("WorldCanvas");
